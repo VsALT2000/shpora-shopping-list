@@ -18,7 +18,7 @@ export const Products = createStore<ProductType[]>([]);
 Products
     .on(AddNewProduct, (state, product: ProductType) => [...state, product])
     .on(BuyingProduct, (state, productId: number) => {
-        const newState:ProductType[] = state.slice();
+        const newState = state.slice();
         const product = newState.find(product => product.id === productId)
         if (!!product)
             product.bought = !product.bought;
@@ -28,7 +28,7 @@ Products
         return state.filter(product => product.id !== productId);
     })
     .on(EditProduct, (state, newProduct: EditProductType) => {
-        const newState:ProductType[] = state.slice();
+        const newState = state.slice();
         const productIndex = newState.findIndex(product => product.id === newProduct.id)
         if (productIndex !== -1) {
             const payload = newProduct.payload

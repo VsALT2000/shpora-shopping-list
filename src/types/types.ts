@@ -17,10 +17,5 @@ export type ProductType = {
 
 export type EditProductType = {
     id: number,
-    payload: {
-        name?: ProductType["name"],
-        price?: ProductType["price"],
-        amount?: ProductType["amount"],
-        shop?: ProductType["shop"],
-    }
+    payload: Partial<Omit<ProductType, "id" | "date" | "bought">>
 }
