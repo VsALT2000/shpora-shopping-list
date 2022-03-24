@@ -1,15 +1,15 @@
 import {createEvent, createStore, sample} from "effector";
 import {AddNewProduct} from "./ProductsStore";
 
-export const NewProductId = createStore<number>(0);
+export const $NewProductId = createStore<number>(0);
 const Increment = createEvent<void>("IncrementProductCount");
 
-NewProductId
+$NewProductId
     .on(Increment, state => state + 1)
-    .watch(count => console.log("Products Counter: " + count));
+    .watch(count => console.log("Products Counter:", count, "\n\n"));
 
 sample({
     clock: AddNewProduct,
-    source: NewProductId,
+    source: $NewProductId,
     target: Increment,
 })
