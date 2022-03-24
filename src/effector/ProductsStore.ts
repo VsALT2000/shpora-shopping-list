@@ -1,21 +1,21 @@
-import {createEvent, createStore} from "effector";
-import {EditProductType, ProductType} from "../types/types";
+import {createEvent, createStore, sample} from "effector";
+import {EditProductType, ProductType, ShopType} from "../types/types";
 
 export const AddNewProduct = createEvent<ProductType>("AddNewProduct");
-AddNewProduct.watch(product => console.log(product));
+AddNewProduct.watch(product => console.log('Добавлен продукт:', product, "\n\n"));
 
 export const BuyingProduct = createEvent<number>("BuyingProduct");
-BuyingProduct.watch(product => console.log(product));
+BuyingProduct.watch(productId => console.log('Куплен продукт c id:', productId, "\n\n"));
 
 export const DeleteProduct = createEvent<number>("DeleteProduct");
-DeleteProduct.watch(product => console.log(product));
+DeleteProduct.watch(productId => console.log('Удалён продукт c id:', productId, "\n\n"));
 
 export const EditProduct = createEvent<EditProductType>("EditProduct");
-EditProduct.watch(product => console.log(product));
+EditProduct.watch(product => console.log('Добавлен продукт:', product, "\n\n"));
 
-export const Products = createStore<ProductType[]>([]);
+const $store = createStore<ProductType[]>([]);
 
-Products
+$store
     .on(AddNewProduct, (state, product: ProductType) => [...state, product])
     .on(BuyingProduct, (state, productId: number) => {
         const newState = state.slice();
@@ -40,4 +40,38 @@ Products
         }
         return newState;
     })
-    .watch(products => console.log(products));
+    .watch(products => console.log("Весь Store:", products, "\n\n"));
+
+export const ChangeFilter = createEvent<ShopType[]>("ChangeFilter");
+const ApplyFilters = createEvent<{state: ProductType[], filters: ShopType[]}>("ApplyFilters");
+
+export const $products = createStore<ProductType[]>($store.defaultState);
+const $activeFilters = createStore<ShopType[]>([]);
+
+$activeFilters
+    .on(ChangeFilter, (state, newFilters) => newFilters)
+    .watch(filters => console.log('Фильтры:', filters, '\n\n'));
+
+const CheckAllFilter = (product:ProductType, filters:ShopType[]) => !!product.shop && filters.includes(product.shop);
+
+$products
+    .on(ApplyFilters, (_, newState) => {
+        return newState.filters.length
+            ? newState.state.filter(product => CheckAllFilter(product, newState.filters))
+            : newState.state
+    })
+    .watch(products => console.log("Отфильтрованный Store:", products, '\n\n'));
+
+sample({
+    clock: $store,
+    source: $activeFilters,
+    fn: (sourceData, clockData) => ({filters: sourceData, state: clockData}),
+    target: ApplyFilters,
+})
+
+sample({
+    clock: $activeFilters,
+    source: $store,
+    fn: (sourceData, clockData) => ({filters: clockData, state: sourceData}),
+    target: ApplyFilters,
+})
