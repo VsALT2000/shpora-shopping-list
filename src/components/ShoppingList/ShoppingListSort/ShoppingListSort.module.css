@@ -1,0 +1,28 @@
+.shoppingListSort {
+  padding: 20px 30px;
+  display: flex;
+  width: 260px;
+  flex-direction: column;
+  row-gap: 6px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  font-size: 16pt;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
+  position: fixed;
+  top: 0;
+  z-index: 3;
+}
+  .shoppingListSort > div {
+    align-items: center;
+    justify-content: center;
+    padding: 0 0 10px 0;
+  }
+
+  .shoppingListSort input[type="radio"] {
+    margin-right: 10px;
+  }
+
+  .shoppingListSort h1 {
+    color: black;
+    font-size: 18pt;
+  }

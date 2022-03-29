@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.shoppingList {
+  width: 460px;
+  margin: 20px auto;
+  border-radius: 10px;
+  border: 2px solid #808080;
+  padding: 20px;
+}
+
+.shoppingListHeader {
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+  margin-bottom: 20px;
+  gap: 20px;
+  position: relative;
+}
+
+
+.shoppingListHeader img {
+    flex-grow: 0;
+    cursor: pointer;
+}
+
+
+.shoppingListHeader h2 {
+    flex-grow: 1;
+}
+
+
+.shoppingListTotal {
+  font-size: 16pt;
+  font-weight: bolder;
+}
+
+.addNewItemButton {
+  position: sticky;
+  bottom: 20px;
+  float: right;
+  margin-right: -20px;
+}
+
+.addNewItemButtonBackground {
+  justify-content: center;
+  display: flex;
+  width: 60px;
+  height: 60px;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #3498db;
+  color: white;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: relative;
+}
