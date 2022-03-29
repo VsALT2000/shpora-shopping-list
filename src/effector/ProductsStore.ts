@@ -15,29 +15,20 @@ DeleteProduct.watch(productId => console.log('Удалён продукт c id:'
 export const EditProduct = createEvent<EditProductType>("EditProduct");
 EditProduct.watch(product => console.log('Добавлен продукт:', product, "\n\n"));
 
-const defaultState = window.localStorage.getItem("store") === null
-    ? [] // @ts-ignore
-    : JSON.parse(window.localStorage.getItem("store"));
-const $store = createStore<ProductType[]>(defaultState);
+const defaultState = JSON.parse(window.localStorage.getItem("store") || "[]");
+export const $store = createStore<ProductType[]>(defaultState);
 
 $store
-    .on(AddNewProduct, (state, product: ProductType) => {
-        const newState = [...state, product]
-        window.localStorage.setItem("store", JSON.stringify(newState));
-        return newState;
-    })
+    .on(AddNewProduct, (state, product: ProductType) => [...state, product])
     .on(BuyingProduct, (state, productId: number) => {
         const newState = state.slice();
         const product = newState.find(product => product.id === productId)
         if (!!product)
             product.bought = !product.bought;
-        window.localStorage.setItem("store", JSON.stringify(newState));
         return newState;
     })
     .on(DeleteProduct, (state, productId: number) => {
-        const newState = state.filter(product => product.id !== productId)
-        window.localStorage.setItem("store", JSON.stringify(newState));
-        return newState;
+        return state.filter(product => product.id !== productId);
     })
     .on(EditProduct, (state, newProduct: EditProductType) => {
         const newState = state.slice();
@@ -50,7 +41,6 @@ $store
                 newState[productIndex][field] = payload[field];
             }
         }
-        window.localStorage.setItem("store", JSON.stringify(newState));
         return newState;
     })
     .watch(products => console.log("Весь Store:", products, "\n\n"));
@@ -58,32 +48,23 @@ $store
 export const ChangeFilter = createEvent<ShopType[]>("ChangeFilter");
 const ApplyFilters = createEvent<{state: ProductType[], filters: ShopType[]}>("ApplyFilters");
 
-const defaultProducts = window.localStorage.getItem("products") === null
-    ? [] // @ts-ignore
-    : JSON.parse(window.localStorage.getItem("products"));
+const defaultProducts = JSON.parse(window.localStorage.getItem("products") || "[]");
 export const $products = createStore<ProductType[]>(defaultProducts);
 
-const defaultFilters:ShopType[] = window.localStorage.getItem("filters") === null
-    ? [] // @ts-ignore
-    : JSON.parse(window.localStorage.getItem("filters"));
-const $activeFilters = createStore<ShopType[]>(defaultFilters);
+const defaultFilters:ShopType[] = JSON.parse(window.localStorage.getItem("filters") || "[]");
+export const $activeFilters = createStore<ShopType[]>(defaultFilters);
 
 $activeFilters
-    .on(ChangeFilter, (state, newFilters) => {
-        window.localStorage.setItem("filters", JSON.stringify(newFilters));
-        return newFilters;
-    })
+    .on(ChangeFilter, (state, newFilters) => newFilters)
     .watch(filters => console.log('Фильтры:', filters, '\n\n'));
 
 const CheckAllFilter = (product:ProductType, filters:ShopType[]) => !!product.shop && filters.includes(product.shop);
 
 $products
     .on(ApplyFilters, (_, newState) => {
-        const products = newState.filters.length
+        return newState.filters.length
             ? newState.state.filter(product => CheckAllFilter(product, newState.filters))
-            : newState.state
-        window.localStorage.setItem("products", JSON.stringify(products));
-        return products;
+            : newState.state;
     })
     .watch(products => console.log("Отфильтрованный Store:", products, '\n\n'));
 
