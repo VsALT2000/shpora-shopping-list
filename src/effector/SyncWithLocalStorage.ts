@@ -18,7 +18,7 @@ const GetItems = () => {
 const SyncWithLocalStorage = () => {
     window.onbeforeunload = () => SetItems();
     window.onblur = () => SetItems();
-    window.onfocus = () => GetItems();
+    window.onstorage = () => GetItems();
 }
 
 export default SyncWithLocalStorage;

@@ -1,9 +1,6 @@
 import {createEvent, createStore} from "effector";
-import {LocalStoreType} from "../types/types";
-import {$allProducts} from "./ProductsStore";
 
-export const localStore = <Type>(defaultState: Type, key: string): LocalStoreType<Type> => {
-
+export const localStore = <Type>(defaultState: Type, key: string) => {
     const update = createEvent<string | null>();
     const state = JSON.parse(window.localStorage.getItem(key) || JSON.stringify(defaultState));
     const store = createStore<Type>(state);
@@ -11,12 +8,11 @@ export const localStore = <Type>(defaultState: Type, key: string): LocalStoreTyp
 
     const updateFromLocalStore = () => {
         const localItem = window.localStorage.getItem(key);
-        if (JSON.stringify(store.getState()) !== localItem)
-            try {
-                update(localItem);
-            } catch (e) {
-                console.error(e);
-            }
+        try {
+            update(localItem);
+        } catch (e) {
+            console.error(e);
+        }
     }
     const uploadToLocalStore = () => {
         if (JSON.stringify(store.getState()) !== window.localStorage.getItem(key))
