@@ -16,10 +16,10 @@ DeleteProduct.watch(productId => console.log('Удалён продукт c id:'
 export const EditProduct = createEvent<EditProductType>("EditProduct");
 EditProduct.watch(product => console.log('Добавлен продукт:', product, "\n\n"));
 
-export const $store = createStore<ProductType[]>([]);
-persist({store: $store, key: "store"});
+const $allProducts = createStore<ProductType[]>([]);
+persist({store: $allProducts, key: "store"});
 
-$store
+$allProducts
     .on(AddNewProduct, (state, product: ProductType) => [...state, product])
     .on(BuyingProduct, (state, productId: number) => {
         const newState = state.slice();
@@ -49,8 +49,8 @@ $store
 export const ChangeFilter = createEvent<ShopType[]>("ChangeFilter");
 const ApplyFilters = createEvent<{ state: ProductType[], filters: ShopType[] }>("ApplyFilters");
 
-export const $products = createStore<ProductType[]>([]);
-persist({store: $products, key: "products"});
+export const $filteredProducts = createStore<ProductType[]>([]);
+persist({store: $filteredProducts, key: "products"});
 
 export const $activeFilters = createStore<ShopType[]>([]);
 persist({store: $activeFilters, key: "filters"});
@@ -61,7 +61,7 @@ $activeFilters
 
 const CheckAllFilter = (product: ProductType, filters: ShopType[]) => !!product.shop && filters.includes(product.shop);
 
-$products
+$filteredProducts
     .on(ApplyFilters, (_, newState) => {
         return newState.filters.length
             ? newState.state.filter(product => CheckAllFilter(product, newState.filters))
@@ -70,7 +70,7 @@ $products
     .watch(products => console.log("Отфильтрованный Store:", products, '\n\n'));
 
 sample({
-    clock: $store,
+    clock: $allProducts,
     source: $activeFilters,
     fn: (sourceData, clockData) => ({filters: sourceData, state: clockData}),
     target: ApplyFilters,
@@ -78,7 +78,7 @@ sample({
 
 sample({
     clock: $activeFilters,
-    source: $store,
+    source: $allProducts,
     fn: (sourceData, clockData) => ({filters: clockData, state: sourceData}),
     target: ApplyFilters,
 })
