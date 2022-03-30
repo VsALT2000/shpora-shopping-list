@@ -1,5 +1,6 @@
 import {createEvent, createStore, sample} from "effector";
 import {EditProductType, ProductType, ShopType} from "../types/types";
+import {persist} from "effector-storage/local";
 
 // TODO: Сергей Кашкин: Обернуть все watch'еры в process.env.NODE_ENV === 'development'
 
@@ -15,8 +16,8 @@ DeleteProduct.watch(productId => console.log('Удалён продукт c id:'
 export const EditProduct = createEvent<EditProductType>("EditProduct");
 EditProduct.watch(product => console.log('Добавлен продукт:', product, "\n\n"));
 
-const defaultState = JSON.parse(window.localStorage.getItem("store") || "[]");
-export const $store = createStore<ProductType[]>(defaultState);
+export const $store = createStore<ProductType[]>([]);
+persist({store: $store, key: "store"});
 
 $store
     .on(AddNewProduct, (state, product: ProductType) => [...state, product])
@@ -46,19 +47,19 @@ $store
     .watch(products => console.log("Весь Store:", products, "\n\n"));
 
 export const ChangeFilter = createEvent<ShopType[]>("ChangeFilter");
-const ApplyFilters = createEvent<{state: ProductType[], filters: ShopType[]}>("ApplyFilters");
+const ApplyFilters = createEvent<{ state: ProductType[], filters: ShopType[] }>("ApplyFilters");
 
-const defaultProducts = JSON.parse(window.localStorage.getItem("products") || "[]");
-export const $products = createStore<ProductType[]>(defaultProducts);
+export const $products = createStore<ProductType[]>([]);
+persist({store: $products, key: "products"});
 
-const defaultFilters:ShopType[] = JSON.parse(window.localStorage.getItem("filters") || "[]");
-export const $activeFilters = createStore<ShopType[]>(defaultFilters);
+export const $activeFilters = createStore<ShopType[]>([]);
+persist({store: $activeFilters, key: "filters"});
 
 $activeFilters
     .on(ChangeFilter, (state, newFilters) => newFilters)
     .watch(filters => console.log('Фильтры:', filters, '\n\n'));
 
-const CheckAllFilter = (product:ProductType, filters:ShopType[]) => !!product.shop && filters.includes(product.shop);
+const CheckAllFilter = (product: ProductType, filters: ShopType[]) => !!product.shop && filters.includes(product.shop);
 
 $products
     .on(ApplyFilters, (_, newState) => {
