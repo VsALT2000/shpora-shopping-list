@@ -1,18 +1,17 @@
-import {createEvent, createStore, sample} from "effector";
+import {createEvent, sample} from "effector";
 import {AddNewProduct} from "./ProductsStore";
-import {persist} from 'effector-storage/local'
+import {localStore} from "./LocalStore";
 
-export const $newProductId = createStore<number>(0);
-persist({store: $newProductId, key: "newProductId"});
+export const $newProductId = localStore<number>(0, "newProductId");
 
 const Increment = createEvent<void>("IncrementProductCount");
 
-$newProductId
+$newProductId.store
     .on(Increment, state => state + 1)
     .watch(count => console.log("Products Counter:", count, "\n\n"));
 
 sample({
     clock: AddNewProduct,
-    source: $newProductId,
+    source: $newProductId.store,
     target: Increment,
 })

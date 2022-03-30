@@ -1,3 +1,5 @@
+import {Store} from "effector";
+
 export enum ShopType {
     pyaterochka = "Пятёрочка",
     verno = "Верный",
@@ -18,4 +20,10 @@ export type ProductType = {
 export type EditProductType = {
     id: number,
     payload: Partial<Omit<ProductType, "id" | "date" | "bought">>
+}
+
+export type LocalStoreType<Type> = {
+    updateFromLocalStore: () => void,
+    uploadToLocalStore: () => void,
+    store: Store<Type>,
 }
