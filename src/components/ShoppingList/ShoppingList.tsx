@@ -9,13 +9,15 @@ import { EditItemForm } from "../EdiItemForm/EditItemForm";
 
 
 export const ShoppingList: React.FC = () => {
-  const [closedForm, setClosedForm] = useState(true);
+  const [openedForm, setOpenedForm] = useState<boolean>(false);
 
   const openFormHandler = () => {
-    setClosedForm((prevState) => {
-      return !prevState;
-    });
+    setOpenedForm(true);
   };
+
+  const closeFormHandler = () => {
+    setOpenedForm(false);
+  }
 
   return (
     <div className={styles.shoppingList}>
@@ -40,7 +42,7 @@ export const ShoppingList: React.FC = () => {
         <div className={styles.addNewItemButtonBackground} >
           <img src={plus}></img>
         </div>
-        {!closedForm && <EditItemForm mode="add"/> }
+        {openedForm && <EditItemForm mode="add" onCloseForm={closeFormHandler}/> }
       </div>
     </div>
   );
