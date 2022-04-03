@@ -8,6 +8,9 @@
   border-radius: 20px;
   font-size: 16pt;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
+  position: fixed;
+  top: 0;
+  z-index: 3;
 }
   .shoppingListSort > div {
     align-items: center;

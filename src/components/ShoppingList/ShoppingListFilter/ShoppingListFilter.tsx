@@ -1,14 +1,24 @@
-import { MarketListItem } from "./marketListItem"
-import { Button } from "../../UI/Button"
-import styles from './ShoppingListFilter.module.css'
+import { MarketListItem } from "./marketListItem";
+import { Button } from "../../UI/Button";
+import styles from "./ShoppingListFilter.module.css";
+import { ShopType } from "../../../types/types";
 
-export const ShoppingListFilter: React.FC = () => {
-    const marketList = ['Пятерочка', 'Монетка', 'Верный', 'Перекресток']
+type filterProps = {
+    onCloseFilter: any;
+};
+
+export const ShoppingListFilter: React.FC<filterProps> = (props) => {
     return (
         <div className={styles.shoppingListFilter}>
             <h1>Фильтр</h1>
-            {marketList.map((name) => <MarketListItem name={name}/>)}
-            <Button name='Применить'/>
+
+            {Object.keys(ShopType).map((key) => (
+                <div>
+                    <input value={key} type="checkbox" checked />
+                    <label>{ShopType[key as keyof typeof ShopType]}</label>
+                </div>
+            ))}
+            <Button name="Применить" onClick={props.onCloseFilter} />
         </div>
-    )
-}
+    );
+};

@@ -9,6 +9,7 @@
   align-items: start;
   justify-content: space-between;
   border-radius: 10px;
+  user-select: none;
 
   
 }
@@ -28,6 +29,15 @@
 .shoppingListItem > img {
   padding-top: 6px;
 }
+
+.closedKebab{
+  display: none;
+}
+
+.openedKebab{
+  display: block;
+}
+
 .shoppingListItemContent {
   flex-grow: 1;
   padding-left: 10px;

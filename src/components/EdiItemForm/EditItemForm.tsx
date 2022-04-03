@@ -14,7 +14,7 @@ export const EditItemForm: React.FC<editItemFormProps> = (props) => {
     name: "",
     id: Math.random(),
     date: new Date(),
-    amount: 0,
+    amount: 1,
     bought: false,
   });
 
@@ -25,10 +25,10 @@ export const EditItemForm: React.FC<editItemFormProps> = (props) => {
   }
 
   const amountChangeHandler = (event: any) => {
-    if(event.target.value.match(/^[0-9]+$/) === null){
-      setAmountError(true)
-    }else{
+    if(event.target.value.match(/^[0-9]+$/) !== null && Number(event.target.value) > 0){
       setAmountError(false)
+    }else{
+      setAmountError(true)
     }
     setProduct((prevState) => {return {...prevState, amount: event.target.value}})
   }
@@ -106,7 +106,7 @@ export const EditItemForm: React.FC<editItemFormProps> = (props) => {
           </select>
 
           <label>Цена за единицу</label>
-          <input type="number" value={product.price} onChange={priceChangeHandler}/>
+          <input type="number" value={product.price} onChange={priceChangeHandler} step="0.01"/>
 
           <label>Магазин</label>
           <select onChange={selectShopHandler}>

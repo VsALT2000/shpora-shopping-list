@@ -1,31 +1,35 @@
 import styles from "./ShoppingListSort.module.css";
 import { Button } from "../../UI/Button";
+import { useState } from "react";
 
-export const ShoppingListSort: React.FC = () => {
+type SortProps = {
+  onChangeSortOrder: any;
+  currentSortOrder: any;
+  sortOrderList: any
+};
+
+
+export const ShoppingListSort: React.FC<SortProps> = (props) => {
+  const[selectedSortOrder, setSelectedSortOrder] = useState(props.currentSortOrder);
+    
+  const sortChangeHandler = (event: any) => {
+    setSelectedSortOrder(event.target.value)
+  }
+
+  const confirmSortOrderHandler = () => {
+    props.onChangeSortOrder(selectedSortOrder);
+  }
+
   return (
-    <div className={styles.shoppingListSort}>
+    <div className={styles.shoppingListSort} onChange={sortChangeHandler}>
       <h1>Сортировка</h1>
-      <div>
-        <input type="radio" id='new' name='order' checked />
-        <label htmlFor='new'>Сначала новые</label>
+      {Object.keys(props.sortOrderList).map((key) => (
+        <div>
+          <input type="radio" id={key} name='order' value={props.sortOrderList[key]} defaultChecked={props.sortOrderList[key] === selectedSortOrder ? true : false}/>
+          <label htmlFor={key}>{props.sortOrderList[key]}</label>
       </div>
-      <div>
-        <input type="radio" id='old' name='order' checked />
-        <label htmlFor='old'>Сначала старые</label>
-      </div>
-      <div>
-        <input type="radio" id='alph' name='order' checked />
-        <label htmlFor='alph'>По алфавиту</label>
-      </div>
-      <div>
-        <input type="radio" id='cheap' name='order' checked />
-        <label htmlFor='cheap'>Сначала недорогие</label>
-      </div>
-      <div>
-        <input type="radio" id='exp' name='order' checked />
-        <label htmlFor='exp'>Сначала дорогие</label>
-      </div>
-      <Button name='Применить'/>
+      ))}
+      <Button name='Применить' onClick={confirmSortOrderHandler}/>
     </div>
   );
 };
