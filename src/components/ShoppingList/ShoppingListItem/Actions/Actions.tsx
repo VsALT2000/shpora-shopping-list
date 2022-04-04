@@ -5,16 +5,19 @@ import styles from "./Actions.module.css";
 import { EditItemForm } from "../../../EdiItemForm/EditItemForm";
 import kebab from "../../../images/kebab.svg";
 import { DeleteProduct } from "../../../../effector/ProductsStore";
+import { ProductType } from "../../../../types/types";
 
 type ActionsProps = {
-    productId: number;
+    product: ProductType; 
 };
 
 export const Actions: React.FC<ActionsProps> = (props) => {
     const [openedKebab, setOpenedKebab] = useState(true);
+    const [openedForm, setOpenedForm] = useState<boolean>(false);
+
+
 
     const closeKebab = (event: any) => {
-        console.log(event);
         setOpenedKebab(true);
         window.removeEventListener("click", closeKebab);
     };
@@ -26,20 +29,34 @@ export const Actions: React.FC<ActionsProps> = (props) => {
     };
 
     const garbageClickHandler = () => {
-        DeleteProduct(props.productId);
+        DeleteProduct(props.product.id);
     };
+
+    const pencilClickHandler = () => {
+        setOpenedForm(true);
+        console.log('Открываем форму')
+    }
+
+    const closeFormHandler = () => {
+        setOpenedForm(false);
+        console.log('закрываем форму')
+    };
+
+    
 
     return (
         <div>
+            {openedForm && <EditItemForm onCloseForm={closeFormHandler} productData={props.product}/>}
             {openedKebab ? (
                 <div className={styles.kebab}>
                    <img src={kebab} onClick={clickKebabHandler} /> 
                 </div>
             ) : (
                 <div className={styles.actions}>
-                    <img src={pencil} width="26px" />
+                    <img src={pencil} width="26px" onClick={pencilClickHandler}/>
                     <img src={garbage} width="26px" onClick={garbageClickHandler} />
                 </div>
+                
             )}
         </div>
     );

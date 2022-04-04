@@ -142,7 +142,7 @@ export const ShoppingList: React.FC = () => {
                 <div className={styles.addNewItemButtonBackground}>
                     <img src={plus}></img>
                 </div>
-                {openedForm && <EditItemForm mode="new" onCloseForm={closeFormHandler} />}
+                {openedForm && <EditItemForm onCloseForm={closeFormHandler} />}
             </div>
         </div>
     );

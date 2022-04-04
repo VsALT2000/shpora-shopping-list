@@ -41,7 +41,7 @@ export const ShopingListItem: React.FC<shoppingListItemProps> = (props) => {
                     {props.product.price && <p>Цена: {props.product.price}₽</p>}
                 </div>
             </div>
-            <Actions productId={props.product.id} />
+            <Actions product={props.product} />
         </div>
     );
 };
