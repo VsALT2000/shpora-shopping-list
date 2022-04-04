@@ -5,12 +5,20 @@ export enum ShopType {
     magnit = "Магнит"
 }
 
+export enum UnitType {
+    kg = "кг",
+    g = "г",
+    l = "л",
+    piece = "шт",
+}
+
 export type ProductType = {
     name: string,
     id: number,
     date: Date,
     price?: number,
     amount: number,
+    unit: UnitType,
     shop?: ShopType,
     bought: boolean,
 };
