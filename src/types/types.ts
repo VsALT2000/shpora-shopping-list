@@ -18,7 +18,7 @@ export type ProductType = {
     date: Date,
     price?: number,
     amount: number,
-    unit: UnitType,
+    unit?: UnitType,
     shop?: ShopType,
     bought: boolean,
 };

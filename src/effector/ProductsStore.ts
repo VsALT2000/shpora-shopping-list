@@ -1,5 +1,5 @@
 import {createEvent, createStore, sample} from "effector";
-import {EditProductType, ProductType, ShopType} from "../types/types";
+import {EditProductType, ProductType, ShopType, UnitType} from "../types/types";
 
 export const AddNewProduct = createEvent<ProductType>("AddNewProduct");
 AddNewProduct.watch(product => console.log('Добавлен продукт:', product, "\n\n"));
@@ -16,7 +16,10 @@ EditProduct.watch(product => console.log('Добавлен продукт:', pro
 const $store = createStore<ProductType[]>([]);
 
 $store
-    .on(AddNewProduct, (state, product: ProductType) => [...state, product])
+    .on(AddNewProduct, (state, product: ProductType) => {
+        product.unit = product.unit === undefined ? UnitType.piece : product.unit;
+        return [...state, product];
+    })
     .on(BuyingProduct, (state, productId: number) => {
         const newState = state.slice();
         const product = newState.find(product => product.id === productId)
