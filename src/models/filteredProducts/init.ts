@@ -1,9 +1,11 @@
 import {sample} from "effector";
-import {$store} from "../allProducts/ProductsStore";
+import {$allProducts} from "../allProducts/ProductsStore";
 import {$activeFilters, ApplyFilters} from "./FilteredProductStore";
 
+ApplyFilters({filters: $activeFilters.getState(), state: $allProducts.getState()});
+
 sample({
-    clock: $store,
+    clock: $allProducts,
     source: $activeFilters,
     fn: (sourceData, clockData) => ({filters: sourceData, state: clockData}),
     target: ApplyFilters,
@@ -11,7 +13,7 @@ sample({
 
 sample({
     clock: $activeFilters,
-    source: $store,
+    source: $allProducts,
     fn: (sourceData, clockData) => ({filters: clockData, state: sourceData}),
     target: ApplyFilters,
 })

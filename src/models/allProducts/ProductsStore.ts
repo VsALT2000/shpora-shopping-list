@@ -9,9 +9,10 @@ export const DeleteProduct = createEvent<number>("DeleteProduct");
 
 export const EditProduct = createEvent<EditProductType>("EditProduct");
 
-export const $store = createStore<ProductType[]>([]);
+const defaultState = JSON.parse(window.localStorage.getItem("allProducts") || "[]");
+export const $allProducts = createStore<ProductType[]>(defaultState);
 
-$store
+$allProducts
     .on(AddNewProduct, (state, product: ProductType) => {
         product.unit = product.unit === undefined ? UnitType.piece : product.unit;
         return [...state, product];

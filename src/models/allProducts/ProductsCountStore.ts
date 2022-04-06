@@ -1,7 +1,8 @@
 import {createEvent, createStore} from "effector";
 
-export const $NewProductId = createStore<number>(0);
+const defaultState = JSON.parse(window.localStorage.getItem("newProductId") || "0");
+export const $newProductId = createStore<number>(defaultState);
 export const Increment = createEvent<void>("IncrementProductCount");
 
-$NewProductId
+$newProductId
     .on(Increment, state => state + 1);
