@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/shpora-shopping-list/static/css/main.04a5d961.css",
+    "main.js": "/shpora-shopping-list/static/js/main.784746bf.js",
+    "static/js/787.f467a887.chunk.js": "/shpora-shopping-list/static/js/787.f467a887.chunk.js",
+    "static/media/garbage.svg": "/shpora-shopping-list/static/media/garbage.a106fb7f6ff598301154bd0d67aaed50.svg",
+    "static/media/filter.svg": "/shpora-shopping-list/static/media/filter.cc9c8908391efdbb1fabf0ee3e176a2e.svg",
+    "static/media/sort.svg": "/shpora-shopping-list/static/media/sort.560ee8daf31ba6e343fbff7f310d72d9.svg",
+    "static/media/pencil.svg": "/shpora-shopping-list/static/media/pencil.82eacc14db3d224cbcd2e53b0e89b895.svg",
+    "static/media/kebab.svg": "/shpora-shopping-list/static/media/kebab.498e1817e44006f3c9a70f2ff9bf85d4.svg",
+    "index.html": "/shpora-shopping-list/index.html",
+    "static/media/arrow.svg": "/shpora-shopping-list/static/media/arrow.78e2065e243b988bdbd38cad3c8d6d5c.svg",
+    "static/media/plus.svg": "/shpora-shopping-list/static/media/plus.1e81b5133d258d2420fde81d13997c2a.svg",
+    "main.04a5d961.css.map": "/shpora-shopping-list/static/css/main.04a5d961.css.map",
+    "main.784746bf.js.map": "/shpora-shopping-list/static/js/main.784746bf.js.map",
+    "787.f467a887.chunk.js.map": "/shpora-shopping-list/static/js/787.f467a887.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.04a5d961.css",
+    "static/js/main.784746bf.js"
+  ]
+}
