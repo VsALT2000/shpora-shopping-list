@@ -1,4 +1,4 @@
-import styles from "./EditItemForm.module.css";
+import styles from "./EditItemForm.less";
 import { Button } from "../UI/Button";
 import { ProductType, ShopType, UnitType } from "../../types/types";
 import { useEffect, useState } from "react";

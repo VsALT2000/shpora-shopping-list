@@ -1,4 +1,4 @@
-import styles from "./ShoppingListItem.module.css";
+import styles from "./ShoppingListItem.less";
 import arrow from "../../images/arrow.svg";
 import { useState } from "react";
 import { ProductType } from "../../../types/types";

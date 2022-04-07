@@ -1,7 +1,7 @@
 import { useState } from "react";
 import garbage from "../../../images/garbage.svg";
 import pencil from "../../../images/pencil.svg";
-import styles from "./Actions.module.css";
+import styles from "./Actions.less";
 import { EditItemForm } from "../../../EdiItemForm/EditItemForm";
 import kebab from "../../../images/kebab.svg";
 import { DeleteProduct } from "../../../../models/allProducts/ProductsStore";

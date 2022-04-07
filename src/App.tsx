@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ShoppingList } from './components/ShoppingList/ShoppingList';
-import './App.module.css';
+import './App.less';
 import './common.css';
 import { EditItemForm } from "./components/EdiItemForm/EditItemForm";
 

@@ -1,5 +1,5 @@
 import { Button } from "../../UI/Button";
-import styles from "./ShoppingListFilter.module.css";
+import styles from "./ShoppingListFilter.less";
 import { ShopType } from "../../../types/types";
 import { useState } from "react";
 import { ChangeFilter, $activeFilters } from "../../../models/filteredProducts/FilteredProductStore";

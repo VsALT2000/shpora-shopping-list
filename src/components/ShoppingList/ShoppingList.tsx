@@ -3,7 +3,7 @@ import filter from "../images/filter.svg";
 import { ShopingListItem } from "./ShoppingListItem/ShopingListItem";
 import sort from "../images/sort.svg";
 import plus from "../images/plus.svg";
-import styles from "./ShoppingList.module.css";
+import styles from "./ShoppingList.less";
 import { useState } from "react";
 import { $products } from "../../models/filteredProducts/FilteredProductStore";
 import { useStore } from "effector-react";

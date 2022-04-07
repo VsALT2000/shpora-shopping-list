@@ -1,4 +1,4 @@
-import styles from "./ShoppingListSort.module.css";
+import styles from "./ShoppingListSort.less";
 import { Button } from "../../UI/Button";
 import { useState } from "react";
 import {sortOrderEnum} from '../ShoppingList'
