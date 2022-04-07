@@ -1,8 +1,8 @@
 import styles from "./ShoppingListItem.less";
 import arrow from "../../images/arrow.svg";
-import { useState } from "react";
-import { ProductType } from "../../../types/types";
-import { Actions } from "./Actions/Actions";
+import {useState} from "react";
+import {ProductType} from "../../../types/types";
+import {Actions} from "./Actions/Actions";
 
 
 export const ShopingListItem: React.FC<ProductType> = (props) => {
@@ -16,13 +16,13 @@ export const ShopingListItem: React.FC<ProductType> = (props) => {
     const [purchasedProduct, setPurchasedProduct] = useState(false);
 
     const purchaseProductHandler = () => {
-      setPurchasedProduct(true)
+        setPurchasedProduct(true)
     }
 
-
+    const options = `${styles.shoppingListItemOptions} ${closedOptions ? styles.closedOptions : styles.openedOptions}`;
     return (
         <div className={styles.shoppingListItem}>
-            <input type="checkbox" defaultChecked={purchasedProduct} onChange={purchaseProductHandler}></input>
+            <input type="checkbox" defaultChecked={purchasedProduct} onChange={purchaseProductHandler}/>
             <div className={styles.shoppingListItemContent} onClick={contentClickHandler}>
                 <label>{props.name}</label>
                 {closedOptions && (
@@ -30,14 +30,14 @@ export const ShopingListItem: React.FC<ProductType> = (props) => {
                         | {props.amount}{props.unit}{props.price && ` ${props.price * props.amount}₽`}
                     </span>
                 )}
-                <img src={arrow} className={`${styles.arrow} ${!closedOptions && styles.arrowReverse}`}></img>
-                <div className={`${styles.shoppingListItemOptions} ${closedOptions ? styles.closedOptions : styles.openedOptions}`}>
-                    <p>Количество: {props.amount}</p>
-                    {props.shop && <p>Магазин: {props.shop}</p>}
-                    {props.price && <p>Цена: {props.price}₽</p>}
+                <img src={arrow} className={`${styles.arrow} ${!closedOptions && styles.arrowReverse}`}/>
+                <div>
+                    <p className={options}>Количество: {props.amount}</p>
+                    {props.shop && <p className={options}>Магазин: {props.shop}</p>}
+                    {props.price && <p className={options}>Цена: {props.price}₽</p>}
                 </div>
             </div>
-            <Actions product={props} />
+            <Actions product={props}/>
         </div>
     );
 };
