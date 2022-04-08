@@ -1,5 +1,4 @@
 import styles from "./ShoppingListItem.less";
-import arrow from "../../images/arrow.svg";
 import {useState} from "react";
 import {ProductType} from "../../../types/types";
 import {Actions} from "./Actions/Actions";
@@ -30,7 +29,11 @@ export const ShopingListItem: React.FC<ProductType> = (props) => {
                         | {props.amount}{props.unit}{props.price && ` ${props.price * props.amount}₽`}
                     </span>
                 )}
-                <img src={arrow} className={`${styles.arrow} ${!closedOptions && styles.arrowReverse}`}/>
+                <svg className={`${styles.arrow} ${!closedOptions && styles.arrowReverse}`} width="12" height="8"
+                     viewBox="0 0 12 8" fill="none">
+                    <path d="M11 1.75L6 7L0.999999 1.75" stroke="#8d8d8d" strokeWidth="2" strokeLinecap="round"
+                          strokeLinejoin="round"/>
+                </svg>
                 <div>
                     <p className={options}>Количество: {props.amount}</p>
                     {props.shop && <p className={options}>Магазин: {props.shop}</p>}
