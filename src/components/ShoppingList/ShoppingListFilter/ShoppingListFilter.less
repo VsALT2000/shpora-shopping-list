@@ -1,35 +1,25 @@
-.shoppingListFilter{
-    padding: 20px 30px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 6px;
-    background-color: #ffffff;
-    width: 200px;
-    border-radius: 20px;
-    color: rgb(0, 0, 0);
-    font-size: 18pt;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
+.shoppingListFilter {
     position: fixed;
     top: 0;
     z-index: 3;
-
-}
-
-.shoppingListFilter input[type=checkbox]{
-    width: 25px;
-    height: 20px;
-    margin: 4px 4px 0 0 ;
-}
-
-.shoppingListFilter div {
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    padding: 5px 0 5px 0;
-}
-
-.shoppingListFilter h1{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    border-radius: 20px;
+    padding: 20px 30px;
+    width: 200px;
+    background-color: #ffffff;
+    color: black;
     font-size: 16pt;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
+
+    & input[type=checkbox] {
+        margin: 4px 4px 0 0;
+        width: 25px;
+        height: 20px;
+    }
+
+    & h1 {
+        font-size: 16pt;
+    }
 }
-
-
-
