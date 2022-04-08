@@ -37,7 +37,8 @@ export const ShoppingListItem: React.FC<ProductType> = (props) => {
                     </svg>
                     <div>
                         <p className={options}>Количество: {props.amount}</p>
-                        <p className={options}>Дата добавления: {date}</p>
+                        <p className={options}>Дата добавления:</p>
+                        <p className={options}>{date}</p>
                         {props.shop && <p className={options}>Магазин: {props.shop}</p>}
                         {props.price && <p className={options}>Цена: {props.price}₽</p>}
                     </div>

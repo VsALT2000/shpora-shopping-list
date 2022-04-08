@@ -4,6 +4,7 @@
     margin: 20px 0;
     border-radius: 10px;
     border: 1px solid #d9d9d9;
+    min-width: 390px;
     background-color: #ffffff;
     overflow: hidden;
 }
@@ -16,12 +17,12 @@
 
 .itemContentLeftPart {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     align-items: start;
-    flex-grow: 1;
     padding: 20px 20px;
     font-size: 18pt;
     user-select: none;
+    box-sizing: border-box;
 
     & input[type="checkbox"] {
         margin-top: 4px;
@@ -46,7 +47,6 @@
 }
 
 .shoppingListItemContent {
-    flex-grow: 1;
     padding-left: 10px;
 }
 
