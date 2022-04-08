@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {ShoppingList} from './components/ShoppingList/ShoppingList';
 import classes from './App.less';
-import './common.css';
 import {EditItemForm} from "./components/EdiItemForm/EditItemForm";
 
 const App: React.FC = () => {

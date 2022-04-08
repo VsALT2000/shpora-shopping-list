@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import styles from "./Actions.less";
 import {EditItemForm} from "../../../EdiItemForm/EditItemForm";
 import {DeleteProduct} from "../../../../models/allProducts/ProductsStore";
@@ -6,12 +6,11 @@ import {ProductType} from "../../../../types/types";
 
 interface ActionsProps {
     product: ProductType;
-};
+}
 
 export const Actions: React.FC<ActionsProps> = (props) => {
     const [openedKebab, setOpenedKebab] = useState(true);
     const [openedForm, setOpenedForm] = useState(false);
-
 
     const closeKebab = () => {
         setOpenedKebab(true);
@@ -25,7 +24,6 @@ export const Actions: React.FC<ActionsProps> = (props) => {
 
     };
 
-
     const pencilClickHandler = () => {
         setOpenedForm(true);
     }
@@ -33,7 +31,6 @@ export const Actions: React.FC<ActionsProps> = (props) => {
     const closeFormHandler = () => {
         setOpenedForm(false);
     };
-
 
     return (
         <div>
@@ -58,7 +55,6 @@ export const Actions: React.FC<ActionsProps> = (props) => {
                               fill="#FF0016"/>
                     </svg>
                 </div>
-
             )}
         </div>
     );

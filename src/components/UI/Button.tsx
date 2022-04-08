@@ -1,11 +1,9 @@
 import React from 'react'
 import styles from './Button.less'
 
-
-
 export const Button: React.FC<React.HTMLProps<HTMLButtonElement>> = (props) => {
     const buttonClickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        if(props.onClick){
+        if (props.onClick) {
             props.onClick(event)
         }
     }

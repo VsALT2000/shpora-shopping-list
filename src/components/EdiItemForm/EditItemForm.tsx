@@ -1,12 +1,12 @@
 import styles from "./EditItemForm.less";
-import { Button } from "../UI/Button";
-import { ProductType, ShopType, UnitType } from "../../types/types";
-import { useEffect, useState } from "react";
-import { AddNewProduct, EditProduct } from "../../models/allProducts/ProductsStore";
+import {Button} from "../UI/Button";
+import {ProductType, ShopType, UnitType} from "../../types/types";
+import React, {useEffect, useState} from "react";
+import {AddNewProduct, EditProduct} from "../../models/allProducts/ProductsStore";
 import {ChangeFilter} from "../../models/filteredProducts/FilteredProductStore"
-import { $NewProductId } from "../../models/allProducts/ProductsCountStore";
-import { useStore } from "effector-react";
-import { isValidAmount } from "../../utils/Utils";
+import {$NewProductId} from "../../models/allProducts/ProductsCountStore";
+import {useStore} from "effector-react";
+import {isValidAmount} from "../../utils/Utils";
 
 interface EditItemFormProps {
     onCloseForm: () => void;
@@ -14,11 +14,8 @@ interface EditItemFormProps {
 }
 
 export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
-
     const [editForm, setEditForm] = useState(false);
-
     const newProductId = useStore($NewProductId);
-
     const [product, setProduct] = useState<ProductType>({
         name: "",
         id: newProductId,
@@ -61,7 +58,7 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
 
     const nameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setProduct((prevState) => {
-            return { ...prevState, name: event.target.value };
+            return {...prevState, name: event.target.value};
         });
     };
 
@@ -72,18 +69,18 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
             setAmountError(true);
         }
         setProduct((prevState) => {
-            return { ...prevState, amount: Number(event.target.value) };
+            return {...prevState, amount: Number(event.target.value)};
         });
     };
 
     const priceChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.value.length > 0) {
             setProduct((prevState) => {
-                return { ...prevState, price: Number(event.target.value) };
+                return {...prevState, price: Number(event.target.value)};
             });
         } else {
             setProduct((prevState) => {
-                return { ...prevState, price: undefined };
+                return {...prevState, price: undefined};
             });
         }
     };
@@ -91,11 +88,11 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
     const selectShopHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
         if (Object.keys(ShopType).includes(event.target.value)) {
             setProduct((prevState) => {
-                return { ...prevState, shop: ShopType[event.target.value as keyof typeof ShopType] };
+                return {...prevState, shop: ShopType[event.target.value as keyof typeof ShopType]};
             });
         } else {
             setProduct((prevState) => {
-                return { ...prevState, shop: undefined };
+                return {...prevState, shop: undefined};
             });
         }
     };
@@ -103,12 +100,12 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
     const selectUnitHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
         if (Object.keys(UnitType).includes(event.target.value)) {
             setProduct((prevState) => {
-                return { ...prevState, unit: UnitType[event.target.value as keyof typeof UnitType] };
+                return {...prevState, unit: UnitType[event.target.value as keyof typeof UnitType]};
             });
         } else {
             setProduct((prevState) => {
                 delete prevState.unit;
-                return { ...prevState };
+                return {...prevState};
             });
         }
     };
@@ -128,17 +125,18 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
         selectedUnits = Object.keys(UnitType).find((key) => UnitType[key as keyof typeof UnitType] === product.unit);
     }
 
-    
+
     return (
         <div className={styles.background}>
             <form className={styles.closedForm} onSubmit={editForm ? editProductHandler : addNewProductHandler}>
                 <div className={styles.editItemForm}>
-                    <h1>{editForm ?"Редактирование": "Добавить товар" }</h1>
+                    <h1>{editForm ? "Редактирование" : "Добавить товар"}</h1>
                     <label>*Название</label>
-                    <input type="text" value={product.name} onChange={nameChangeHandler} />
+                    <input type="text" value={product.name} onChange={nameChangeHandler}/>
 
                     <label>*Кол-во</label>
-                    <input className={`${amountError && styles.error}`} type="number" value={product.amount} onChange={amountChangeHandler} />
+                    <input className={`${amountError && styles.error}`} type="number" value={product.amount}
+                           onChange={amountChangeHandler}/>
 
                     <label>Единицы измерения</label>
                     <select onChange={selectUnitHandler} value={selectedUnits}>
@@ -151,7 +149,8 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
                     </select>
 
                     <label>Цена за единицу</label>
-                    <input type="number" value={product.price ? product.price : ''} onChange={priceChangeHandler} step="0.01" />
+                    <input type="number" value={product.price ? product.price : ''} onChange={priceChangeHandler}
+                           step="0.01"/>
 
                     <label>Магазин</label>
                     <select onChange={selectShopHandler} value={selectedShop}>
@@ -162,10 +161,10 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
                             </option>
                         ))}
                     </select>
-                    <Button name={editForm ? 'Применить': 'Добавить'} />
+                    <Button name={editForm ? 'Применить' : 'Добавить'}/>
                 </div>
             </form>
-            <div className={styles.backdrop} onClick={backdropClickHandler}></div>
+            <div className={styles.backdrop} onClick={backdropClickHandler}/>
         </div>
     );
 };

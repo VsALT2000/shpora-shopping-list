@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {ShopingListItem} from "./ShoppingListItem/ShopingListItem";
+import {ShoppingListItem} from "./ShoppingListItem/ShoppingListItem";
 import styles from "./ShoppingList.less";
 import {useState} from "react";
 import {$products} from "../../models/filteredProducts/FilteredProductStore";
@@ -20,12 +20,9 @@ interface ShoppingListProps {
     onOpenForm: (state: boolean) => void;
 }
 
-
 export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
-
     const [openedSort, setOpenedSort] = useState(false);
     const [openedFilter, setOpenedFilter] = useState(false);
-
     const [sortOrder, setSortOrder] = useState<sortOrderEnum>(sortOrderEnum.new);
 
     const changeSortOrderHandler = (newSortOrder: sortOrderEnum) => {
@@ -47,6 +44,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
         }
         setOpenedFilter(true);
     };
+
     const closeFilterHandler = () => {
         setOpenedFilter(false);
     };
@@ -59,7 +57,6 @@ export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
     };
 
     const products = useStore($products);
-
     const total = products.reduce((sum, {price, amount}) => (price ? sum + price * amount : sum), 0);
 
     return (
@@ -82,7 +79,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
             </div>
             <div className={styles.shoppingListItems}>
                 {products.sort(sortingFunctions[sortOrder]).map((product) => (
-                    <ShopingListItem {...product} key={product.id}/>
+                    <ShoppingListItem {...product} key={product.id}/>
                 ))}
             </div>
             <div className={styles.shoppingListTotal}>{products.length > 0 ? <p>Общая сумма: {total}₽</p> :

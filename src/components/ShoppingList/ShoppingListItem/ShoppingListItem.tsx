@@ -1,10 +1,10 @@
 import styles from "./ShoppingListItem.less";
-import {useState} from "react";
+import React, {useState} from "react";
 import {ProductType} from "../../../types/types";
 import {Actions} from "./Actions/Actions";
 
 
-export const ShopingListItem: React.FC<ProductType> = (props) => {
+export const ShoppingListItem: React.FC<ProductType> = (props) => {
     const [closedOptions, setClosedOptions] = useState(true);
     const contentClickHandler = () => {
         setClosedOptions((prevState) => {
