@@ -2,21 +2,15 @@ import styles from "./ShoppingListItem.less";
 import React, {useState} from "react";
 import {ProductType} from "../../../types/types";
 import {Actions} from "./Actions/Actions";
+import {BuyingProduct} from "../../../models/allProducts/ProductsStore";
 
 
 export const ShoppingListItem: React.FC<ProductType> = (props) => {
     const [closedOptions, setClosedOptions] = useState(true);
     const contentClickHandler = () => {
-        setClosedOptions((prevState) => {
-            return !prevState;
-        });
+        if (!props.bought)
+            setClosedOptions(!closedOptions);
     };
-
-    const [purchasedProduct, setPurchasedProduct] = useState(false);
-
-    const purchaseProductHandler = () => {
-        setPurchasedProduct(true)
-    }
 
     const dateOption = {
         year: 'numeric', month: 'numeric', day: 'numeric',
@@ -24,19 +18,19 @@ export const ShoppingListItem: React.FC<ProductType> = (props) => {
     };
     // @ts-ignore
     const date = new Intl.DateTimeFormat('ru', dateOption).format(props.date)
-    const options = `${styles.shoppingListItemOptions} ${closedOptions ? styles.closedOptions : styles.openedOptions}`;
+    const options = `${styles.shoppingListItemOptions} ${props.bought || closedOptions ? styles.closedOptions : styles.openedOptions}`;
     return (
-        <div className={styles.itemWrapper}>
+        <div className={`${props.bought ? styles.boughtProduct : styles.itemWrapper}`}>
             <div className={styles.itemContentLeftPart}>
-                <input type="checkbox" defaultChecked={purchasedProduct} onChange={purchaseProductHandler}/>
+                <input type="checkbox" defaultChecked={props.bought} onChange={() => BuyingProduct(props.id)}/>
                 <div className={styles.shoppingListItemContent} onClick={contentClickHandler}>
                     <label>{props.name}</label>
-                    {closedOptions && (
+                    {(props.bought || closedOptions) && (
                         <span>
                         | {props.amount}{props.unit}{props.price && ` ${props.price * props.amount}₽`}
                     </span>
                     )}
-                    <svg className={`${styles.arrow} ${!closedOptions && styles.arrowReverse}`} width="12" height="8"
+                    <svg className={`${styles.arrow} ${!props.bought && !closedOptions && styles.arrowReverse}`} width="12" height="8"
                          viewBox="0 0 12 8" fill="none">
                         <path d="M11 1.75L6 7L0.999999 1.75" stroke="#8d8d8d" strokeWidth="2" strokeLinecap="round"
                               strokeLinejoin="round"/>
