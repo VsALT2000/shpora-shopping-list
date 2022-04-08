@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {ShoppingListItem} from "./ShoppingListItem/ShoppingListItem";
 import styles from "./ShoppingList.less";
 import {useState} from "react";
@@ -29,14 +29,6 @@ export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
         setSortOrder(newSortOrder);
         setOpenedSort(false);
     };
-
-    useEffect(
-        () => {
-            console.log(1)
-        },
-        [openedSort]
-    )
-
 
     const openFilterHandler = () => {
         if (openedSort) {
@@ -77,13 +69,21 @@ export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
                 {openedSort && <ShoppingListSort currentSortOrder={sortOrder} sortOrderList={sortOrderEnum}
                                                  onChangeSortOrder={changeSortOrderHandler}/>}
             </div>
+            <div className={styles.shoppingListTotal}>{products.length > 0 ? <p>Общая сумма: {total}₽</p> : null}</div>
             <div className={styles.shoppingListItems}>
-                {products.sort(sortingFunctions[sortOrder]).map((product) => (
-                    <ShoppingListItem {...product} key={product.id}/>
-                ))}
+                {products
+                    .filter((product) => !product.bought)
+                    .sort(sortingFunctions[sortOrder])
+                    .map((product) => (
+                        <ShoppingListItem {...product} key={product.id}/>
+                    ))}
+                {products
+                    .filter((product) => product.bought)
+                    .sort(sortingFunctions[sortOrder])
+                    .map((product) => (
+                        <ShoppingListItem {...product} key={product.id}/>
+                    ))}
             </div>
-            <div className={styles.shoppingListTotal}>{products.length > 0 ? <p>Общая сумма: {total}₽</p> :
-                <p>cписок пуст...</p>}</div>
             <div className={styles.addNewItemButton} onClick={() => {
                 props.onOpenForm(true)
             }}>
