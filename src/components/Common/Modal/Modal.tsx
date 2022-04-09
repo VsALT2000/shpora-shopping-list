@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react';
-import {Button} from "../../UI/Button";
+import {Button} from "../FormControl/Button";
 import classes from './Modal.less';
 
 interface PropsTypes {
