@@ -1,7 +1,6 @@
-import styles from "./ShoppingListSort.less";
-import {Button} from "../../UI/Button";
 import React, {useState} from "react";
 import {sortOrderEnum} from '../ShoppingList'
+import Modal from "../../Common/Modal/Modal";
 
 interface SortProps {
     onChangeSortOrder: (a: sortOrderEnum) => void;
@@ -21,16 +20,19 @@ export const ShoppingListSort: React.FC<SortProps> = (props) => {
     }
 
     return (
-        <div className={styles.shoppingListSort} onChange={sortChangeHandler}>
-            <h1>Сортировка</h1>
-            {Object.keys(props.sortOrderList).map((key) => (
+        <Modal
+            header={'Сортировка'}
+            body={Object.keys(props.sortOrderList).map((key) => (
                 <div key={key}>
-                    <input type="radio" id={key} name='order' value={props.sortOrderList[key]}
-                           defaultChecked={props.sortOrderList[key] === selectedSortOrder}/>
-                    <label htmlFor={key}>{props.sortOrderList[key]}</label>
+                    <label>
+                        <input type="radio" id={key} name='order' value={props.sortOrderList[key]}
+                               defaultChecked={props.sortOrderList[key] === selectedSortOrder}
+                               onChange={sortChangeHandler}/>
+                        {props.sortOrderList[key]}
+                    </label>
                 </div>
             ))}
-            <Button name='Применить' onClick={confirmSortOrderHandler}/>
-        </div>
+            onApply={confirmSortOrderHandler}
+        />
     );
 };

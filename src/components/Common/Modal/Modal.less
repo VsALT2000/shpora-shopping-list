@@ -1,13 +1,21 @@
-.shoppingListFilter {
+.modalWrapper {
     position: fixed;
     top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 3;
+}
+
+.modalContainer {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
     border-radius: 20px;
     padding: 20px 30px;
-    width: 200px;
     background-color: #ffffff;
     color: black;
     font-size: 16pt;
@@ -21,5 +29,9 @@
 
     & h1 {
         font-size: 16pt;
+    }
+
+    & input[type="radio"] {
+        margin-right: 10px;
     }
 }
