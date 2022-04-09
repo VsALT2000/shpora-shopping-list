@@ -1,11 +1,11 @@
 import styles from "./EditItemForm.less";
-import {Button} from "../UI/Button";
 import {ProductType, ShopType, UnitType} from "../../types/types";
 import React, {useEffect, useRef, useState} from "react";
 import {AddNewProduct, EditProduct} from "../../models/allProducts/ProductsStore";
 import {ChangeFilter} from "../../models/filteredProducts/FilteredProductStore"
 import {$NewProductId} from "../../models/allProducts/ProductsCountStore";
 import {useStore} from "effector-react";
+import Modal from "../Common/Modal/Modal";
 
 interface EditItemFormProps {
     onCloseForm: () => void;
@@ -73,42 +73,40 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
 
     return (
         <div className={styles.background}>
-            <form className={styles.closedForm} onSubmit={editForm ? editProductHandler : addNewProductHandler}>
-                <div className={styles.editItemForm}>
-                    <h1>{editForm ? "Редактирование" : "Добавить товар"}</h1>
-                    <label>{editForm ? "" : "*"}Название</label>
-                    <input type="text" ref={name} required={!editForm} defaultValue={props.productData?.name}/>
-
-                    <label>{editForm ? "" : "*"}Кол-во</label>
-                    <input type="number" min={1} step={1} ref={amount} defaultValue={props.productData?.amount}
-                           required={!editForm}/>
-
-                    <label>Единицы измерения</label>
-                    <select ref={unit} defaultValue={selectedUnit}>
-                        <option value={""}>Выбери</option>
-                        {Object.keys(UnitType).map((key) => (
-                            <option value={key} key={key}>
-                                {UnitType[key as keyof typeof UnitType]}
-                            </option>
-                        ))}
-                    </select>
-
-                    <label>Цена за единицу</label>
-                    <input type="number" ref={price} step="0.01" defaultValue={props.productData?.price}/>
-
-                    <label>Магазин</label>
-                    <select ref={shop} defaultValue={selectedShop}>
-                        <option value={""}>Выбери</option>
-                        {Object.keys(ShopType).map((key) => (
-                            <option value={key} key={key}>
-                                {ShopType[key as keyof typeof ShopType]}
-                            </option>
-                        ))}
-                    </select>
-                    <Button name={editForm ? 'Применить' : 'Добавить'}/>
-                </div>
+            <form onSubmit={editForm ? editProductHandler : addNewProductHandler}>
+                <Modal
+                    header={editForm ? "Редактирование" : "Добавить товар"}
+                    body={<div className={styles.editItemForm}>
+                        <label>{editForm ? "" : "*"}Название</label>
+                        <input type="text" ref={name} required={!editForm} defaultValue={props.productData?.name}/>
+                        <label>{editForm ? "" : "*"}Кол-во</label>
+                        <input type="number" min={1} step={1} ref={amount} defaultValue={props.productData?.amount}
+                               required={!editForm}/>
+                        <label>Единицы измерения</label>
+                        <select ref={unit} defaultValue={selectedUnit}>
+                            <option value={""}>Выбери</option>
+                            {Object.keys(UnitType).map((key) => (
+                                <option value={key} key={key}>
+                                    {UnitType[key as keyof typeof UnitType]}
+                                </option>
+                            ))}
+                        </select>
+                        <label>Цена за единицу</label>
+                        <input type="number" ref={price} step="0.01" defaultValue={props.productData?.price}/>
+                        <label>Магазин</label>
+                        <select ref={shop} defaultValue={selectedShop}>
+                            <option value={""}>Выбери</option>
+                            {Object.keys(ShopType).map((key) => (
+                                <option value={key} key={key}>
+                                    {ShopType[key as keyof typeof ShopType]}
+                                </option>
+                            ))}
+                        </select>
+                    </div>}
+                    nameButton={editForm ? 'Применить' : 'Добавить'}
+                    onAbort={backdropClickHandler}
+                />
             </form>
-            <div className={styles.backdrop} onClick={backdropClickHandler}/>
         </div>
     );
 };

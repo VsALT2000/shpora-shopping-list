@@ -5,7 +5,7 @@ import Modal from "../../Common/Modal/Modal";
 interface SortProps {
     onChangeSortOrder: (a: sortOrderEnum) => void;
     currentSortOrder: sortOrderEnum;
-    sortOrderList: any;
+    onAbort: () => void;
 }
 
 export const ShoppingListSort: React.FC<SortProps> = (props) => {
@@ -15,24 +15,30 @@ export const ShoppingListSort: React.FC<SortProps> = (props) => {
         setSelectedSortOrder(event.target.value as sortOrderEnum)
     }
 
-    const confirmSortOrderHandler = () => {
+    const confirmSortOrderHandler = (event: React.SyntheticEvent) => {
+        event.stopPropagation();
         props.onChangeSortOrder(selectedSortOrder);
     }
 
     return (
         <Modal
             header={'Сортировка'}
-            body={Object.keys(props.sortOrderList).map((key) => (
-                <div key={key}>
-                    <label>
-                        <input type="radio" id={key} name='order' value={props.sortOrderList[key]}
-                               defaultChecked={props.sortOrderList[key] === selectedSortOrder}
-                               onChange={sortChangeHandler}/>
-                        {props.sortOrderList[key]}
-                    </label>
+            body={
+                <div>
+                    {Object.keys(sortOrderEnum).map((key) => (
+                        <div key={key}>
+                            <label>
+                                <input type="radio" id={key} name='order'
+                                       value={sortOrderEnum[key as keyof typeof sortOrderEnum]}
+                                       defaultChecked={sortOrderEnum[key as keyof typeof sortOrderEnum] === selectedSortOrder}
+                                       onChange={sortChangeHandler}/>
+                                {sortOrderEnum[key as keyof typeof sortOrderEnum]}
+                            </label>
+                        </div>))}
                 </div>
-            ))}
+            }
             onApply={confirmSortOrderHandler}
+            onAbort={props.onAbort}
         />
     );
 };

@@ -6,6 +6,7 @@ import Modal from "../../Common/Modal/Modal";
 
 interface FilterProps {
     onCloseFilter: () => void;
+    onAbort: () => void;
 }
 
 export const ShoppingListFilter: React.FC<FilterProps> = (props) => {
@@ -22,7 +23,8 @@ export const ShoppingListFilter: React.FC<FilterProps> = (props) => {
         });
     };
 
-    const confirmFilterHandler = () => {
+    const confirmFilterHandler = (event: React.SyntheticEvent) => {
+        event.stopPropagation()
         ChangeFilter(selectedFilter);
         props.onCloseFilter();
     }
@@ -31,18 +33,21 @@ export const ShoppingListFilter: React.FC<FilterProps> = (props) => {
         <Modal
             header={'Фильтр'}
             body={
-                Object.keys(ShopType).map((key) => (
-                    <div key={key}>
-                        <label>
-                            <input value={key} id={key} type="checkbox"
-                                   defaultChecked={selectedFilter.includes(ShopType[key as keyof typeof ShopType])}
-                                   onChange={selectFilterHandler}/>
-                            {ShopType[key as keyof typeof ShopType]}
-                        </label>
-                    </div>
-                ))
+                <div>
+                    {Object.keys(ShopType).map((key) => (
+                        <div key={key}>
+                            <label>
+                                <input value={key} id={key} type="checkbox"
+                                       defaultChecked={selectedFilter.includes(ShopType[key as keyof typeof ShopType])}
+                                       onChange={selectFilterHandler}/>
+                                {ShopType[key as keyof typeof ShopType]}
+                            </label>
+                        </div>
+                    ))}
+                </div>
             }
             onApply={confirmFilterHandler}
+            onAbort={props.onAbort}
         />
     );
 };

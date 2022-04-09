@@ -4,8 +4,10 @@ import classes from './Modal.less';
 
 interface PropsTypes {
     header: string
-    body: ReactElement[]
-    onApply: () => void
+    body: ReactElement
+    nameButton?: string
+    onApply?: (event: React.SyntheticEvent) => void
+    onAbort: (event: React.SyntheticEvent) => void
 }
 
 const Modal: React.FC<PropsTypes> = (props) => {
@@ -14,8 +16,9 @@ const Modal: React.FC<PropsTypes> = (props) => {
             <div className={classes.modalContainer}>
                 <h1>{props.header}</h1>
                 {props.body}
-                <Button name="Применить" onClick={props.onApply}/>
+                <Button name={props.nameButton || "Применить"} onClick={props.onApply}/>
             </div>
+            <div className={classes.backdrop} onClick={props.onAbort}/>
         </div>
     );
 };
