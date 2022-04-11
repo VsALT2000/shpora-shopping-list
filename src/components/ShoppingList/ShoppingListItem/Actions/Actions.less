@@ -1,10 +1,44 @@
-.actions{
-    display: flex;
-    gap: 10px;
-
+.actionsWrapper {
+    height: 100%;
 }
 
-.kebab{
+.action {
     display: flex;
-    height: 20px;
+    align-items: start;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    & > div {
+        display: flex;
+        align-items: start;
+        justify-content: center;
+        box-sizing: border-box;
+        padding-top: 15px;
+        height: 100%;
+        transition: width 0.5s;
+    }
+
+    & .kebab {
+        padding-top: 20px;
+    }
+}
+
+
+.openedOptions {
+    width: 80px;
+}
+
+.closedOptions {
+    width: 0;
+    overflow: hidden;
+}
+
+.pencil {
+    background-color: #33c0ff;
+}
+
+.trashCan {
+    background-color: #ff4b3b;
 }

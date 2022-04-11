@@ -1,21 +1,17 @@
-import { useState } from "react";
-import garbage from "../../../images/garbage.svg";
-import pencil from "../../../images/pencil.svg";
+import React, {useState} from "react";
 import styles from "./Actions.less";
-import { EditItemForm } from "../../../EdiItemForm/EditItemForm";
-import kebab from "../../../images/kebab.svg";
-import { DeleteProduct } from "../../../../models/allProducts/ProductsStore";
-import { ProductType } from "../../../../types/types";
+import {EditItemForm} from "../../../EdiItemForm/EditItemForm";
+import {DeleteProduct} from "../../../../models/allProducts/ProductsStore";
+import {ProductType} from "../../../../types/types";
+import {DeleteIcon, EditIcon, KebabIcon} from "../../../Common/Icons/Icons";
 
-interface ActionsProps  {
-    product: ProductType; 
-};
+interface ActionsProps {
+    product: ProductType;
+}
 
 export const Actions: React.FC<ActionsProps> = (props) => {
     const [openedKebab, setOpenedKebab] = useState(true);
     const [openedForm, setOpenedForm] = useState(false);
-
-
 
     const closeKebab = () => {
         setOpenedKebab(true);
@@ -26,9 +22,7 @@ export const Actions: React.FC<ActionsProps> = (props) => {
         event.stopPropagation();
         setOpenedKebab(false);
         window.addEventListener("click", closeKebab);
-        
     };
-
 
     const pencilClickHandler = () => {
         setOpenedForm(true);
@@ -38,22 +32,24 @@ export const Actions: React.FC<ActionsProps> = (props) => {
         setOpenedForm(false);
     };
 
-    
-
     return (
-        <div>
+        <div className={styles.actionsWrapper}>
             {openedForm && <EditItemForm onCloseForm={closeFormHandler} productData={props.product}/>}
-            {openedKebab ? (
-                <div className={styles.kebab}>
-                   <img src={kebab} onClick={clickKebabHandler} /> 
+            <div className={styles.action}>
+                <div className={`${styles.kebab} ${openedKebab ? styles.openedOptions : styles.closedOptions}`}
+                     onClick={clickKebabHandler}>
+                    <KebabIcon/>
                 </div>
-            ) : (
-                <div className={styles.actions}>
-                    <img src={pencil} width="26px" onClick={pencilClickHandler}/>
-                    <img src={garbage} width="26px" onClick={() => DeleteProduct(props.product.id)} />
+                <div className={`${styles.pencil} ${openedKebab ? styles.closedOptions : styles.openedOptions}`}
+                     onClick={pencilClickHandler}>
+                    <EditIcon/>
                 </div>
-                
-            )}
+                <div className={`${styles.trashCan} ${openedKebab ? styles.closedOptions : styles.openedOptions}`}
+                     onClick={() => DeleteProduct(props.product.id)}>
+                    <DeleteIcon/>
+                </div>
+            </div>
+
         </div>
     );
 };

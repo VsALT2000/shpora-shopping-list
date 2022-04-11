@@ -1,75 +1,83 @@
-
-
-.shoppingListItem {
-  background-color: rgb(255, 255, 255);
-  padding: 20px 20px;
-  font-size: 18pt;
-  display: flex;
-  margin-bottom: 20px;
-  align-items: start;
-  justify-content: space-between;
-  border-radius: 10px;
-  user-select: none;
-
-  
-}
-.shoppingListItem input[type="checkbox"] {
-  width: 25px;
-  height: 20px;
-  margin-top: 4px;
+.itemWrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    border-radius: 10px;
+    border: 1px solid #d9d9d9;
+    min-width: 390px;
+    background-color: #ffffff;
+    overflow: hidden;
 }
 
-.shoppingListItem span {
-  font-size: 12pt;
-  color: rgb(141, 141, 141);
-  padding-left: 5px;
-  font-weight: 400;
+.boughtProduct {
+    .itemWrapper();
+    border: 1px solid #999999;
+    background-color: #cccccc;
 }
 
-.shoppingListItem > img {
-  padding-top: 6px;
+.itemContentLeftPart {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    padding: 20px 20px;
+    font-size: 18pt;
+    user-select: none;
+    box-sizing: border-box;
+
+    & input[type="checkbox"] {
+        margin-top: 4px;
+        width: 25px;
+        height: 20px;
+    }
+
+    & span {
+        padding-left: 5px;
+        color: rgb(141, 141, 141);
+        font-weight: 400;
+        font-size: 12pt;
+    }
 }
 
-.closedKebab{
-  display: none;
+.closedKebab {
+    display: none;
 }
 
-.openedKebab{
-  display: block;
+.openedKebab {
+    display: block;
 }
 
 .shoppingListItemContent {
-  flex-grow: 1;
-  padding-left: 10px;
+    padding-left: 10px;
 }
 
 .shoppingListItemContent label {
-  font-weight: bolder;
+    font-weight: bolder;
 }
 
 .shoppingListItemOptions {
-  font-size: 14pt;
-  color: rgb(97, 97, 97);
-  transition: height 0.5s ease-out;
-  overflow: hidden;
-
-  
+    color: rgb(97, 97, 97);
+    transition: height 0.5s, margin-top 0.5s, color 0.5s;
+    font-size: 14pt;
 }
-.shoppingListItemOptions p {
-    margin-top: 20px;
-  }
+
 .openedOptions {
-  height: 7em;
+    margin-top: 20px;
+    height: 1em;
+    color: rgb(97, 97, 97);
 }
 
 .closedOptions {
-  height: 0;
+    margin-top: 0;
+    height: 0;
+    color: rgba(255, 255, 255, 0);
+    overflow: hidden;
 }
+
 .arrowReverse {
-  transform: scaleY(-1);
+    transform: scaleY(-1);
 }
 
 .arrow {
-  transition: transform 0.5s ease-out;
-  padding-left: 8px;
+    transition: transform 0.5s ease-out;
+    padding-left: 8px;
 }

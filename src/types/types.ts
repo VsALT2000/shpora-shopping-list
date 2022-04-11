@@ -6,10 +6,10 @@ export enum ShopType {
 }
 
 export enum UnitType {
+    piece = "шт",
     kg = "кг",
     g = "г",
     l = "л",
-    piece = "шт",
 }
 
 export type ProductType = {
@@ -18,7 +18,7 @@ export type ProductType = {
     date: Date,
     price?: number,
     amount: number,
-    unit?: UnitType,
+    unit: UnitType,
     shop?: ShopType,
     bought: boolean,
 };

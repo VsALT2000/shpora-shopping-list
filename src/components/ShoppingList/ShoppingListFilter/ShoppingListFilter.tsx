@@ -1,45 +1,51 @@
-import { Button } from "../../UI/Button";
-import styles from "./ShoppingListFilter.less";
-import { ShopType } from "../../../types/types";
-import { useState } from "react";
-import { ChangeFilter, $activeFilters } from "../../../models/filteredProducts/FilteredProductStore";
-import { useStore } from "effector-react";
+import {ShopType} from "../../../types/types";
+import React, {useState} from "react";
+import {ChangeFilter, $activeFilters} from "../../../models/filteredProducts/FilteredProductStore";
+import {useStore} from "effector-react";
+import Modal from "../../Common/Modal/Modal";
+import classes from './ShoppingListFilter.less';
 
-interface FilterProps  {
+interface FilterProps {
     onCloseFilter: () => void;
-};
+    onAbort: () => void;
+}
 
 export const ShoppingListFilter: React.FC<FilterProps> = (props) => {
     const initialState: ShopType[] = useStore($activeFilters);
     const [selectedFilter, setSelectedFilter] = useState<ShopType[]>(initialState);
 
-
     const selectFilterHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const shopName = ShopType[event.target.value as keyof typeof ShopType];
         setSelectedFilter((prevState) => {
             if (prevState.includes(shopName)) {
-               return prevState.filter(shop => shop !== shopName)
+                return prevState.filter(shop => shop !== shopName)
             }
             return [...prevState, shopName]
         });
     };
 
-    const confirmFilterHandler = () => {
+    const confirmFilterHandler = (event: React.SyntheticEvent) => {
+        event.stopPropagation()
         ChangeFilter(selectedFilter);
         props.onCloseFilter();
     }
 
     return (
-        <div className={styles.shoppingListFilter}>
-            <h1>Фильтр</h1>
-
+        <Modal
+            header={'Фильтр'}
+            onApply={confirmFilterHandler}
+            onAbort={props.onAbort}
+        >
             {Object.keys(ShopType).map((key) => (
                 <div key={key}>
-                    <input value={key} id={key} type="checkbox" defaultChecked={selectedFilter.includes(ShopType[key as keyof typeof ShopType]) ? true : false} onChange={selectFilterHandler} />
-                    <label htmlFor={key}>{ShopType[key as keyof typeof ShopType]}</label>
+                    <label>
+                        <input className={classes.FilterCheckbox} value={key} id={key} type="checkbox"
+                               defaultChecked={selectedFilter.includes(ShopType[key as keyof typeof ShopType])}
+                               onChange={selectFilterHandler}/>
+                        {ShopType[key as keyof typeof ShopType]}
+                    </label>
                 </div>
             ))}
-            <Button name="Применить" onClick={confirmFilterHandler} />
-        </div>
+        </Modal>
     );
 };

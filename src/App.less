@@ -1,11 +1,37 @@
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  background-color: rgb(225, 225, 225);
-  font-family: "Lab Grotesque";
-  height: 100%;
-  width: 100%;
+    background-color: #F8F8FB;
+    font-family: "Lab Grotesque", serif;
+    padding: 0 calc(10px - (100vw - 100%)) 0 0;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+        background-color: #d9d9d9;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: #adadad;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: #C4C4C4;
+    }
+}
+
+.appWrapper {
+    display: flex;
+    justify-content: space-around;
+    height: 100vh;
+}
+
+.appContainer {
+    flex-grow: 1;
+    max-width: 800px;
+    height: 100%;
 }

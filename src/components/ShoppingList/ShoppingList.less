@@ -1,25 +1,24 @@
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
-
-
 .shoppingList {
-  width: 460px;
-  margin: 20px auto;
-  border-radius: 10px;
-  border: 2px solid #808080;
-  padding: 20px;
+    width: 100%;
+    margin: 20px 0;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
 }
 
 .shoppingListHeader {
-  display: flex;
-  align-items: center;
-  padding: 20px 0;
-  margin-bottom: 20px;
-  gap: 20px;
-  position: relative;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+    margin-bottom: 20px;
 }
 
 
@@ -35,26 +34,28 @@
 
 
 .shoppingListTotal {
-  font-size: 16pt;
-  font-weight: bolder;
+    font-size: 16pt;
+    font-weight: bolder;
 }
 
 .addNewItemButton {
-  position: sticky;
-  bottom: 20px;
-  float: right;
-  margin-right: -20px;
+    position: sticky;
+    float: right;
+    bottom: 20px;
+    margin-right: -20px;
+    z-index: 2;
 }
 
 .addNewItemButtonBackground {
-  justify-content: center;
-  display: flex;
-  width: 60px;
-  height: 60px;
-  padding: 10px;
-  border-radius: 50%;
-  background-color: #3498db;
-  color: white;
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  position: relative;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: #3498db;
+    color: white;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

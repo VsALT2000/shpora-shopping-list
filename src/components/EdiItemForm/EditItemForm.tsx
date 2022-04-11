@@ -1,12 +1,11 @@
 import styles from "./EditItemForm.less";
-import { Button } from "../UI/Button";
-import { ProductType, ShopType, UnitType } from "../../types/types";
-import { useEffect, useState } from "react";
-import { AddNewProduct, EditProduct } from "../../models/allProducts/ProductsStore";
+import {ProductType, ShopType, UnitType} from "../../types/types";
+import React, {useEffect, useRef, useState} from "react";
+import {AddNewProduct, EditProduct} from "../../models/allProducts/ProductsStore";
 import {ChangeFilter} from "../../models/filteredProducts/FilteredProductStore"
-import { $NewProductId } from "../../models/allProducts/ProductsCountStore";
-import { useStore } from "effector-react";
-import { isValidAmount } from "../../utils/Utils";
+import {$NewProductId} from "../../models/allProducts/ProductsCountStore";
+import {useStore} from "effector-react";
+import Modal from "../Common/Modal/Modal";
 
 interface EditItemFormProps {
     onCloseForm: () => void;
@@ -14,158 +13,98 @@ interface EditItemFormProps {
 }
 
 export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
-
     const [editForm, setEditForm] = useState(false);
-
     const newProductId = useStore($NewProductId);
+    const name: React.RefObject<HTMLInputElement> = useRef(null);
+    const amount: React.RefObject<HTMLInputElement> = useRef(null);
+    const price: React.RefObject<HTMLInputElement> = useRef(null);
+    const shop: React.RefObject<HTMLSelectElement> = useRef(null);
+    const unit: React.RefObject<HTMLSelectElement> = useRef(null);
 
-    const [product, setProduct] = useState<ProductType>({
-        name: "",
-        id: newProductId,
-        date: new Date(),
-        amount: 1,
-        bought: false,
-        price: undefined,
-    });
-
-    const addNewProductHandler = (event: React.SyntheticEvent) => {
+    const addNewProductHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        const product: ProductType = {
+            name: name.current?.value ? name.current.value : "",
+            id: newProductId,
+            date: new Date(),
+            amount: amount.current?.value ? Number(amount.current.value) : 0,
+            bought: false,
+            price: price.current?.value ? Number(price.current.value) : undefined,
+            shop: shop.current?.value ? ShopType[shop.current.value as keyof typeof ShopType] : undefined,
+            unit: unit.current?.value ? UnitType[unit.current.value as keyof typeof UnitType] : UnitType.piece,
+        }
         AddNewProduct(product);
         ChangeFilter([]);
         props.onCloseForm();
     };
 
-    const editProductHandler = (event: React.SyntheticEvent) => {
+    const editProductHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        EditProduct({
-            id: product.id,
-            payload: {
-                name: product.name,
-                price: product.price,
-                shop: product.shop,
-                amount: product.amount,
-                unit: product.unit,
-            },
-        });
+        if (props.productData) {
+            const payload: Partial<Omit<ProductType, "id" | "date" | "bought">> = {}
+            if (!!name.current?.value) payload.name = name.current.value;
+            if (!!amount.current?.value) payload.amount = Number(amount.current.value);
+            payload.price = Number(price.current?.value) || undefined;
+            payload.shop = ShopType[shop.current?.value as keyof typeof ShopType] || undefined;
+            payload.unit = UnitType[unit.current?.value as keyof typeof UnitType];
+
+            if (Object.keys(payload).length)
+                EditProduct({
+                    id: props.productData?.id,
+                    payload: payload,
+                });
+        }
         props.onCloseForm();
     };
 
     useEffect(() => {
         if (props.productData) {
-            setProduct(props.productData);
             setEditForm(true);
         }
     }, []);
-
-    const [amountError, setAmountError] = useState(false);
-
-    const nameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setProduct((prevState) => {
-            return { ...prevState, name: event.target.value };
-        });
-    };
-
-    const amountChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (isValidAmount(event.target.value)) {
-            setAmountError(false);
-        } else {
-            setAmountError(true);
-        }
-        setProduct((prevState) => {
-            return { ...prevState, amount: Number(event.target.value) };
-        });
-    };
-
-    const priceChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.value.length > 0) {
-            setProduct((prevState) => {
-                return { ...prevState, price: Number(event.target.value) };
-            });
-        } else {
-            setProduct((prevState) => {
-                return { ...prevState, price: undefined };
-            });
-        }
-    };
-
-    const selectShopHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        if (Object.keys(ShopType).includes(event.target.value)) {
-            setProduct((prevState) => {
-                return { ...prevState, shop: ShopType[event.target.value as keyof typeof ShopType] };
-            });
-        } else {
-            setProduct((prevState) => {
-                return { ...prevState, shop: undefined };
-            });
-        }
-    };
-
-    const selectUnitHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        if (Object.keys(UnitType).includes(event.target.value)) {
-            setProduct((prevState) => {
-                return { ...prevState, unit: UnitType[event.target.value as keyof typeof UnitType] };
-            });
-        } else {
-            setProduct((prevState) => {
-                delete prevState.unit;
-                return { ...prevState };
-            });
-        }
-    };
 
     const backdropClickHandler = (event: React.SyntheticEvent) => {
         event.stopPropagation();
         props.onCloseForm();
     };
 
-    let selectedShop: string | undefined;
-    if (product.shop) {
-        selectedShop = Object.keys(ShopType).find((key) => ShopType[key as keyof typeof ShopType] === product.shop);
-    }
+    let selectedShop = Object.keys(ShopType).find((key) => ShopType[key as keyof typeof ShopType] === props.productData?.shop);
+    let selectedUnit = Object.keys(UnitType).find((key) => UnitType[key as keyof typeof UnitType] === props.productData?.unit);
 
-    let selectedUnits: string | undefined;
-    if (product.unit) {
-        selectedUnits = Object.keys(UnitType).find((key) => UnitType[key as keyof typeof UnitType] === product.unit);
-    }
-
-    
     return (
-        <div className={styles.background}>
-            <form className={styles.closedForm} onSubmit={editForm ? editProductHandler : addNewProductHandler}>
+        <form onSubmit={editForm ? editProductHandler : addNewProductHandler}>
+            <Modal
+                header={editForm ? "Редактирование" : "Добавить товар"}
+                nameButton={editForm ? 'Применить' : 'Добавить'}
+                onAbort={backdropClickHandler}
+            >
                 <div className={styles.editItemForm}>
-                    <h1>{editForm ?"Редактирование": "Добавить товар" }</h1>
-                    <label>*Название</label>
-                    <input type="text" value={product.name} onChange={nameChangeHandler} />
-
-                    <label>*Кол-во</label>
-                    <input className={`${amountError && styles.error}`} type="number" value={product.amount} onChange={amountChangeHandler} />
-
+                    <label>{editForm ? "" : "*"}Название</label>
+                    <input type="text" ref={name} required={!editForm} defaultValue={props.productData?.name}/>
+                    <label>{editForm ? "" : "*"}Кол-во</label>
+                    <input type="number" min={1} step={1} ref={amount} defaultValue={props.productData?.amount}
+                           required={!editForm}/>
                     <label>Единицы измерения</label>
-                    <select onChange={selectUnitHandler} value={selectedUnits}>
-                        <option>Выбери</option>
+                    <select ref={unit} defaultValue={selectedUnit}>
                         {Object.keys(UnitType).map((key) => (
                             <option value={key} key={key}>
                                 {UnitType[key as keyof typeof UnitType]}
                             </option>
                         ))}
                     </select>
-
                     <label>Цена за единицу</label>
-                    <input type="number" value={product.price ? product.price : ''} onChange={priceChangeHandler} step="0.01" />
-
+                    <input type="number" ref={price} min={0.01} step={0.01} defaultValue={props.productData?.price}/>
                     <label>Магазин</label>
-                    <select onChange={selectShopHandler} value={selectedShop}>
-                        <option value={"none"}>Выбери</option>
+                    <select ref={shop} defaultValue={selectedShop}>
+                        <option>Не выбрано</option>
                         {Object.keys(ShopType).map((key) => (
                             <option value={key} key={key}>
                                 {ShopType[key as keyof typeof ShopType]}
                             </option>
                         ))}
                     </select>
-                    <Button name={editForm ? 'Применить': 'Добавить'} />
                 </div>
-            </form>
-            <div className={styles.backdrop} onClick={backdropClickHandler}></div>
-        </div>
+            </Modal>
+        </form>
     );
 };
