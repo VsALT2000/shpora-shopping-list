@@ -96,7 +96,7 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
                     <input type="number" ref={price} min={0.01} step={0.01} defaultValue={props.productData?.price}/>
                     <label>Магазин</label>
                     <select ref={shop} defaultValue={selectedShop}>
-                        <option value={undefined}>Не выбрано</option>
+                        <option>Не выбрано</option>
                         {Object.keys(ShopType).map((key) => (
                             <option value={key} key={key}>
                                 {ShopType[key as keyof typeof ShopType]}
