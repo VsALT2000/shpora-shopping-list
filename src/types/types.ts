@@ -1,3 +1,11 @@
+export enum SortByType {
+    firstNew = "Сначала новые",
+    firstOld = "Сначала старые",
+    firstCheap = "Сначала дешёвые",
+    firstExpensive = "Сначала дорогие",
+    alphabetically = "По наименованию",
+}
+
 export enum ShopType {
     pyaterochka = "Пятёрочка",
     verno = "Верный",

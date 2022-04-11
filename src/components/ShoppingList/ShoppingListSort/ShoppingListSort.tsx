@@ -1,11 +1,11 @@
 import React, {useState} from "react";
-import {sortOrderEnum} from '../ShoppingList'
 import Modal from "../../Common/Modal/Modal";
 import classes from './ShoppingListSort.less';
+import {SortByType} from "../../../types/types";
 
 interface SortProps {
-    onChangeSortOrder: (a: sortOrderEnum) => void;
-    currentSortOrder: sortOrderEnum;
+    onChangeSortOrder: (a: SortByType) => void;
+    currentSortOrder: SortByType;
     onAbort: () => void;
 }
 
@@ -13,7 +13,7 @@ export const ShoppingListSort: React.FC<SortProps> = (props) => {
     const [selectedSortOrder, setSelectedSortOrder] = useState(props.currentSortOrder);
 
     const sortChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedSortOrder(event.target.value as sortOrderEnum)
+        setSelectedSortOrder(event.target.value as SortByType)
     }
 
     const confirmSortOrderHandler = (event: React.SyntheticEvent) => {
@@ -27,14 +27,14 @@ export const ShoppingListSort: React.FC<SortProps> = (props) => {
             onApply={confirmSortOrderHandler}
             onAbort={props.onAbort}
         >
-            {Object.keys(sortOrderEnum).map((key) => (
+            {Object.keys(SortByType).map((key) => (
                 <div key={key}>
                     <label>
                         <input className={classes.SortRadio} type="radio" id={key} name='order'
-                               value={sortOrderEnum[key as keyof typeof sortOrderEnum]}
-                               defaultChecked={sortOrderEnum[key as keyof typeof sortOrderEnum] === selectedSortOrder}
+                               value={SortByType[key as keyof typeof SortByType]}
+                               defaultChecked={SortByType[key as keyof typeof SortByType] === selectedSortOrder}
                                onChange={sortChangeHandler}/>
-                        {sortOrderEnum[key as keyof typeof sortOrderEnum]}
+                        {SortByType[key as keyof typeof SortByType]}
                     </label>
                 </div>))}
         </Modal>

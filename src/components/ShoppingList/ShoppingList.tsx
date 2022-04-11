@@ -8,14 +8,7 @@ import {ShoppingListFilter} from "./ShoppingListFilter/ShoppingListFilter";
 import {ShoppingListSort} from "./ShoppingListSort/ShoppingListSort";
 import {sortingFunctions} from "../../utils/Utils";
 import {AddNewItemIcon, FilterIcon, SortIcon} from "../Common/Icons/Icons";
-
-export enum sortOrderEnum {
-    new = "Сначала новые",
-    old = "Сначала старые",
-    alph = "По алфавиту",
-    cheap = "Сначала недорогие",
-    exp = "Сначала дорогие",
-}
+import {SortByType} from "../../types/types";
 
 interface ShoppingListProps {
     onOpenForm: (state: boolean) => void;
@@ -24,10 +17,10 @@ interface ShoppingListProps {
 export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
     const [openedSort, setOpenedSort] = useState(false);
     const [openedFilter, setOpenedFilter] = useState(false);
-    const [sortOrder, setSortOrder] = useState<sortOrderEnum>(sortOrderEnum.new);
+    const [sortOrder, setSortOrder] = useState<SortByType>(SortByType.firstNew);
 
-    const changeSortOrderHandler = (newSortOrder: sortOrderEnum) => {
-        setSortOrder(newSortOrder);
+    const changeSortOrderHandler = (sortByType: SortByType) => {
+        setSortOrder(sortByType);
         setOpenedSort(false);
     };
 
