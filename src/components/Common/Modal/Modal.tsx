@@ -1,10 +1,9 @@
-import React, {ReactElement} from 'react';
+import React from 'react';
 import {Button} from "../FormControl/Button";
 import classes from './Modal.less';
 
 interface PropsTypes {
     header: string
-    body: ReactElement
     nameButton?: string
     onApply?: (event: React.SyntheticEvent) => void
     onAbort: (event: React.SyntheticEvent) => void
@@ -15,8 +14,8 @@ const Modal: React.FC<PropsTypes> = (props) => {
         <div className={classes.modalWrapper}>
             <div className={classes.modalContainer}>
                 <h1>{props.header}</h1>
-                {props.body}
-                <Button name={props.nameButton || "Применить"} onClick={props.onApply}/>
+                {props.children}
+                <Button onClick={props.onApply}>{props.nameButton || "Применить"}</Button>
             </div>
             <div className={classes.backdrop} onClick={props.onAbort}/>
         </div>

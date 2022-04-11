@@ -32,22 +32,19 @@ export const ShoppingListFilter: React.FC<FilterProps> = (props) => {
     return (
         <Modal
             header={'Фильтр'}
-            body={
-                <div>
-                    {Object.keys(ShopType).map((key) => (
-                        <div key={key}>
-                            <label>
-                                <input value={key} id={key} type="checkbox"
-                                       defaultChecked={selectedFilter.includes(ShopType[key as keyof typeof ShopType])}
-                                       onChange={selectFilterHandler}/>
-                                {ShopType[key as keyof typeof ShopType]}
-                            </label>
-                        </div>
-                    ))}
-                </div>
-            }
             onApply={confirmFilterHandler}
             onAbort={props.onAbort}
-        />
+        >
+            {Object.keys(ShopType).map((key) => (
+                <div key={key}>
+                    <label>
+                        <input value={key} id={key} type="checkbox"
+                               defaultChecked={selectedFilter.includes(ShopType[key as keyof typeof ShopType])}
+                               onChange={selectFilterHandler}/>
+                        {ShopType[key as keyof typeof ShopType]}
+                    </label>
+                </div>
+            ))}
+        </Modal>
     );
 };

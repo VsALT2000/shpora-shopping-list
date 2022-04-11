@@ -75,7 +75,10 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
         <form onSubmit={editForm ? editProductHandler : addNewProductHandler}>
             <Modal
                 header={editForm ? "Редактирование" : "Добавить товар"}
-                body={<div className={styles.editItemForm}>
+                nameButton={editForm ? 'Применить' : 'Добавить'}
+                onAbort={backdropClickHandler}
+            >
+                <div className={styles.editItemForm}>
                     <label>{editForm ? "" : "*"}Название</label>
                     <input type="text" ref={name} required={!editForm} defaultValue={props.productData?.name}/>
                     <label>{editForm ? "" : "*"}Кол-во</label>
@@ -91,7 +94,7 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
                         ))}
                     </select>
                     <label>Цена за единицу</label>
-                    <input type="number" ref={price} step="0.01" defaultValue={props.productData?.price}/>
+                    <input type="number" ref={price} min={0.01} step={0.01} defaultValue={props.productData?.price}/>
                     <label>Магазин</label>
                     <select ref={shop} defaultValue={selectedShop}>
                         <option value={""}>Выбери</option>
@@ -101,10 +104,8 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
                             </option>
                         ))}
                     </select>
-                </div>}
-                nameButton={editForm ? 'Применить' : 'Добавить'}
-                onAbort={backdropClickHandler}
-            />
+                </div>
+            </Modal>
         </form>
     );
 };

@@ -23,22 +23,19 @@ export const ShoppingListSort: React.FC<SortProps> = (props) => {
     return (
         <Modal
             header={'Сортировка'}
-            body={
-                <div>
-                    {Object.keys(sortOrderEnum).map((key) => (
-                        <div key={key}>
-                            <label>
-                                <input type="radio" id={key} name='order'
-                                       value={sortOrderEnum[key as keyof typeof sortOrderEnum]}
-                                       defaultChecked={sortOrderEnum[key as keyof typeof sortOrderEnum] === selectedSortOrder}
-                                       onChange={sortChangeHandler}/>
-                                {sortOrderEnum[key as keyof typeof sortOrderEnum]}
-                            </label>
-                        </div>))}
-                </div>
-            }
             onApply={confirmSortOrderHandler}
             onAbort={props.onAbort}
-        />
+        >
+            {Object.keys(sortOrderEnum).map((key) => (
+                <div key={key}>
+                    <label>
+                        <input type="radio" id={key} name='order'
+                               value={sortOrderEnum[key as keyof typeof sortOrderEnum]}
+                               defaultChecked={sortOrderEnum[key as keyof typeof sortOrderEnum] === selectedSortOrder}
+                               onChange={sortChangeHandler}/>
+                        {sortOrderEnum[key as keyof typeof sortOrderEnum]}
+                    </label>
+                </div>))}
+        </Modal>
     );
 };
