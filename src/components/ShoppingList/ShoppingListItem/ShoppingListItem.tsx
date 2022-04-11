@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import {ProductType} from "../../../types/types";
 import {Actions} from "./Actions/Actions";
 import {BuyingProduct} from "../../../models/allProducts/ProductsStore";
+import {ArrowIcon} from "../../Common/Icons/Icons";
 
 
 export const ShoppingListItem: React.FC<ProductType> = (props) => {
@@ -30,11 +31,7 @@ export const ShoppingListItem: React.FC<ProductType> = (props) => {
                         | {props.amount}{props.unit}{props.price && ` ${props.price * props.amount}₽`}
                     </span>
                     )}
-                    <svg className={`${styles.arrow} ${!props.bought && !closedOptions && styles.arrowReverse}`} width="12" height="8"
-                         viewBox="0 0 12 8" fill="none">
-                        <path d="M11 1.75L6 7L0.999999 1.75" stroke="#8d8d8d" strokeWidth="2" strokeLinecap="round"
-                              strokeLinejoin="round"/>
-                    </svg>
+                    <ArrowIcon className={`${styles.arrow} ${!props.bought && !closedOptions && styles.arrowReverse}`}/>
                     <div>
                         <p className={options}>Количество: {props.amount}</p>
                         <p className={options}>Дата добавления:</p>
