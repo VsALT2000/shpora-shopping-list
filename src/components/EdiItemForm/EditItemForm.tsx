@@ -31,7 +31,7 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
             bought: false,
             price: price.current?.value ? Number(price.current.value) : undefined,
             shop: shop.current?.value ? ShopType[shop.current.value as keyof typeof ShopType] : undefined,
-            unit: unit.current?.value ? UnitType[unit.current.value as keyof typeof UnitType] : undefined,
+            unit: unit.current?.value ? UnitType[unit.current.value as keyof typeof UnitType] : UnitType.piece,
         }
         AddNewProduct(product);
         ChangeFilter([]);
@@ -44,9 +44,9 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
             const payload: Partial<Omit<ProductType, "id" | "date" | "bought">> = {}
             if (!!name.current?.value) payload.name = name.current.value;
             if (!!amount.current?.value) payload.amount = Number(amount.current.value);
-            if (!!price.current?.value) payload.price = Number(price.current.value);
-            if (!!shop.current?.value) payload.shop = ShopType[shop.current.value as keyof typeof ShopType];
-            if (!!unit.current?.value) payload.unit = UnitType[unit.current.value as keyof typeof UnitType];
+            payload.price = Number(price.current?.value) || undefined;
+            payload.shop = ShopType[shop.current?.value as keyof typeof ShopType] || undefined;
+            payload.unit = UnitType[unit.current?.value as keyof typeof UnitType];
 
             if (Object.keys(payload).length)
                 EditProduct({
@@ -86,7 +86,6 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
                            required={!editForm}/>
                     <label>Единицы измерения</label>
                     <select ref={unit} defaultValue={selectedUnit}>
-                        <option value={""}>Выбери</option>
                         {Object.keys(UnitType).map((key) => (
                             <option value={key} key={key}>
                                 {UnitType[key as keyof typeof UnitType]}
@@ -97,7 +96,7 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
                     <input type="number" ref={price} min={0.01} step={0.01} defaultValue={props.productData?.price}/>
                     <label>Магазин</label>
                     <select ref={shop} defaultValue={selectedShop}>
-                        <option value={""}>Выбери</option>
+                        <option value={undefined}>Не выбрано</option>
                         {Object.keys(ShopType).map((key) => (
                             <option value={key} key={key}>
                                 {ShopType[key as keyof typeof ShopType]}
