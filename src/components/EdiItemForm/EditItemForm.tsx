@@ -67,7 +67,7 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
                                 </option>
                             ))}
                         </Select>
-                        <Input name="price" label={"Цена за единицу"} type="number" min={0.01} step={1}/>
+                        <Input name="price" label={"Цена за единицу"} type="number" min={0.01} step={0.01}/>
                         <Select name="shop" label={"Магазин"}>
                             <option value={"Не выбрано"}>Не выбрано</option>
                             {Object.values(ShopType).map((value) => (
