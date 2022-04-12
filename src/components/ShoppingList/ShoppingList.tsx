@@ -8,6 +8,7 @@ import {ShoppingListFilter} from "./ShoppingListFilter/ShoppingListFilter";
 import {ShoppingListSort} from "./ShoppingListSort/ShoppingListSort";
 import {sortingFunctions} from "../../utils/Utils";
 import {AddNewItemIcon, FilterIcon, SortIcon} from "../Common/Icons/Icons";
+import { $TotalSumStore } from "../../models/allProducts/TotalSumStore";
 
 export enum sortOrderEnum {
     new = "Сначала новые",
@@ -50,7 +51,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
     };
 
     const products = useStore($products);
-    const total = products.reduce((sum, {price, amount}) => (price ? sum + price * amount : sum), 0);
+    const total = useStore($TotalSumStore);
 
     return (
         <div className={styles.shoppingList}>
