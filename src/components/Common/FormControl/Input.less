@@ -1,0 +1,31 @@
+.Input {
+    padding: 10px 5px;
+    border: 0;
+    border-radius: 2px;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 2px #ebebeb;
+    font-size: 16pt;
+    outline: none;
+
+    &.error {
+        box-shadow: 0 0 0 2px #f03b36 !important;
+    }
+
+    &:focus {
+        box-shadow: 0 0 0 2px #015ccb !important;
+    }
+
+    &:hover {
+        box-shadow: 0 0 0 2px rgb(0 0 0 / 16%);
+    }
+}
+
+.ErrorMessage {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #f03b36;
+}
+
+.Input::placeholder {
+    color: #C4C4C4;
+}
