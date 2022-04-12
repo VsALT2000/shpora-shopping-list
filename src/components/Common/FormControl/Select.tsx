@@ -4,13 +4,17 @@ import classes from './Select.less';
 
 interface PropsType {
     name: string;
+    label: string;
 }
 
 const Select: React.FC<PropsType> = (props) => {
     return (
-        <Field as="select" name={props.name} className={classes.Select}>
-            {props.children}
-        </Field>
+        <>
+            <label className={classes.Label}>{props.label}</label>
+            <Field as="select" name={props.name} className={classes.Select}>
+                {props.children}
+            </Field>
+        </>
     );
 };
 

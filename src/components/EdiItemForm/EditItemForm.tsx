@@ -58,22 +58,17 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
                     onAbort={backdropClickHandler}
                 >
                     <div className={styles.editItemForm}>
-                        <label>{editForm ? "" : "*"}Название</label>
-                        <Input type="text" name="name"/>
-                        <label>{editForm ? "" : "*"}Кол-во</label>
-                        <Input name="amount" type="number" min={1} step={1}/>
-                        <label>Единицы измерения</label>
-                        <Select name="unit">
+                        <Input name="name" label={`${editForm ? "" : "*"}Название`} type="text"/>
+                        <Input name="amount" label={`${editForm ? "" : "*"}Кол-во`} type="number" min={1} step={1}/>
+                        <Select name="unit" label={"Единицы измерения"}>
                             {Object.values(UnitType).map((value) => (
                                 <option value={value} key={value}>
                                     {value}
                                 </option>
                             ))}
                         </Select>
-                        <label>Цена за единицу</label>
-                        <Input type="number" name="price" min={0.01} step={1}/>
-                        <label>Магазин</label>
-                        <Select name="shop">
+                        <Input name="price" label={"Цена за единицу"} type="number" min={0.01} step={1}/>
+                        <Select name="shop" label={"Магазин"}>
                             <option value={"Не выбрано"}>Не выбрано</option>
                             {Object.values(ShopType).map((value) => (
                                 <option value={value} key={value}>

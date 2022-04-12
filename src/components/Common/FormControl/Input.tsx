@@ -4,6 +4,7 @@ import React from "react";
 
 interface PropsType {
     name: string;
+    label: string;
     type: "text" | "number";
     placeholder?: string;
     min?: number;
@@ -14,7 +15,8 @@ const Input: React.FC<PropsType> = ({...props}) => {
     const [field, meta] = useField(props);
 
     return (
-        <div>
+        <>
+            <label className={classes.Label}>{props.label}</label>
             <input className={`${classes.Input} ${
                 meta.touched && meta.error && classes.error
             }`} {...field} {...props}/>
@@ -23,7 +25,7 @@ const Input: React.FC<PropsType> = ({...props}) => {
                     {meta.error}
                 </div>
             ) : null}
-        </div>
+        </>
     );
 };
 
