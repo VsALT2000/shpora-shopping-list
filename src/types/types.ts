@@ -23,6 +23,19 @@ export type ProductType = {
     bought: boolean,
 };
 
+export type ProductsListType = {
+    name: string,
+    id: number,
+    archived?: boolean,
+    boughtProducts: number[],
+    pendingProducts: number[],
+};
+
+export type AddProductType = {
+    id: number,
+    product: ProductType,
+}
+
 export type EditProductType = {
     id: number,
     payload: Partial<Omit<ProductType, "id" | "date" | "bought">>
