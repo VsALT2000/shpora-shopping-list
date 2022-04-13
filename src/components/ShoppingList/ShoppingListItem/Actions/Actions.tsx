@@ -7,6 +7,7 @@ import {DeleteIcon, EditIcon, KebabIcon} from "../../../Common/Icons/Icons";
 
 interface ActionsProps {
     product: ProductType;
+    closeOptions: () => void;
 }
 
 export const Actions: React.FC<ActionsProps> = (props) => {
@@ -20,6 +21,7 @@ export const Actions: React.FC<ActionsProps> = (props) => {
 
     const clickKebabHandler = (event: React.SyntheticEvent) => {
         event.stopPropagation();
+        props.closeOptions();
         setOpenedKebab(false);
         window.addEventListener("click", closeKebab);
     };

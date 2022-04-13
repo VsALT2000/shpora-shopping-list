@@ -1,3 +1,5 @@
+@import "../../../GlobalStyle";
+
 .modalWrapper {
     position: fixed;
     top: 0;
@@ -10,6 +12,16 @@
     height: 100%;
     width: 100%;
     z-index: 5;
+
+    &::after {
+        content: "";
+        min-width: 10px;
+    }
+
+    &::before {
+        content: "";
+        min-width: 10px;
+    }
 }
 
 .modalContainer {
@@ -21,7 +33,7 @@
     padding: 20px 30px;
     background-color: #ffffff;
     color: black;
-    font-size: 16pt;
+    font-size: var(--font-size-medium);
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 10px 30px 0 rgba(0, 0, 0, 0.19);
 
     & h1 {

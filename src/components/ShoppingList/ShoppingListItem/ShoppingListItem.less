@@ -1,12 +1,9 @@
-@import "../../../GlobalStyle";
-
 .itemWrapper {
     display: flex;
     justify-content: space-between;
     margin: 20px 0;
     border-radius: 10px;
     border: 1px solid #d9d9d9;
-    min-width: 390px;
     background-color: #ffffff;
     overflow: hidden;
 }
@@ -22,7 +19,7 @@
     justify-content: start;
     align-items: start;
     padding: 20px 20px;
-    font-size: 18pt;
+    font-size: var(--font-size-large);
     user-select: none;
     box-sizing: border-box;
 
@@ -44,6 +41,8 @@
 
 .shoppingListItemContent {
     padding-left: 10px;
+    width: 100%;
+    word-break: break-word;
 }
 
 .shoppingListItemContent label {
@@ -52,19 +51,19 @@
 
 .shoppingListItemOptions {
     color: rgb(97, 97, 97);
-    transition: height 0.5s, margin-top 0.5s, color 0.5s;
-    font-size: 14pt;
+    transition: font-size 0.5s, margin-top 0.5s, color 0.5s;
+    width: 100%;
 }
 
 .openedOptions {
-    margin-top: 20px;
-    height: 1em;
+    margin-top: 25px;
+    font-size: var(--font-size-small);
     color: rgb(97, 97, 97);
 }
 
 .closedOptions {
     margin-top: 0;
-    height: 0;
+    font-size: 0;
     color: rgba(255, 255, 255, 0);
     overflow: hidden;
 }
@@ -77,3 +76,5 @@
     transition: transform 0.5s ease-out;
     padding-left: 8px;
 }
+
+@import "../../../GlobalStyle";

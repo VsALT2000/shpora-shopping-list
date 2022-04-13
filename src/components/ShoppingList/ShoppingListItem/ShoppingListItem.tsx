@@ -43,7 +43,7 @@ export const ShoppingListItem: React.FC<ProductType> = (props) => {
                 </div>
             </div>
             <div>
-                <Actions product={props}/>
+                <Actions product={props} closeOptions={() => setClosedOptions(true)}/>
             </div>
         </div>
     );
