@@ -1,5 +1,5 @@
 import {sample} from "effector";
-import {AddNewProduct} from "./ProductsStore";
+import {$store, AddNewProduct} from "./ProductsStore";
 import {$NewProductId, Increment} from "./ProductsCountStore";
 import {$TotalSumStore, GetTotalSum} from "./TotalSumStore"
 import { $products } from "../filteredProducts/FilteredProductStore";
