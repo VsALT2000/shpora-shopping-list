@@ -21,6 +21,7 @@ export type ProductType = {
     unit: UnitType,
     shop?: ShopType,
     bought: boolean,
+    cost: number,
 };
 
 export type EditProductType = {
