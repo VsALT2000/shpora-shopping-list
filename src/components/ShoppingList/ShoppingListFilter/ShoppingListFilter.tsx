@@ -4,6 +4,7 @@ import {ChangeFilter, $activeFilters} from "../../../models/filteredProducts/Fil
 import {useStore} from "effector-react";
 import Modal from "../../Common/Modal/Modal";
 import classes from './ShoppingListFilter.less';
+import Checkbox from "../../Common/FormControl/Checkbox";
 
 interface FilterProps {
     onCloseFilter: () => void;
@@ -39,7 +40,7 @@ export const ShoppingListFilter: React.FC<FilterProps> = (props) => {
             {Object.keys(ShopType).map((key) => (
                 <div key={key}>
                     <label>
-                        <input className={classes.FilterCheckbox} value={key} id={key} type="checkbox"
+                        <Checkbox value={key} id={key}
                                defaultChecked={selectedFilter.includes(ShopType[key as keyof typeof ShopType])}
                                onChange={selectFilterHandler}/>
                         {ShopType[key as keyof typeof ShopType]}

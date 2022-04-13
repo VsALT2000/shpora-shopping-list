@@ -4,6 +4,7 @@ import {ProductType} from "../../../types/types";
 import {Actions} from "./Actions/Actions";
 import {BuyingProduct} from "../../../models/allProducts/ProductsStore";
 import {ArrowIcon} from "../../Common/Icons/Icons";
+import Checkbox from "../../Common/FormControl/Checkbox";
 
 
 export const ShoppingListItem: React.FC<ProductType> = (props) => {
@@ -23,7 +24,7 @@ export const ShoppingListItem: React.FC<ProductType> = (props) => {
     return (
         <div className={`${props.bought ? styles.boughtProduct : styles.itemWrapper}`}>
             <div className={styles.itemContentLeftPart}>
-                <input type="checkbox" defaultChecked={props.bought} onChange={() => BuyingProduct(props.id)}/>
+                <Checkbox defaultChecked={props.bought} onChange={() => BuyingProduct(props.id)}/>
                 <div className={styles.shoppingListItemContent} onClick={contentClickHandler}>
                     <label>{props.name}</label>
                     {(props.bought || closedOptions) && (
