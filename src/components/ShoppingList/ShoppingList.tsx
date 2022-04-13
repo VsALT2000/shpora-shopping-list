@@ -7,14 +7,17 @@ import {useStore} from "effector-react";
 import {ShoppingListFilter} from "./ShoppingListFilter/ShoppingListFilter";
 import {ShoppingListSort} from "./ShoppingListSort/ShoppingListSort";
 import {sortingFunctions} from "../../utils/Utils";
-import {AddNewItemIcon, FilterIcon, SortIcon} from "../Common/Icons/Icons";
+import {FilterIcon, SortIcon} from "../Common/Icons/Icons";
 import {SortByType} from "../../types/types";
+import {useParams} from "react-router-dom";
+import {EditItemForm} from "../EdiItemForm/EditItemForm";
+import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
 
 interface ShoppingListProps {
     onOpenForm: (state: boolean) => void;
 }
 
-export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
+const ProductList: React.FC<ShoppingListProps> = (props) => {
     const [openedSort, setOpenedSort] = useState(false);
     const [openedFilter, setOpenedFilter] = useState(false);
     const [sortOrder, setSortOrder] = useState<SortByType>(SortByType.firstNew);
@@ -71,11 +74,20 @@ export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
                         <ShoppingListItem {...product} key={product.id}/>
                     ))}
             </div>
-            <div className={styles.addNewItemButton} onClick={() => props.onOpenForm(true)}>
-                <div className={styles.addNewItemButtonBackground}>
-                    <AddNewItemIcon/>
-                </div>
-            </div>
+            <AddNewItemButton onClick={() => props.onOpenForm(true)}/>
         </div>
     );
 };
+
+const ShoppingList = () => {
+    const ShoppingListId = useParams().ShoppingListId;
+    const [openedForm, setOpenedForm] = useState(false);
+    return (
+        <div>
+            <ProductList onOpenForm={() => setOpenedForm(true)}/>
+            {openedForm && <EditItemForm onCloseForm={() => setOpenedForm(false)}/>}
+        </div>
+    );
+}
+
+export default ShoppingList;
