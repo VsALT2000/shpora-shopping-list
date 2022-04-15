@@ -32,7 +32,7 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
         if (props.productData) {
             setEditForm(true);
         }
-    }, []);
+    }, [props.productData]);
 
     const backdropClickHandler = (event: React.SyntheticEvent) => {
         event.stopPropagation();

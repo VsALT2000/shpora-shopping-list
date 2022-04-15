@@ -1,5 +1,5 @@
 import {ShopType} from "../../../types/types";
-import React, {useState} from "react";
+import React from "react";
 import {ChangeFilter, $activeFilters} from "../../../models/filteredProducts/FilteredProductStore";
 import {useStore} from "effector-react";
 import Modal from "../../Common/Modal/Modal";
