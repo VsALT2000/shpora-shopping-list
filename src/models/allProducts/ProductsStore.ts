@@ -1,5 +1,5 @@
 import {createEvent, createStore} from "effector";
-import {EditProductType, ProductType, UnitType} from "../../types/types";
+import {EditProductType, ProductType} from "../../types/types";
 
 export const AddNewProduct = createEvent<ProductType>("AddNewProduct");
 

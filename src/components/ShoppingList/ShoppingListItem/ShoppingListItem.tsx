@@ -4,6 +4,8 @@ import {ProductType} from "../../../types/types";
 import {Actions} from "./Actions/Actions";
 import {BuyingProduct} from "../../../models/allProducts/ProductsStore";
 import {ArrowIcon} from "../../Common/Icons/Icons";
+import Checkbox from "../../Common/FormControl/Checkbox";
+import cn from "classnames";
 
 
 export const ShoppingListItem: React.FC<ProductType> = (props) => {
@@ -19,11 +21,16 @@ export const ShoppingListItem: React.FC<ProductType> = (props) => {
     };
     // @ts-ignore
     const date = new Intl.DateTimeFormat('ru', dateOption).format(props.date)
-    const options = `${styles.shoppingListItemOptions} ${props.bought || closedOptions ? styles.closedOptions : styles.openedOptions}`;
+    const options = cn(styles.shoppingListItemOptions, {
+        [styles.closedOptions]: props.bought || closedOptions,
+        [styles.openedOptions]: !(props.bought || closedOptions)
+    });
     return (
-        <div className={`${props.bought ? styles.boughtProduct : styles.itemWrapper}`}>
+        <div className={cn(styles.itemWrapper, {
+            [styles.boughtProduct]: props.bought
+        })}>
             <div className={styles.itemContentLeftPart}>
-                <input type="checkbox" defaultChecked={props.bought} onChange={() => BuyingProduct(props.id)}/>
+                <Checkbox defaultChecked={props.bought} onChange={() => BuyingProduct(props.id)}/>
                 <div className={styles.shoppingListItemContent} onClick={contentClickHandler}>
                     <label>{props.name}</label>
                     {(props.bought || closedOptions) && (
@@ -31,7 +38,7 @@ export const ShoppingListItem: React.FC<ProductType> = (props) => {
                         | {props.amount}{props.unit}{props.price && ` ${props.price * props.amount}₽`}
                     </span>
                     )}
-                    <ArrowIcon className={`${styles.arrow} ${!props.bought && !closedOptions && styles.arrowReverse}`}/>
+                    <ArrowIcon className={cn(styles.arrow, {[styles.arrowReverse]: !props.bought && !closedOptions})}/>
                     <div>
                         <p className={options}>Количество: {props.amount}</p>
                         <p className={options}>Дата добавления:</p>
@@ -42,7 +49,7 @@ export const ShoppingListItem: React.FC<ProductType> = (props) => {
                 </div>
             </div>
             <div>
-                <Actions product={props}/>
+                <Actions product={props} closeOptions={() => setClosedOptions(true)}/>
             </div>
         </div>
     );

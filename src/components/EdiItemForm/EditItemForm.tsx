@@ -1,110 +1,84 @@
 import styles from "./EditItemForm.less";
 import {ProductType, ShopType, UnitType} from "../../types/types";
-import React, {useEffect, useRef, useState} from "react";
-import {AddNewProduct, EditProduct} from "../../models/allProducts/ProductsStore";
-import {ChangeFilter} from "../../models/filteredProducts/FilteredProductStore"
+import React, {useEffect, useState} from "react";
 import {$NewProductId} from "../../models/allProducts/ProductsCountStore";
 import {useStore} from "effector-react";
 import Modal from "../Common/Modal/Modal";
+import Input from "../Common/FormControl/Input";
+import {Form, Formik} from "formik";
+import {formSubmit} from "./FormSubmit";
+import {validate} from "./FormValidate";
+import Select from "../Common/FormControl/Select";
 
 interface EditItemFormProps {
     onCloseForm: () => void;
     productData?: ProductType;
 }
 
+export interface ValuesType {
+    name: string;
+    id: number;
+    amount: number | string;
+    price: number | string;
+    shop: string;
+    unit: UnitType;
+}
+
 export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
     const [editForm, setEditForm] = useState(false);
     const newProductId = useStore($NewProductId);
-    const name: React.RefObject<HTMLInputElement> = useRef(null);
-    const amount: React.RefObject<HTMLInputElement> = useRef(null);
-    const price: React.RefObject<HTMLInputElement> = useRef(null);
-    const shop: React.RefObject<HTMLSelectElement> = useRef(null);
-    const unit: React.RefObject<HTMLSelectElement> = useRef(null);
-
-    const addNewProductHandler = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const product: ProductType = {
-            name: name.current?.value ? name.current.value : "",
-            id: newProductId,
-            date: new Date(),
-            amount: amount.current?.value ? Number(amount.current.value) : 0,
-            bought: false,
-            price: price.current?.value ? Number(price.current.value) : undefined,
-            shop: shop.current?.value ? ShopType[shop.current.value as keyof typeof ShopType] : undefined,
-            unit: unit.current?.value ? UnitType[unit.current.value as keyof typeof UnitType] : UnitType.piece,
-        }
-        AddNewProduct(product);
-        ChangeFilter([]);
-        props.onCloseForm();
-    };
-
-    const editProductHandler = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        if (props.productData) {
-            const payload: Partial<Omit<ProductType, "id" | "date" | "bought">> = {}
-            if (!!name.current?.value) payload.name = name.current.value;
-            if (!!amount.current?.value) payload.amount = Number(amount.current.value);
-            payload.price = Number(price.current?.value) || undefined;
-            payload.shop = ShopType[shop.current?.value as keyof typeof ShopType] || undefined;
-            payload.unit = UnitType[unit.current?.value as keyof typeof UnitType];
-
-            if (Object.keys(payload).length)
-                EditProduct({
-                    id: props.productData?.id,
-                    payload: payload,
-                });
-        }
-        props.onCloseForm();
-    };
 
     useEffect(() => {
         if (props.productData) {
             setEditForm(true);
         }
-    }, []);
+    }, [props.productData]);
 
     const backdropClickHandler = (event: React.SyntheticEvent) => {
         event.stopPropagation();
         props.onCloseForm();
     };
 
-    let selectedShop = Object.keys(ShopType).find((key) => ShopType[key as keyof typeof ShopType] === props.productData?.shop);
-    let selectedUnit = Object.keys(UnitType).find((key) => UnitType[key as keyof typeof UnitType] === props.productData?.unit);
+    const initialValues = {
+        name: props.productData?.name || '',
+        id: props.productData === undefined ? newProductId : props.productData.id,
+        amount: props.productData?.amount || '',
+        price: props.productData?.price || '',
+        shop: props.productData?.shop || "",
+        unit: props.productData?.unit || UnitType.piece,
+    }
 
     return (
-        <form onSubmit={editForm ? editProductHandler : addNewProductHandler}>
-            <Modal
-                header={editForm ? "Редактирование" : "Добавить товар"}
-                nameButton={editForm ? 'Применить' : 'Добавить'}
-                onAbort={backdropClickHandler}
-            >
-                <div className={styles.editItemForm}>
-                    <label>{editForm ? "" : "*"}Название</label>
-                    <input type="text" ref={name} required={!editForm} defaultValue={props.productData?.name}/>
-                    <label>{editForm ? "" : "*"}Кол-во</label>
-                    <input type="number" min={1} step={1} ref={amount} defaultValue={props.productData?.amount}
-                           required={!editForm}/>
-                    <label>Единицы измерения</label>
-                    <select ref={unit} defaultValue={selectedUnit}>
-                        {Object.keys(UnitType).map((key) => (
-                            <option value={key} key={key}>
-                                {UnitType[key as keyof typeof UnitType]}
-                            </option>
-                        ))}
-                    </select>
-                    <label>Цена за единицу</label>
-                    <input type="number" ref={price} min={0.01} step={0.01} defaultValue={props.productData?.price}/>
-                    <label>Магазин</label>
-                    <select ref={shop} defaultValue={selectedShop}>
-                        <option>Не выбрано</option>
-                        {Object.keys(ShopType).map((key) => (
-                            <option value={key} key={key}>
-                                {ShopType[key as keyof typeof ShopType]}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            </Modal>
-        </form>
+        <Formik onSubmit={(values => formSubmit(values, editForm, props.onCloseForm))} initialValues={initialValues}
+                validate={(values) => validate(values, editForm)}>
+            <Form>
+                <Modal
+                    header={editForm ? "Редактирование" : "Добавить товар"}
+                    nameButton={editForm ? 'Применить' : 'Добавить'}
+                    onAbort={backdropClickHandler}
+                >
+                    <div className={styles.editItemForm}>
+                        <Input name="name" label={`${editForm ? "" : "*"}Название`} type="text"/>
+                        <Input name="amount" label={`${editForm ? "" : "*"}Кол-во`} type="number" min={1} step={1}/>
+                        <Select name="unit" label={"Единицы измерения"}>
+                            {Object.values(UnitType).map((value) => (
+                                <option value={value} key={value}>
+                                    {value}
+                                </option>
+                            ))}
+                        </Select>
+                        <Input name="price" label={"Цена за единицу"} type="number" min={0.01} step={0.01}/>
+                        <Select name="shop" label={"Магазин"}>
+                            <option value={"Не выбрано"}>Не выбрано</option>
+                            {Object.values(ShopType).map((value) => (
+                                <option value={value} key={value}>
+                                    {value}
+                                </option>
+                            ))}
+                        </Select>
+                    </div>
+                </Modal>
+            </Form>
+        </Formik>
     );
 };
