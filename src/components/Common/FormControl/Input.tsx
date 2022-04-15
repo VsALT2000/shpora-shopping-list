@@ -11,7 +11,7 @@ interface Props {
     step?: number;
 }
 
-const Input: React.FC<Props> = ({...props}) => {
+const Input: React.FC<Props> = (props) => {
     const [field, meta] = useField(props);
 
     return (
