@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button} from "../FormControl/Button";
-import classes from './Modal.less';
+import styles from './Modal.less';
 
 interface PropsTypes {
     header: string
@@ -11,13 +11,13 @@ interface PropsTypes {
 
 const Modal: React.FC<PropsTypes> = (props) => {
     return (
-        <div className={classes.modalWrapper}>
-            <div className={classes.modalContainer}>
+        <div className={styles.modalWrapper}>
+            <div className={styles.modalContainer}>
                 <h1>{props.header}</h1>
                 {props.children}
                 <Button onClick={props.onApply}>{props.nameButton || "Применить"}</Button>
             </div>
-            <div className={classes.backdrop} onClick={props.onAbort}/>
+            <div className={styles.backdrop} onClick={props.onAbort}/>
         </div>
     );
 };

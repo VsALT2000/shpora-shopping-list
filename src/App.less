@@ -1,17 +1,33 @@
+@import "Variables";
+
 * {
     margin: 0;
     padding: 0;
 }
 
+html {
+    font-size: 16pt;
+
+    @media (max-width: @window-width-480) {
+        font-size: 12pt;
+    }
+}
+
 body {
     background-color: #F8F8FB;
     font-family: "Lab Grotesque", serif;
-    padding: 0 calc(10px - (100vw - 100%)) 0 0;
+    overflow: hidden;
+}
+
+.appWrapper {
+    display: flex;
+    justify-content: space-around;
+    overflow-y: scroll;
+    height: 100vh;
 
     &::-webkit-scrollbar {
         width: 10px;
         height: 10px;
-        background-color: #d9d9d9;
     }
 
     &::-webkit-scrollbar-thumb:hover {
@@ -22,12 +38,16 @@ body {
         border-radius: 5px;
         background-color: #C4C4C4;
     }
-}
 
-.appWrapper {
-    display: flex;
-    justify-content: space-around;
-    height: 100vh;
+    &:before {
+        content: "";
+        min-width: 25px;
+    }
+
+    &::after {
+        content: "";
+        min-width: 25px;
+    }
 }
 
 .appContainer {

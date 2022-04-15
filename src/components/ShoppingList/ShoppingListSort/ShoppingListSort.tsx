@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Modal from "../../Common/Modal/Modal";
-import classes from './ShoppingListSort.less';
 import {SortByType} from "../../../types/types";
+import styles from './ShoppingListSort.less';
 
 interface SortProps {
     onChangeSortOrder: (a: SortByType) => void;
@@ -30,7 +30,7 @@ export const ShoppingListSort: React.FC<SortProps> = (props) => {
             {Object.keys(SortByType).map((key) => (
                 <div key={key}>
                     <label>
-                        <input className={classes.SortRadio} type="radio" id={key} name='order'
+                        <input className={styles.SortRadio} type="radio" id={key} name='order'
                                value={SortByType[key as keyof typeof SortByType]}
                                defaultChecked={SortByType[key as keyof typeof SortByType] === selectedSortOrder}
                                onChange={sortChangeHandler}/>

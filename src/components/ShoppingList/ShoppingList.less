@@ -1,8 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
 .shoppingList {
     width: 100%;
     margin: 20px 0;
@@ -19,21 +14,19 @@
     gap: 20px;
     padding: 20px 0;
     margin-bottom: 20px;
+
+    & h2 {
+        flex-grow: 1;
+        font-size: 1.125rem;
+    }
+
+    & img {
+        flex-grow: 0;
+        cursor: pointer;
+    }
 }
-
-
-.shoppingListHeader img {
-    flex-grow: 0;
-    cursor: pointer;
-}
-
-
-.shoppingListHeader h2 {
-    flex-grow: 1;
-}
-
 
 .shoppingListTotal {
-    font-size: 16pt;
+    font-size: 1rem;
     font-weight: bolder;
 }
