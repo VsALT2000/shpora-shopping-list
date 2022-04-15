@@ -12,21 +12,19 @@ interface FilterProps {
 
 export const ShoppingListFilter: React.FC<FilterProps> = (props) => {
     const initialState: ShopType[] = useStore($activeFilters);
-    const [selectedFilter, setSelectedFilter] = useState<ShopType[]>(initialState);
+    const selectedFilter = new Set(initialState);
 
     const selectFilterHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const shopName = ShopType[event.target.value as keyof typeof ShopType];
-        setSelectedFilter((prevState) => {
-            if (prevState.includes(shopName)) {
-                return prevState.filter(shop => shop !== shopName)
-            }
-            return [...prevState, shopName]
-        });
+        if (event.target.checked) {
+            selectedFilter.add(ShopType[event.target.value as keyof typeof ShopType]);
+        } else {
+            selectedFilter.delete(ShopType[event.target.value as keyof typeof ShopType])
+        }
     };
 
     const confirmFilterHandler = (event: React.SyntheticEvent) => {
         event.stopPropagation()
-        ChangeFilter(selectedFilter);
+        ChangeFilter(Array.from(selectedFilter));
         props.onCloseFilter();
     }
 
@@ -40,7 +38,7 @@ export const ShoppingListFilter: React.FC<FilterProps> = (props) => {
                 <div key={key}>
                     <label>
                         <Checkbox value={key} id={key}
-                               defaultChecked={selectedFilter.includes(ShopType[key as keyof typeof ShopType])}
+                               defaultChecked={selectedFilter.has(ShopType[key as keyof typeof ShopType])}
                                onChange={selectFilterHandler}/>
                         {ShopType[key as keyof typeof ShopType]}
                     </label>
