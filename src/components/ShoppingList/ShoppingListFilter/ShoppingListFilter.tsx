@@ -3,7 +3,6 @@ import React, {useState} from "react";
 import {ChangeFilter, $activeFilters} from "../../../models/filteredProducts/FilteredProductStore";
 import {useStore} from "effector-react";
 import Modal from "../../Common/Modal/Modal";
-import classes from './ShoppingListFilter.less';
 import Checkbox from "../../Common/FormControl/Checkbox";
 
 interface FilterProps {

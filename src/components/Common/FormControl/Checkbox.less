@@ -1,10 +1,13 @@
-
+@import "../../../Variables";
 
 .Checkbox {
     flex-shrink: 0;
     margin: 4px 4px 0 0;
     width: 25px;
     height: 20px;
-}
 
-@import "../../../GlobalStyle";
+    @media (max-width: @window-width-480) {
+        width: 20px;
+        height: 15px;
+    }
+}
