@@ -6,8 +6,8 @@ import {useStore} from "effector-react";
 import Modal from "../Common/Modal/Modal";
 import Input from "../Common/FormControl/Input";
 import {Form, Formik} from "formik";
-import {FormSubmit} from "./FormSubmit";
-import {Validate} from "./FormValidate";
+import {formSubmit} from "./FormSubmit";
+import {validate} from "./FormValidate";
 import Select from "../Common/FormControl/Select";
 
 interface EditItemFormProps {
@@ -15,13 +15,13 @@ interface EditItemFormProps {
     productData?: ProductType;
 }
 
-export type ValuesType = {
-    name: string,
-    id: number,
-    amount: number | string,
-    price: number | string,
-    shop: string,
-    unit: UnitType,
+export interface ValuesType {
+    name: string;
+    id: number;
+    amount: number | string;
+    price: number | string;
+    shop: string;
+    unit: UnitType;
 }
 
 export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
@@ -49,8 +49,8 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
     }
 
     return (
-        <Formik onSubmit={(values => FormSubmit(values, editForm, props.onCloseForm))} initialValues={initialValues}
-                validate={(values) => Validate(values, editForm)}>
+        <Formik onSubmit={(values => formSubmit(values, editForm, props.onCloseForm))} initialValues={initialValues}
+                validate={(values) => validate(values, editForm)}>
             <Form>
                 <Modal
                     header={editForm ? "Редактирование" : "Добавить товар"}

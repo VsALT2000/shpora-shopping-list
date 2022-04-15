@@ -1,6 +1,6 @@
 import {Field} from 'formik';
 import React from 'react';
-import classes from './Select.less';
+import styles from './Select.less';
 
 interface PropsType {
     name: string;
@@ -10,8 +10,8 @@ interface PropsType {
 const Select: React.FC<PropsType> = (props) => {
     return (
         <>
-            <label className={classes.Label}>{props.label}</label>
-            <Field as="select" name={props.name} className={classes.Select}>
+            <label className={styles.Label}>{props.label}</label>
+            <Field as="select" name={props.name} className={styles.Select}>
                 {props.children}
             </Field>
         </>

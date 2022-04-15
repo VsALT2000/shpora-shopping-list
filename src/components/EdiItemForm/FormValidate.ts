@@ -1,6 +1,6 @@
 import {ValuesType} from "./EditItemForm";
 
-export const Validate = (values: ValuesType, editForm: boolean) => {
+export const validate = (values: ValuesType, editForm: boolean) => {
     const errors: Partial<ValuesType> = {};
 
     if (!values.name && !editForm) {

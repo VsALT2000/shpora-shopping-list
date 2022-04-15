@@ -1,8 +1,8 @@
 import {useField} from "formik";
-import classes from './Input.less';
+import styles from './Input.less';
 import React from "react";
 
-interface PropsType {
+interface Props {
     name: string;
     label: string;
     type: "text" | "number";
@@ -11,17 +11,17 @@ interface PropsType {
     step?: number;
 }
 
-const Input: React.FC<PropsType> = ({...props}) => {
+const Input: React.FC<Props> = ({...props}) => {
     const [field, meta] = useField(props);
 
     return (
         <>
-            <label className={classes.Label}>{props.label}</label>
-            <input className={`${classes.Input} ${
-                meta.touched && meta.error && classes.error
+            <label className={styles.Label}>{props.label}</label>
+            <input className={`${styles.Input} ${
+                meta.touched && meta.error && styles.error
             }`} {...field} {...props}/>
             {meta.touched && meta.error ? (
-                <div className={classes.ErrorMessage}>
+                <div className={styles.ErrorMessage}>
                     {meta.error}
                 </div>
             ) : null}
