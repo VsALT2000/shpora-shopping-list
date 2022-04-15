@@ -41,7 +41,7 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
 
     const initialValues = {
         name: props.productData?.name || '',
-        id: props.productData?.id || newProductId,
+        id: props.productData === undefined ? newProductId : props.productData.id,
         amount: props.productData?.amount || '',
         price: props.productData?.price || '',
         shop: props.productData?.shop || "",
