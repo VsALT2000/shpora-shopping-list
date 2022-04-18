@@ -2,8 +2,10 @@ import {EditProductType, ProductType, ShopType} from "../../types/types";
 import {AddNewProduct, EditProduct} from "../../models/allProducts/ProductsStore";
 import {ChangeFilter} from "../../models/filteredProducts/FilteredProductStore";
 import {ValuesType} from "./EditItemForm";
+import { AddProductToList } from "../../models/productsList/ProductsListStore";
 
-export const formSubmit = (values: ValuesType, editForm: boolean, onCloseForm: () => void) => {
+
+export const formSubmit = (values: ValuesType, editForm: boolean, onCloseForm: () => void, listId: number) => {
     values.shop = values.shop === "Не выбрано" ? "" : values.shop;
     if (editForm) {
         const payload: Partial<Omit<ProductType, "id" | "date" | "bought">> = {};
@@ -30,7 +32,7 @@ export const formSubmit = (values: ValuesType, editForm: boolean, onCloseForm: (
             bought: false,
             date: new Date(),
         }
-        AddNewProduct(product);
+        AddProductToList({product, listId});
         ChangeFilter([]);
         onCloseForm();
     }

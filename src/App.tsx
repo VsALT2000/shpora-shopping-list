@@ -9,7 +9,7 @@ const App: React.FC = () => {
     useEffect(() => {
         AddNewList({
             name: "Продукты",
-            id: 1,
+            id: 0,
             boughtProducts: [],
             pendingProducts: [],
         });
@@ -18,8 +18,8 @@ const App: React.FC = () => {
     return (
         <div className={classes.appWrapper}>
             <div className={classes.appContainer}>
-                <ShoppingList listId={1} onOpenForm={() => setOpenedForm(true)} />
-                {openedForm && <EditItemForm onCloseForm={() => setOpenedForm(false)} />}
+                <ShoppingList listId={0} onOpenForm={() => setOpenedForm(true)} />
+                {openedForm && <EditItemForm listId={0} onCloseForm={() => setOpenedForm(false)} />}
             </div>
         </div>
     );

@@ -2,13 +2,15 @@ import React, { useEffect } from "react";
 import {ShoppingListItem} from "./ShoppingListItem/ShoppingListItem";
 import styles from "./ShoppingList.less";
 import {useState} from "react";
-import {$products, SelectList} from "../../models/productsList/SelectedListStore";
+import {$store} from "../../models/allProducts/ProductsStore";
+import { $listsStore } from "../../models/productsList/ProductsListStore";
 import {useStore} from "effector-react";
 import {ShoppingListFilter} from "./ShoppingListFilter/ShoppingListFilter";
 import {ShoppingListSort} from "./ShoppingListSort/ShoppingListSort";
 import {sortingFunctions} from "../../utils/Utils";
 import {AddNewItemIcon, FilterIcon, SortIcon} from "../Common/Icons/Icons";
 import { $TotalSumStore } from "../../models/allProducts/TotalSumStore";
+import { ProductType } from "../../types/types";
 
 export enum sortOrderEnum {
     new = "Сначала новые",
@@ -29,9 +31,6 @@ export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
     const [sortOrder, setSortOrder] = useState<sortOrderEnum>(sortOrderEnum.new);
 
 
-    useEffect(() => {
-        SelectList(props.listId);
-    }, [])
 
     const changeSortOrderHandler = (newSortOrder: sortOrderEnum) => {
         setSortOrder(newSortOrder);
@@ -56,7 +55,8 @@ export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
         setOpenedSort(true);
     };
 
-    const products = useStore($products);
+    const products = useStore($store);
+    const list = useStore($listsStore).find(list => list.id === props.listId);
     const total = useStore($TotalSumStore);
 
     return (
@@ -72,17 +72,17 @@ export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
             </div>
             <div className={styles.shoppingListTotal}>{products.length > 0 ? <p>Общая сумма: {total}₽</p> : null}</div>
             <div className={styles.shoppingListItems}>
-                {products
-                    .filter((product) => !product.bought)
+                {list && list.pendingProducts
+                    .map((id) => products.find((product) => product.id === id) as ProductType)
                     .sort(sortingFunctions[sortOrder])
                     .map((product) => (
-                        <ShoppingListItem {...product} key={product.id}/>
+                        <ShoppingListItem product={product} listId={props.listId} key={product.id}/>
                     ))}
-                {products
-                    .filter((product) => product.bought)
+                {list && list.boughtProducts
+                    .map((id) => products.find((product) => product.id === id) as ProductType)
                     .sort(sortingFunctions[sortOrder])
                     .map((product) => (
-                        <ShoppingListItem {...product} key={product.id}/>
+                        <ShoppingListItem product={{...product, bought: true}} listId={props.listId} key={product.id}/>
                     ))}
             </div>
             <div className={styles.addNewItemButton} onClick={() => props.onOpenForm(true)}>
