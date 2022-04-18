@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {ShoppingListItem} from "./ShoppingListItem/ShoppingListItem";
 import styles from "./ShoppingList.less";
 import {useState} from "react";
-import {$products} from "../../models/filteredProducts/FilteredProductStore";
+import {$products, SelectList} from "../../models/productsList/SelectedListStore";
 import {useStore} from "effector-react";
 import {ShoppingListFilter} from "./ShoppingListFilter/ShoppingListFilter";
 import {ShoppingListSort} from "./ShoppingListSort/ShoppingListSort";
@@ -20,12 +20,18 @@ export enum sortOrderEnum {
 
 interface ShoppingListProps {
     onOpenForm: (state: boolean) => void;
+    listId: number;
 }
 
 export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
     const [openedSort, setOpenedSort] = useState(false);
     const [openedFilter, setOpenedFilter] = useState(false);
     const [sortOrder, setSortOrder] = useState<sortOrderEnum>(sortOrderEnum.new);
+
+
+    useEffect(() => {
+        SelectList(props.listId);
+    }, [])
 
     const changeSortOrderHandler = (newSortOrder: sortOrderEnum) => {
         setSortOrder(newSortOrder);

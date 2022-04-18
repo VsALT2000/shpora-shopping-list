@@ -31,9 +31,14 @@ export type ProductsListType = {
     pendingProducts: number[],
 };
 
-export type AddProductType = {
-    id: number,
+export type AddProductByListIdType = {
+    listId: number,
     product: ProductType,
+}
+
+export type ProductInListType = {
+    listId: number,
+    productId: number,
 }
 
 export type EditProductType = {
