@@ -10,10 +10,3 @@ export const $activeFilters = createStore<ShopType[]>([]);
 
 $activeFilters
     .on(ChangeFilter, (state, newFilters) => newFilters);
-
-const CheckAllFilter = (product:ProductType, filters:ShopType[]) => !!product.shop && filters.includes(product.shop);
-
-$products
-    .on(ApplyFilters, (_, newState) => {
-        return newState.filters.length ? newState.state.filter(product => CheckAllFilter(product, newState.filters)) : newState.state
-    });
