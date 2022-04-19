@@ -6,7 +6,7 @@ import {BuyingProduct} from "../../../models/allProducts/ProductsStore";
 import {ArrowIcon} from "../../Common/Icons/Icons";
 import Checkbox from "../../Common/FormControl/Checkbox";
 import cn from "classnames";
-import { MarkProductAsBought } from "../../../models/productsList/ProductsListStore";
+import { ToggleProductBoughtState } from "../../../models/productsList/ProductsListStore";
 import { prependOnceListener } from "process";
 
 interface ShoppingListItemProps {
@@ -36,7 +36,7 @@ export const ShoppingListItem: React.FC<ShoppingListItemProps> = ({product, list
             [styles.boughtProduct]: product.bought
         })}>
             <div className={styles.itemContentLeftPart}>
-                <Checkbox defaultChecked={product.bought} onChange={() => MarkProductAsBought({listId, productId: product.id})}/>
+                <Checkbox defaultChecked={product.bought} onChange={() => ToggleProductBoughtState({listId, productId: product.id})}/>
                 <div className={styles.shoppingListItemContent} onClick={contentClickHandler}>
                     <label>{product.name}</label>
                     {(product.bought || closedOptions) && (

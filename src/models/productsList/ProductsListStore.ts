@@ -11,7 +11,7 @@ export const DeleteProductFromList = createEvent<ProductInListType>("DeleteProdu
 
 export const ArchiveList = createEvent<number>("ArchiveList");
 
-export const MarkProductAsBought = createEvent<ProductInListType>("MarkProductAsBought");
+export const ToggleProductBoughtState = createEvent<ProductInListType>("ToggleProductBoughtState");
 
 export const $listsStore = createStore<ProductsListType[]>([]);
 
@@ -41,7 +41,7 @@ $listsStore
         }
         return newState;
     })
-    .on(MarkProductAsBought, (state, {listId, productId}) => {
+    .on(ToggleProductBoughtState, (state, {listId, productId}) => {
         const newState = state.slice();
         const list = newState.find((list) => list.id === listId);
         if (!!list) {
@@ -55,4 +55,3 @@ $listsStore
         }
         return newState;
     });
-

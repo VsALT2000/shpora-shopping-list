@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ShoppingListItem } from "./ShoppingListItem/ShoppingListItem";
 import styles from "./ShoppingList.less";
-import { useState } from "react";
 import { $store } from "../../models/allProducts/ProductsStore";
 import { $listsStore } from "../../models/productsList/ProductsListStore";
 import { useStore } from "effector-react";
@@ -55,20 +54,13 @@ export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
 
     const products = useStore($store);
     const list = useStore($listsStore).find((list) => list.id === props.listId);
-    const filters = useStore($activeFilters)
-    const total =
-        Number(
-            list?.boughtProducts
-                .map((id) => products.find((product) => product.id === id) as ProductType)
-                .filter((product) => filters.length > 0 ? filters.includes(product.shop as ShopType) : true)
-                .reduce((sum, { price, amount }) => (price ? sum + price * amount : sum), 0)
-        ) +
-        Number(
-            list?.pendingProducts
-                .map((id) => products.find((product) => product.id === id) as ProductType)
-                .filter((product) => filters.length > 0 ? filters.includes(product.shop as ShopType) : true)
-                .reduce((sum, { price, amount }) => (price ? sum + price * amount : sum), 0)
-        );
+    const filters = useStore($activeFilters);
+    if (!list) return null;
+
+    const total = [...list.boughtProducts, ...list.pendingProducts]
+        .map((id) => products.find((product) => product.id === id) as ProductType)
+        .filter((product) => (filters.length > 0 ? filters.includes(product.shop as ShopType) : true))
+        .reduce((sum, { price, amount }) => (price ? sum + price * amount : sum), 0);
 
     return (
         <div className={styles.shoppingList}>
@@ -86,13 +78,13 @@ export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
                 {list &&
                     list.pendingProducts
                         .map((id) => products.find((product) => product.id === id) as ProductType)
-                        .filter((product) => filters.length > 0 ? filters.includes(product.shop as ShopType) : true)
+                        .filter((product) => (filters.length > 0 ? filters.includes(product.shop as ShopType) : true))
                         .sort(sortingFunctions[sortOrder])
                         .map((product) => <ShoppingListItem product={product} listId={props.listId} key={product.id} />)}
                 {list &&
                     list.boughtProducts
                         .map((id) => products.find((product) => product.id === id) as ProductType)
-                        .filter((product) => filters.length > 0 ? filters.includes(product.shop as ShopType) : true)
+                        .filter((product) => (filters.length > 0 ? filters.includes(product.shop as ShopType) : true))
                         .sort(sortingFunctions[sortOrder])
                         .map((product) => <ShoppingListItem product={{ ...product, bought: true }} listId={props.listId} key={product.id} />)}
             </div>
