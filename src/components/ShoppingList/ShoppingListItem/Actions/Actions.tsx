@@ -1,14 +1,15 @@
 import React, {useState} from "react";
 import styles from "./Actions.less";
 import {EditItemForm} from "../../../EdiItemForm/EditItemForm";
-import {DeleteProduct} from "../../../../models/allProducts/ProductsStore";
 import {ProductType} from "../../../../types/types";
 import {DeleteIcon, EditIcon, KebabIcon} from "../../../Common/Icons/Icons";
 import cn from "classnames";
+import { DeleteProductFromList } from "../../../../models/productsList/ProductsListStore";
 
 interface ActionsProps {
     product: ProductType;
     closeOptions: () => void;
+    listId: number;
 }
 
 export const Actions: React.FC<ActionsProps> = (props) => {
@@ -37,7 +38,7 @@ export const Actions: React.FC<ActionsProps> = (props) => {
 
     return (
         <div className={styles.actionsWrapper}>
-            {openedForm && <EditItemForm onCloseForm={closeFormHandler} productData={props.product}/>}
+            {openedForm && <EditItemForm listId={props.listId} onCloseForm={closeFormHandler} productData={props.product}/>}
             <div className={styles.action}>
                 <div className={cn(styles.kebab, {
                     [styles.openedOptions]: openedKebab,
@@ -57,7 +58,7 @@ export const Actions: React.FC<ActionsProps> = (props) => {
                     [styles.closedOptions]: openedKebab,
                     [styles.openedOptions]: !openedKebab
                 })}
-                     onClick={() => DeleteProduct(props.product.id)}>
+                     onClick={() => DeleteProductFromList({listId: props.listId, productId: props.product.id})}>
                     <DeleteIcon/>
                 </div>
             </div>
