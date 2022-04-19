@@ -13,6 +13,7 @@ import Select from "../Common/FormControl/Select";
 interface EditItemFormProps {
     onCloseForm: () => void;
     productData?: ProductType;
+    listId: number;
 }
 
 export interface ValuesType {
@@ -49,7 +50,7 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
     }
 
     return (
-        <Formik onSubmit={(values => formSubmit(values, editForm, props.onCloseForm))} initialValues={initialValues}
+        <Formik onSubmit={(values => formSubmit(values, editForm, props.onCloseForm, props.listId))} initialValues={initialValues}
                 validate={(values) => validate(values, editForm)}>
             <Form>
                 <Modal

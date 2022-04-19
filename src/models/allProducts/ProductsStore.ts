@@ -13,13 +13,6 @@ export const $store = createStore<ProductType[]>([]);
 
 $store
     .on(AddNewProduct, (state, product: ProductType) => [...state, product])
-    .on(BuyingProduct, (state, productId: number) => {
-        const newState = state.slice();
-        const product = newState.find(product => product.id === productId)
-        if (!!product)
-            product.bought = !product.bought;
-        return newState;
-    })
     .on(DeleteProduct, (state, productId: number) => {
         return state.filter(product => product.id !== productId);
     })

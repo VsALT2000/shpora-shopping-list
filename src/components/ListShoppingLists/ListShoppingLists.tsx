@@ -1,11 +1,14 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import classes from './ListShoppingLists.less';
 import {DeleteIcon, KebabIcon} from "../Common/Icons/Icons";
 import {useNavigate} from "react-router-dom";
 import action from "../ShoppingList/ShoppingListItem/Actions/Actions.less";
 import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
+import {$listsStore, AddNewList} from "../../models/productsList/ProductsListStore";
+import {useStore} from "effector-react";
+import {ProductsListType} from "../../types/types";
 
-const ItemListShoppingLists = (props: any) => {
+const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
     const navigate = useNavigate();
     const [openedKebab, setOpenedKebab] = useState(true);
     const closeKebab = () => {
@@ -21,7 +24,7 @@ const ItemListShoppingLists = (props: any) => {
     return (
         <div className={classes.itemWrapper}>
             <div className={classes.itemContentLeftPart} onClick={() => navigate(`/${props.id}`)}>
-                <label>Список {props.id}</label>
+                <label>{props.name}</label>
             </div>
             <div>
                 <div className={action.actionsWrapper}>
@@ -45,20 +48,33 @@ const ItemListShoppingLists = (props: any) => {
 }
 
 const ListShoppingLists = () => {
-    const [state] = useState([{id: 0, name: "", archived: false, products: [0, 3], boughtProducts: [1]}, {
-        id: 1,
-        archived: true,
-        products: [],
-        boughtProducts: [2]
-    }])
+    const lists = useStore($listsStore);
+
+    const dateOption = {
+        year: 'numeric', month: 'numeric', day: 'numeric',
+        hour: 'numeric', minute: 'numeric'
+    };
+
+    const onAddNewList = () => {
+        // @ts-ignore
+        const date = new Intl.DateTimeFormat('ru', dateOption).format(new Date());
+        AddNewList({
+            name: date,
+            id: 0,
+            boughtProducts: [],
+            pendingProducts: [],
+        })
+    }
 
     return (
-        <div className={classes.shoppingList}>
-            {
-                state.map(list => <ItemListShoppingLists key={list.id} {...list}/>)
-            }
-            <AddNewItemButton onClick={() => console.log('click')}/>
-        </div>
+        <>
+            <div className={classes.shoppingList}>
+                {
+                    lists.map(list => <ItemListShoppingLists key={list.id} {...list}/>)
+                }
+                <AddNewItemButton onClick={onAddNewList}/>
+            </div>
+        </>
     );
 }
 
