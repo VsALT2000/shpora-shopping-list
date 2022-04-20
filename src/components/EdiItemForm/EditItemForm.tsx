@@ -83,7 +83,7 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
                                     Стоимость
                                 </div>
                             </div>
-                            <Input  name="price" label={""} type="number" min={0.01} step={0.01} />
+                            <Input  styles={styles.priceInput} name="price" label={""} type="number" min={0.01} step={0.01} />
                         </div>
                         <Select name="shop" label={"Магазин"}>
                             <option value={"Не выбрано"}>Не выбрано</option>

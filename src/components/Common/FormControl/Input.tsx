@@ -1,5 +1,5 @@
-import {useField} from "formik";
-import styles from './Input.less';
+import { useField } from "formik";
+import styles from "./Input.less";
 import React from "react";
 import cn from "classnames";
 
@@ -10,6 +10,7 @@ interface Props {
     placeholder?: string;
     min?: number;
     step?: number;
+    styles?: string;
 }
 
 const Input: React.FC<Props> = (props) => {
@@ -18,14 +19,15 @@ const Input: React.FC<Props> = (props) => {
     return (
         <>
             <label className={styles.Label}>{props.label}</label>
-            <input className={cn(styles.Input, {
-                [styles.error]: meta.touched && meta.error
-            })} {...field} {...props}/>
-            {meta.touched && meta.error ? (
-                <div className={styles.ErrorMessage}>
-                    {meta.error}
-                </div>
-            ) : null}
+            <input
+                className={cn(styles.Input, {
+                    [styles.error]: meta.touched && meta.error,
+                    [props.styles as string]: !!props.styles,
+                })}
+                {...field}
+                {...props}
+            />
+            {meta.touched && meta.error ? <div className={styles.ErrorMessage}>{meta.error}</div> : null}
         </>
     );
 };

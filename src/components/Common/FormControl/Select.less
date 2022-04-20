@@ -1,10 +1,10 @@
 .Select {
     padding: 10px 5px;
     border: 0;
-    border-radius: 2px;
+    border-radius: 4px;
     box-sizing: border-box;
     -webkit-appearance: none;
-    box-shadow: 0 0 0 2px #ebebeb;
+    border: 2px solid #ebebeb;
     background-color: white;
     font-size: 16pt;
     color: black;
@@ -12,11 +12,11 @@
     cursor: pointer;
 
     &:focus {
-        box-shadow: 0 0 0 2px #015ccb !important;
+        border: solid 2px #015ccb !important;
     }
 
     &:hover {
-        box-shadow: 0 0 0 2px rgb(0 0 0 / 16%);
+        border: solid 2px rgb(0 0 0 / 16%);
     }
 }
 

@@ -7,7 +7,9 @@
 .priceTabs div {
     margin-top: 10px;
     border: none;
-    box-shadow: 0 0 0 2px #ebebeb;
+    box-shadow: none;
+    border: 2px solid #ebebeb;
+    border-bottom: none;
     padding: 8px;
     font-size: 14pt;
     background-color: white;
@@ -21,23 +23,26 @@
 
 div.selectedTab{
     background-color: #3498db;
-    box-shadow: 0 0 0 2px #3498db;
     color: white;
+    border-color: #3498db;
 
 }
 
 .priceTabs {
     display: flex;
     gap: 10px;
+
 }
 
 .priceTabs div:hover {
     background-color: #3498db;
-    border: none;
     color: white;
+    border-color: #3498db;
 }
 
-input[name="price"]{
+.priceInput {
+    box-shadow: none;
+    border: 2px solid #ebebeb;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
 }
