@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useRef, useState} from "react";
 import classes from './ListShoppingLists.less';
-import {DeleteIcon, KebabIcon} from "../Common/Icons/Icons";
+import {ArchiveIcon, KebabIcon} from "../Common/Icons/Icons";
 import {useNavigate} from "react-router-dom";
 import action from "../ShoppingList/ShoppingListItem/Actions/Actions.less";
 import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
@@ -37,7 +37,7 @@ const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
                         <div
                             className={`${action.trashCan} ${openedKebab ? action.closedOptions : action.openedOptions}`}
                             onClick={() => console.log("click")}>
-                            <DeleteIcon/>
+                            <ArchiveIcon/>
                         </div>
                     </div>
 
@@ -47,24 +47,45 @@ const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
     );
 }
 
-const ListShoppingLists = () => {
-    const lists = useStore($listsStore);
+interface Props {
+    closeInput: () => void;
+}
+
+const AddListInput: React.FC<Props> = ({closeInput}) => {
+    const input: React.RefObject<HTMLInputElement> = useRef(null);
 
     const dateOption = {
         year: 'numeric', month: 'numeric', day: 'numeric',
         hour: 'numeric', minute: 'numeric'
     };
 
-    const onAddNewList = () => {
+    const onAddNewList = (e: React.SyntheticEvent) => {
+        e.preventDefault();
         // @ts-ignore
         const date = new Intl.DateTimeFormat('ru', dateOption).format(new Date());
         AddNewList({
-            name: date,
+            name: input.current?.value || date,
             id: 0,
             boughtProducts: [],
             pendingProducts: [],
-        })
+        });
+        closeInput();
     }
+
+    return (
+        <div className={classes.itemWrapper}>
+            <div className={classes.itemContentLeftPart}>
+                <form onSubmit={onAddNewList} onBlur={onAddNewList}>
+                    <input ref={input} className={classes.CustomInput} autoFocus={true} type={"text"}/>
+                </form>
+            </div>
+        </div>
+    );
+}
+
+const ListShoppingLists = () => {
+    const lists = useStore($listsStore);
+    const [input, setInput] = useState(false);
 
     return (
         <>
@@ -72,7 +93,10 @@ const ListShoppingLists = () => {
                 {
                     lists.map(list => <ItemListShoppingLists key={list.id} {...list}/>)
                 }
-                <AddNewItemButton onClick={onAddNewList}/>
+                {
+                    input && <AddListInput closeInput={() => setInput(false)}/>
+                }
+                <AddNewItemButton onClick={() => setInput(true)}/>
             </div>
         </>
     );
