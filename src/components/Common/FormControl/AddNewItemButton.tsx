@@ -8,8 +8,8 @@ interface PropsType {
 
 const AddNewItemButton: React.FC<PropsType> = (props) => {
     return (
-        <div className={classes.addNewItemButton} onClick={props.onClick}>
-            <div className={classes.addNewItemButtonBackground}>
+        <div className={classes.addNewItemButton}>
+            <div className={classes.addNewItemButtonBackground} onClick={props.onClick}>
                 <AddNewItemIcon/>
             </div>
         </div>
