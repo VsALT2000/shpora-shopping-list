@@ -34,7 +34,6 @@ export type ProductType = {
 export type ProductsListType = {
     name: string,
     id: number,
-    archived?: boolean,
     boughtProducts: number[],
     pendingProducts: number[],
 };

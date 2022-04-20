@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import styles from './ListShoppingLists.less';
-import {ArchiveIcon, KebabIcon} from "../Common/Icons/Icons";
+import {DownloadIcon, KebabIcon} from "../Common/Icons/Icons";
 import {useNavigate} from "react-router-dom";
 import actionStyles from "../ShoppingList/ShoppingListItem/Actions/Actions.less";
 import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
-import {$listsStore, ArchiveList} from "../../models/productsList/ProductsListStore";
+import {$listsStore} from "../../models/productsList/ProductsListStore";
 import {useStore} from "effector-react";
 import {ProductsListType} from "../../types/types";
 import AddListInput from "../Common/FormControl/AddListInput";
@@ -38,8 +38,8 @@ const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
                         </div>
                         <div
                             className={cn(actionStyles.blueIcon, {[actionStyles.openedOptions]: !openedKebab})}
-                            onClick={() => ArchiveList(props.id)}>
-                            <ArchiveIcon/>
+                            onClick={() => console.log("Тут будет скачивание TSV")}>
+                            <DownloadIcon/>
                         </div>
                     </div>
                 </div>

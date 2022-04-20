@@ -5,7 +5,7 @@ import {$store, AddNewProduct, DeleteProduct, EditProduct} from "./allProducts/P
 import {$activeFilters} from "./filteredProducts/FilteredProductStore";
 import {$NewProductId} from "./allProducts/ProductsCountStore";
 import {$NewListId} from "./productsList/ProductsListCountStore";
-import {$listsStore, AddNewList, ArchiveList, ToggleProductBoughtState} from "./productsList/ProductsListStore";
+import {$listsStore, AddNewList, ToggleProductBoughtState} from "./productsList/ProductsListStore";
 import {$activeSort} from "./sortedProducts/SortedProductStore";
 
 const watcher = (message: string, target:Store<any> | Event<any>) => {
@@ -18,7 +18,6 @@ watcher("Весь ListsStore:", $listsStore);
 watcher("Добавлен продукт:", AddNewProduct);
 watcher("Добавлен список:", AddNewList);
 watcher("Куплен продукт c id:", ToggleProductBoughtState);
-watcher("Заархивирован список c id:", ArchiveList);
 watcher("Удалён продукт c id:", DeleteProduct);
 watcher("Изменён продукт:", EditProduct);
 watcher("Фильтры:", $activeFilters);
