@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import classes from './ListShoppingLists.less';
 import {ArchiveIcon, KebabIcon} from "../Common/Icons/Icons";
 import {useNavigate} from "react-router-dom";
@@ -56,10 +56,12 @@ const ListShoppingLists = () => {
     return (
         <>
             <div className={classes.shoppingList}>
-                <h2>Список покупок</h2>
+                <div className={classes.shoppingListHeader}>
+                    <h2>Список покупок</h2>
+                </div>
                 <div className={classes.itemWrapper}>
                     <div className={classes.itemContentLeftPart} onClick={() => navigate(`/all`)}>
-                        Все покупки
+                        <label>Все покупки</label>
                     </div>
                 </div>
                 {

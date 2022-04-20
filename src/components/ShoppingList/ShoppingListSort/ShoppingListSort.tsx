@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Modal from "../../Common/Modal/Modal";
 import {SortOrder} from "../../../types/types";
 import styles from './ShoppingListSort.less';
