@@ -7,6 +7,7 @@ import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
 import {$listsStore, AddNewList} from "../../models/productsList/ProductsListStore";
 import {useStore} from "effector-react";
 import {ProductsListType} from "../../types/types";
+import AddListInput from "../Common/FormControl/AddListInput";
 
 const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
     const navigate = useNavigate();
@@ -42,42 +43,6 @@ const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
                     </div>
 
                 </div>
-            </div>
-        </div>
-    );
-}
-
-interface Props {
-    closeInput: () => void;
-}
-
-const AddListInput: React.FC<Props> = ({closeInput}) => {
-    const input: React.RefObject<HTMLInputElement> = useRef(null);
-
-    const dateOption = {
-        year: 'numeric', month: 'numeric', day: 'numeric',
-        hour: 'numeric', minute: 'numeric'
-    };
-
-    const onAddNewList = (e: React.SyntheticEvent) => {
-        e.preventDefault();
-        // @ts-ignore
-        const date = new Intl.DateTimeFormat('ru', dateOption).format(new Date());
-        AddNewList({
-            name: input.current?.value || date,
-            id: 0,
-            boughtProducts: [],
-            pendingProducts: [],
-        });
-        closeInput();
-    }
-
-    return (
-        <div className={classes.itemWrapper}>
-            <div className={classes.itemContentLeftPart}>
-                <form onSubmit={onAddNewList} onBlur={onAddNewList}>
-                    <input ref={input} className={classes.CustomInput} autoFocus={true} type={"text"}/>
-                </form>
             </div>
         </div>
     );
