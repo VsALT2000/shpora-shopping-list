@@ -1,11 +1,11 @@
 import './allProducts/init';
 import './productsList/init';
 import {Store, Event} from "effector";
-import {$store, AddNewProduct, BuyingProduct, DeleteProduct, EditProduct} from "./allProducts/ProductsStore";
+import {$store, AddNewProduct, DeleteProduct, EditProduct} from "./allProducts/ProductsStore";
 import {$activeFilters} from "./filteredProducts/FilteredProductStore";
 import {$NewProductId} from "./allProducts/ProductsCountStore";
 import {$NewListId} from "./productsList/ProductsListCountStore";
-import {$listsStore, AddNewList} from "./productsList/ProductsListStore";
+import {$listsStore, AddNewList, ArchiveList, ToggleProductBoughtState} from "./productsList/ProductsListStore";
 import {$activeSort} from "./sortedProducts/SortedProductStore";
 
 const watcher = (message: string, target:Store<any> | Event<any>) => {
@@ -17,7 +17,8 @@ watcher("Весь Store:", $store);
 watcher("Весь ListsStore:", $listsStore);
 watcher("Добавлен продукт:", AddNewProduct);
 watcher("Добавлен список:", AddNewList);
-watcher("Куплен продукт c id:", BuyingProduct);
+watcher("Куплен продукт c id:", ToggleProductBoughtState);
+watcher("Заархивирован список c id:", ArchiveList);
 watcher("Удалён продукт c id:", DeleteProduct);
 watcher("Изменён продукт:", EditProduct);
 watcher("Фильтры:", $activeFilters);

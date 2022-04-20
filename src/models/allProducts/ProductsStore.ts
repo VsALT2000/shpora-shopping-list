@@ -3,8 +3,6 @@ import {EditProductType, ProductType} from "../../types/types";
 
 export const AddNewProduct = createEvent<ProductType>("AddNewProduct");
 
-export const BuyingProduct = createEvent<number>("BuyingProduct");
-
 export const DeleteProduct = createEvent<number>("DeleteProduct");
 
 export const EditProduct = createEvent<EditProductType>("EditProduct");

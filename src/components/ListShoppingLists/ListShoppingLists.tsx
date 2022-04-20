@@ -4,7 +4,7 @@ import {ArchiveIcon, KebabIcon} from "../Common/Icons/Icons";
 import {useNavigate} from "react-router-dom";
 import actionStyles from "../ShoppingList/ShoppingListItem/Actions/Actions.less";
 import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
-import {$listsStore} from "../../models/productsList/ProductsListStore";
+import {$listsStore, ArchiveList} from "../../models/productsList/ProductsListStore";
 import {useStore} from "effector-react";
 import {ProductsListType} from "../../types/types";
 import AddListInput from "../Common/FormControl/AddListInput";
@@ -37,8 +37,8 @@ const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
                             <KebabIcon/>
                         </div>
                         <div
-                            className={cn(actionStyles.redIcon, {[actionStyles.openedOptions]: !openedKebab})}
-                            onClick={() => console.log("click")}>
+                            className={cn(actionStyles.blueIcon, {[actionStyles.openedOptions]: !openedKebab})}
+                            onClick={() => ArchiveList(props.id)}>
                             <ArchiveIcon/>
                         </div>
                     </div>
