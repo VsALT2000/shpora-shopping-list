@@ -1,6 +1,5 @@
-import { createEvent, createStore, sample } from "effector";
+import { createEvent, createStore } from "effector";
 import { ProductsListType } from "../../types/types";
-import { AddNewProduct, DeleteProduct } from "../allProducts/ProductsStore";
 import { AddProductByListIdType, ProductInListType } from "../../types/types";
 
 export const AddNewList = createEvent<ProductsListType>("AddNewList");
@@ -28,7 +27,6 @@ $listsStore
         const list = newState.find((list) => list.id === listId);
         if (!!list) {
             list.pendingProducts.push(product.id);
-            AddNewProduct(product);
         }
         return newState;
     })
@@ -37,7 +35,6 @@ $listsStore
         const list = newState.find((list) => list.id === listId);
         if (!!list) {
             list.pendingProducts = list.pendingProducts.filter((id) => id !== productId);
-            DeleteProduct(productId);
         }
         return newState;
     })

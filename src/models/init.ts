@@ -6,7 +6,7 @@ import {$store, AddNewProduct, BuyingProduct, DeleteProduct, EditProduct} from "
 import {$activeFilters, $products} from "./filteredProducts/FilteredProductStore";
 import {$NewProductId} from "./allProducts/ProductsCountStore";
 import {$NewListId} from "./productsList/ProductsListCountStore";
-import {AddNewList} from "./productsList/ProductsListStore";
+import {$listsStore, AddNewList} from "./productsList/ProductsListStore";
 
 const watcher = (message: string, target:Store<any> | Event<any>) => {
     if (process.env.NODE_ENV === 'development')
@@ -14,6 +14,7 @@ const watcher = (message: string, target:Store<any> | Event<any>) => {
 }
 
 watcher("Весь Store:", $store);
+watcher("Весь ListsStore:", $listsStore);
 watcher("Добавлен продукт:", AddNewProduct);
 watcher("Добавлен список:", AddNewList);
 watcher("Куплен продукт c id:", BuyingProduct);

@@ -4,7 +4,7 @@ import {ArchiveIcon, KebabIcon} from "../Common/Icons/Icons";
 import {useNavigate} from "react-router-dom";
 import action from "../ShoppingList/ShoppingListItem/Actions/Actions.less";
 import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
-import {$listsStore, AddNewList} from "../../models/productsList/ProductsListStore";
+import {$listsStore} from "../../models/productsList/ProductsListStore";
 import {useStore} from "effector-react";
 import {ProductsListType} from "../../types/types";
 import AddListInput from "../Common/FormControl/AddListInput";
