@@ -2,12 +2,10 @@ import styles from "./ShoppingListItem.less";
 import React, {useState} from "react";
 import {ProductType} from "../../../types/types";
 import {Actions} from "./Actions/Actions";
-import {BuyingProduct} from "../../../models/allProducts/ProductsStore";
 import {ArrowIcon} from "../../Common/Icons/Icons";
 import Checkbox from "../../Common/FormControl/Checkbox";
 import cn from "classnames";
 import { ToggleProductBoughtState } from "../../../models/productsList/ProductsListStore";
-import { prependOnceListener } from "process";
 
 interface ShoppingListItemProps {
     product: ProductType,

@@ -5,51 +5,27 @@ import {$store} from "../../models/allProducts/ProductsStore";
 import {ArrowIcon, FilterIcon, SortIcon} from "../Common/Icons/Icons";
 import {ShoppingListFilter} from "../ShoppingList/ShoppingListFilter/ShoppingListFilter";
 import {ShoppingListSort} from "../ShoppingList/ShoppingListSort/ShoppingListSort";
-import {ProductType, ShopType, SortByType} from "../../types/types";
+import {ProductType, ShopType} from "../../types/types";
 import {sortingFunctions} from "../../utils/Utils";
 import {$activeFilters} from "../../models/filteredProducts/FilteredProductStore";
 import cn from "classnames";
+import {$activeSort} from "../../models/sortedProducts/SortedProductStore";
 
 const AllProducts = () => {
     const allProducts = useStore($store);
     const filters = useStore($activeFilters);
+    const sortOrder = useStore($activeSort);
     const [openedSort, setOpenedSort] = useState(false);
     const [openedFilter, setOpenedFilter] = useState(false);
-    const [sortOrder, setSortOrder] = useState<SortByType>(SortByType.firstNew);
-
-    const changeSortOrderHandler = (sortByType: SortByType) => {
-        setSortOrder(sortByType);
-        setOpenedSort(false);
-    };
-
-    const openFilterHandler = () => {
-        if (openedSort)
-            setOpenedSort(false);
-        setOpenedFilter(true);
-    };
-
-    const closeFilterHandler = () => {
-        setOpenedFilter(false);
-    };
-
-    const openSortHandler = () => {
-        if (openedFilter)
-            setOpenedFilter(false);
-        setOpenedSort(true);
-    };
 
     return (
         <div className={styles.shoppingList}>
             <div className={styles.shoppingListHeader}>
                 <h2>Все покупки</h2>
-                <FilterIcon onClick={openFilterHandler}/>
-                {openedFilter &&
-                    <ShoppingListFilter onCloseFilter={closeFilterHandler} onAbort={() => setOpenedFilter(false)}/>}
-                <SortIcon onClick={openSortHandler}/>
-                {openedSort && (
-                    <ShoppingListSort currentSortOrder={sortOrder} onChangeSortOrder={changeSortOrderHandler}
-                                      onAbort={() => setOpenedSort(false)}/>
-                )}
+                <FilterIcon onClick={() => setOpenedFilter(true)}/>
+                {openedFilter && <ShoppingListFilter onCloseFilter={() => setOpenedFilter(false)}/>}
+                <SortIcon onClick={() => setOpenedSort(true)}/>
+                {openedSort && <ShoppingListSort onCloseSort={() => setOpenedSort(false)}/>}
             </div>
             <div className={styles.shoppingListItems}>
                 {allProducts && allProducts

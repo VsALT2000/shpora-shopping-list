@@ -1,4 +1,4 @@
-export enum SortByType {
+export enum SortOrder {
     firstNew = "Сначала новые",
     firstOld = "Сначала старые",
     firstCheap = "Сначала дешёвые",

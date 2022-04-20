@@ -7,7 +7,6 @@ import Checkbox from "../../Common/FormControl/Checkbox";
 
 interface FilterProps {
     onCloseFilter: () => void;
-    onAbort: () => void;
 }
 
 export const ShoppingListFilter: React.FC<FilterProps> = (props) => {
@@ -32,7 +31,7 @@ export const ShoppingListFilter: React.FC<FilterProps> = (props) => {
         <Modal
             header={'Фильтр'}
             onApply={confirmFilterHandler}
-            onAbort={props.onAbort}
+            onAbort={props.onCloseFilter}
         >
             {Object.keys(ShopType).map((key) => (
                 <div key={key}>

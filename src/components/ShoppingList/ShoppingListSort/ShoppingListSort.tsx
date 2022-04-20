@@ -1,40 +1,41 @@
 import React, {useState} from "react";
 import Modal from "../../Common/Modal/Modal";
-import {SortByType} from "../../../types/types";
+import {SortOrder} from "../../../types/types";
 import styles from './ShoppingListSort.less';
+import {$activeSort, ChangeSort} from "../../../models/sortedProducts/SortedProductStore";
+import {useStore} from "effector-react";
 
 interface SortProps {
-    onChangeSortOrder: (a: SortByType) => void;
-    currentSortOrder: SortByType;
-    onAbort: () => void;
+    onCloseSort: () => void;
 }
 
 export const ShoppingListSort: React.FC<SortProps> = (props) => {
-    const [selectedSortOrder, setSelectedSortOrder] = useState(props.currentSortOrder);
+    let selectedSortOrder = useStore($activeSort);
 
     const sortChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedSortOrder(event.target.value as SortByType)
+        selectedSortOrder = event.target.value as SortOrder
     }
 
     const confirmSortOrderHandler = (event: React.SyntheticEvent) => {
         event.stopPropagation();
-        props.onChangeSortOrder(selectedSortOrder);
+        ChangeSort(selectedSortOrder)
+        props.onCloseSort();
     }
 
     return (
         <Modal
             header={'Сортировка'}
             onApply={confirmSortOrderHandler}
-            onAbort={props.onAbort}
+            onAbort={props.onCloseSort}
         >
-            {Object.keys(SortByType).map((key) => (
+            {Object.keys(SortOrder).map((key) => (
                 <div key={key}>
                     <label>
                         <input className={styles.SortRadio} type="radio" id={key} name='order'
-                               value={SortByType[key as keyof typeof SortByType]}
-                               defaultChecked={SortByType[key as keyof typeof SortByType] === selectedSortOrder}
+                               value={SortOrder[key as keyof typeof SortOrder]}
+                               defaultChecked={SortOrder[key as keyof typeof SortOrder] === selectedSortOrder}
                                onChange={sortChangeHandler}/>
-                        {SortByType[key as keyof typeof SortByType]}
+                        {SortOrder[key as keyof typeof SortOrder]}
                     </label>
                 </div>))}
         </Modal>
