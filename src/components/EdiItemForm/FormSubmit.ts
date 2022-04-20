@@ -1,5 +1,5 @@
 import {EditProductType, ProductType, ShopType} from "../../types/types";
-import {AddNewProduct, EditProduct} from "../../models/allProducts/ProductsStore";
+import {EditProduct} from "../../models/allProducts/ProductsStore";
 import {ChangeFilter} from "../../models/filteredProducts/FilteredProductStore";
 import {ValuesType} from "./EditItemForm";
 import { AddProductToList } from "../../models/productsList/ProductsListStore";

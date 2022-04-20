@@ -1,15 +1,15 @@
 import {AddNewItemIcon} from "../Icons/Icons";
-import classes from './AddNewItemButton.less';
+import styles from './AddNewItemButton.less';
 import React from "react";
 
 interface PropsType {
     onClick: () => void;
 }
 
-const AddNewItemButton: React.FC<PropsType> = (props) => {
+const AddNewItemButton: React.FC<PropsType> = ({onClick}) => {
     return (
-        <div className={classes.addNewItemButton}>
-            <div className={classes.addNewItemButtonBackground} onClick={props.onClick}>
+        <div className={styles.addNewItemButton}>
+            <div className={styles.addNewItemButtonBackground} onClick={onClick}>
                 <AddNewItemIcon/>
             </div>
         </div>

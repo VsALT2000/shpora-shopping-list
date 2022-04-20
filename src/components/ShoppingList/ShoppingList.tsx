@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {ShoppingListItem} from "./ShoppingListItem/ShoppingListItem";
 import styles from "./ShoppingList.less";
 import {$store} from "../../models/allProducts/ProductsStore";
@@ -8,12 +8,12 @@ import {ShoppingListFilter} from "./ShoppingListFilter/ShoppingListFilter";
 import {ShoppingListSort} from "./ShoppingListSort/ShoppingListSort";
 import {sortingFunctions} from "../../utils/Utils";
 import {FilterIcon, SortIcon} from "../Common/Icons/Icons";
-import {SortOrder, ProductType, ShopType} from "../../types/types";
+import {ProductType, ShopType} from "../../types/types";
 import {useParams} from "react-router-dom";
 import {EditItemForm} from "../EdiItemForm/EditItemForm";
 import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
 import {$activeFilters} from "../../models/filteredProducts/FilteredProductStore";
-import {$activeSort, ChangeSort} from "../../models/sortedProducts/SortedProductStore";
+import {$activeSort} from "../../models/sortedProducts/SortedProductStore";
 
 interface ShoppingListProps {
     onOpenForm: (state: boolean) => void;
@@ -23,11 +23,6 @@ interface ShoppingListProps {
 const ProductList: React.FC<ShoppingListProps> = (props) => {
     const [openedSort, setOpenedSort] = useState(false);
     const [openedFilter, setOpenedFilter] = useState(false);
-
-    const changeSortOrderHandler = (sortByType: SortOrder) => {
-        ChangeSort(sortByType);
-        setOpenedSort(false);
-    };
 
     const products = useStore($store);
     const sortOrder = useStore($activeSort);

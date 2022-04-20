@@ -4,7 +4,7 @@ import {EditItemForm} from "../../../EdiItemForm/EditItemForm";
 import {ProductType} from "../../../../types/types";
 import {DeleteIcon, EditIcon, KebabIcon} from "../../../Common/Icons/Icons";
 import cn from "classnames";
-import { DeleteProductFromList } from "../../../../models/productsList/ProductsListStore";
+import {DeleteProductFromList} from "../../../../models/productsList/ProductsListStore";
 
 interface ActionsProps {
     product: ProductType;
@@ -38,26 +38,18 @@ export const Actions: React.FC<ActionsProps> = (props) => {
 
     return (
         <div className={styles.actionsWrapper}>
-            {openedForm && <EditItemForm listId={props.listId} onCloseForm={closeFormHandler} productData={props.product}/>}
+            {openedForm &&
+                <EditItemForm listId={props.listId} onCloseForm={closeFormHandler} productData={props.product}/>}
             <div className={styles.action}>
-                <div className={cn(styles.kebab, {
-                    [styles.openedOptions]: openedKebab,
-                    [styles.closedOptions]: !openedKebab
-                })}
+                <div className={cn(styles.kebab, {[styles.openedOptions]: openedKebab})}
                      onClick={clickKebabHandler}>
                     <KebabIcon/>
                 </div>
-                <div className={cn(styles.pencil, {
-                    [styles.closedOptions]: openedKebab,
-                    [styles.openedOptions]: !openedKebab
-                })}
+                <div className={cn(styles.blueIcon, {[styles.openedOptions]: !openedKebab})}
                      onClick={pencilClickHandler}>
                     <EditIcon/>
                 </div>
-                <div className={cn(styles.trashCan, {
-                    [styles.closedOptions]: openedKebab,
-                    [styles.openedOptions]: !openedKebab
-                })}
+                <div className={cn(styles.redIcon, {[styles.openedOptions]: !openedKebab})}
                      onClick={() => DeleteProductFromList({listId: props.listId, productId: props.product.id})}>
                     <DeleteIcon/>
                 </div>
