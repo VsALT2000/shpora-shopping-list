@@ -3,3 +3,41 @@
     flex-direction: column;
     row-gap: 10px;
 }
+
+.priceTabs div {
+    margin-top: 10px;
+    border: none;
+    box-shadow: 0 0 0 2px #ebebeb;
+    padding: 8px;
+    font-size: 14pt;
+    background-color: white;
+    color: black;
+    transition: 0.5s;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    cursor: pointer;
+    font-family: "Lab Grotesque", serif;
+}
+
+div.selectedTab{
+    background-color: #3498db;
+    box-shadow: 0 0 0 2px #3498db;
+    color: white;
+
+}
+
+.priceTabs {
+    display: flex;
+    gap: 10px;
+}
+
+.priceTabs div:hover {
+    background-color: #3498db;
+    border: none;
+    color: white;
+}
+
+input[name="price"]{
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}

@@ -60,7 +60,7 @@ export const ShoppingList: React.FC<ShoppingListProps> = (props) => {
     const total = [...list.boughtProducts, ...list.pendingProducts]
         .map((id) => products.find((product) => product.id === id) as ProductType)
         .filter((product) => (filters.length > 0 ? filters.includes(product.shop as ShopType) : true))
-        .reduce((sum, { price, amount }) => (price ? sum + price * amount : sum), 0);
+        .reduce((sum, { cost }) => (sum + cost), 0);
 
     return (
         <div className={styles.shoppingList}>
