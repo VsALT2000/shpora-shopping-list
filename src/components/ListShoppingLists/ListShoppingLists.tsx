@@ -51,11 +51,17 @@ const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
 const ListShoppingLists = () => {
     const lists = useStore($listsStore);
     const [input, setInput] = useState(false);
+    const navigate = useNavigate();
 
     return (
         <>
             <div className={classes.shoppingList}>
                 <h2>Список покупок</h2>
+                <div className={classes.itemWrapper}>
+                    <div className={classes.itemContentLeftPart} onClick={() => navigate(`/all`)}>
+                        Все покупки
+                    </div>
+                </div>
                 {
                     lists.map(list => <ItemListShoppingLists key={list.id} {...list}/>)
                 }

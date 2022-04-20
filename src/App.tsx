@@ -3,6 +3,7 @@ import classes from './App.less';
 import {Routes, Route} from 'react-router-dom';
 import ListShoppingLists from "./components/ListShoppingLists/ListShoppingLists";
 import ShoppingList from "./components/ShoppingList/ShoppingList";
+import AllProducts from "./components/AllProducts/AllProducts";
 
 
 const App: React.FC = () => {
@@ -12,6 +13,7 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path={"/"}>
                         <Route path={":ShoppingListId"} element={<ShoppingList/>}/>
+                        <Route path={"/all"} element={<AllProducts/>}/>
                         <Route index element={<ListShoppingLists/>}/>
                     </Route>
                 </Routes>
