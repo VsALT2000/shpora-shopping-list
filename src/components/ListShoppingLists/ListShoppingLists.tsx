@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from './ListShoppingLists.less';
-import {DownloadIcon, KebabIcon} from "../Common/Icons/Icons";
+import {DeleteIcon, DownloadIcon, KebabIcon} from "../Common/Icons/Icons";
 import {useNavigate} from "react-router-dom";
 import actionStyles from "../ShoppingList/ShoppingListItem/Actions/Actions.less";
 import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
-import {$listsStore} from "../../models/productsList/ProductsListStore";
+import {$listsStore, DeleteList} from "../../models/productsList/ProductsListStore";
 import {useStore} from "effector-react";
 import {ProductsListType} from "../../types/types";
 import AddListInput from "../Common/FormControl/AddListInput";
@@ -13,6 +13,9 @@ import cn from "classnames";
 const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
     const navigate = useNavigate();
     const [openedKebab, setOpenedKebab] = useState(true);
+
+    useEffect(() => () => setOpenedKebab(true), []);
+
     const closeKebab = () => {
         setOpenedKebab(true);
         window.removeEventListener("click", closeKebab);
@@ -40,6 +43,14 @@ const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
                             className={cn(actionStyles.blueIcon, {[actionStyles.openedOptions]: !openedKebab})}
                             onClick={() => console.log("Тут будет скачивание TSV")}>
                             <DownloadIcon/>
+                        </div>
+                        <div
+                            className={cn(actionStyles.redIcon, {[actionStyles.openedOptions]: !openedKebab})}
+                            onClick={() => DeleteList({
+                                listId: props.id,
+                                productsId: [...props.pendingProducts, ...props.boughtProducts]
+                            })}>
+                            <DeleteIcon/>
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import {EditProductType, ProductType} from "../../types/types";
 
 export const AddNewProduct = createEvent<ProductType>("AddNewProduct");
 
-export const DeleteProduct = createEvent<number>("DeleteProduct");
+export const DeleteProducts = createEvent<number[]>("DeleteProduct");
 
 export const EditProduct = createEvent<EditProductType>("EditProduct");
 
@@ -11,8 +11,8 @@ export const $store = createStore<ProductType[]>([]);
 
 $store
     .on(AddNewProduct, (state, product: ProductType) => [...state, product])
-    .on(DeleteProduct, (state, productId: number) => {
-        return state.filter(product => product.id !== productId);
+    .on(DeleteProducts, (state, productsId: number[]) => {
+        return state.filter(product => !productsId.includes(product.id));
     })
     .on(EditProduct, (state, newProduct: EditProductType) => {
         const newState = state.slice();

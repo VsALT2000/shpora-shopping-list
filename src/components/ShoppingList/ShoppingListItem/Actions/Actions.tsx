@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./Actions.less";
 import {EditItemForm} from "../../../EdiItemForm/EditItemForm";
 import {ProductType} from "../../../../types/types";
@@ -16,6 +16,8 @@ export const Actions: React.FC<ActionsProps> = (props) => {
     const [openedKebab, setOpenedKebab] = useState(true);
     const [openedForm, setOpenedForm] = useState(false);
 
+    useEffect(() => () => setOpenedKebab(true), []);
+
     const closeKebab = () => {
         setOpenedKebab(true);
         window.removeEventListener("click", closeKebab);
@@ -28,25 +30,17 @@ export const Actions: React.FC<ActionsProps> = (props) => {
         window.addEventListener("click", closeKebab);
     };
 
-    const pencilClickHandler = () => {
-        setOpenedForm(true);
-    }
-
-    const closeFormHandler = () => {
-        setOpenedForm(false);
-    };
-
     return (
         <div className={styles.actionsWrapper}>
             {openedForm &&
-                <EditItemForm listId={props.listId} onCloseForm={closeFormHandler} productData={props.product}/>}
+                <EditItemForm listId={props.listId} onCloseForm={() => setOpenedForm(false)} productData={props.product}/>}
             <div className={styles.action}>
                 <div className={cn(styles.kebab, {[styles.openedOptions]: openedKebab})}
                      onClick={clickKebabHandler}>
                     <KebabIcon/>
                 </div>
                 <div className={cn(styles.blueIcon, {[styles.openedOptions]: !openedKebab})}
-                     onClick={pencilClickHandler}>
+                     onClick={() => setOpenedForm(true)}>
                     <EditIcon/>
                 </div>
                 <div className={cn(styles.redIcon, {[styles.openedOptions]: !openedKebab})}

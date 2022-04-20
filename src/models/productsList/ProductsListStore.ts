@@ -1,8 +1,9 @@
-import { createEvent, createStore } from "effector";
-import { ProductsListType } from "../../types/types";
-import { AddProductByListIdType, ProductInListType } from "../../types/types";
+import {createEvent, createStore} from "effector";
+import {AddProductByListIdType, ProductInListType, ProductsListType} from "../../types/types";
 
 export const AddNewList = createEvent<ProductsListType>("AddNewList");
+
+export const DeleteList = createEvent<{ listId: number, productsId: number[] }>("DeleteList");
 
 export const AddProductToList = createEvent<AddProductByListIdType>("AddProductToList");
 
@@ -14,6 +15,7 @@ export const $listsStore = createStore<ProductsListType[]>([]);
 
 $listsStore
     .on(AddNewList, (state, list: ProductsListType) => [...state, list])
+    .on(DeleteList, (state, {listId, productsId}) => state.filter((list) => list.id !== listId))
     .on(AddProductToList, (state, {product, listId}) => {
         const newState = state.slice();
         const list = newState.find((list) => list.id === listId);
