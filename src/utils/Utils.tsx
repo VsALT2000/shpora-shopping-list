@@ -10,30 +10,8 @@ export const isValidAmount = (amount: string) => {
 }
 
 export const sortingFunctions ={
-    'Сначала недорогие': (productA: ProductType, productB: ProductType) => {
-        if (productA.price && productB.price) {
-            return productA.amount * productA.price - productB.amount * productB.price;
-        }
-        if (productA.price) {
-            return 1;
-        }
-        if (productB.price) {
-            return -1;
-        }
-        return 0;
-    },
-    'Сначала дорогие': (productA: ProductType, productB: ProductType) => {
-        if (productA.price && productB.price) {
-            return productB.amount * productB.price - productA.amount * productA.price;
-        }
-        if (productA.price) {
-            return -1;
-        }
-        if (productB.price) {
-            return 1;
-        }
-        return 0;
-    },
+    'Сначала недорогие': (productA: ProductType, productB: ProductType) => productA.cost - productB.cost,
+    'Сначала дорогие': (productA: ProductType, productB: ProductType) => productB.cost - productA.cost,
 
     'По алфавиту': (productA: ProductType, productB: ProductType) => {
         let nameA = productA.name.toLowerCase(),

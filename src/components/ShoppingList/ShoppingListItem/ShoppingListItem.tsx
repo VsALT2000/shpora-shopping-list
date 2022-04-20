@@ -41,7 +41,7 @@ export const ShoppingListItem: React.FC<ShoppingListItemProps> = ({product, list
                     <label>{product.name}</label>
                     {(product.bought || closedOptions) && (
                         <span>
-                        | {product.amount}{product.unit}{` ${product.cost}₽`}
+                        | {product.amount + product.unit + ' ' + product.cost + '₽'}
                     </span>
                     )}
                     <ArrowIcon className={cn(styles.arrow, {[styles.arrowReverse]: !product.bought && !closedOptions})}/>
