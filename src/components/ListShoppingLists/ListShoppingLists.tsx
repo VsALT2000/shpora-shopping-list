@@ -55,6 +55,7 @@ const ListShoppingLists = () => {
     return (
         <>
             <div className={classes.shoppingList}>
+                <h2>Список покупок</h2>
                 {
                     lists.map(list => <ItemListShoppingLists key={list.id} {...list}/>)
                 }

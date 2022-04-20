@@ -52,7 +52,8 @@ const ProductList: React.FC<ShoppingListProps> = (props) => {
     const filters = useStore($activeFilters);
     if (!list) return null;
 
-    const total = [...list.boughtProducts, ...list.pendingProducts]
+    const allProducts = [...list.boughtProducts, ...list.pendingProducts];
+    const total = allProducts
         .map((id) => products.find((product) => product.id === id) as ProductType)
         .filter((product) => (filters.length > 0 ? filters.includes(product.shop as ShopType) : true))
         .reduce((sum, { price, amount }) => (price ? sum + price * amount : sum), 0);
@@ -60,7 +61,7 @@ const ProductList: React.FC<ShoppingListProps> = (props) => {
     return (
         <div className={styles.shoppingList}>
             <div className={styles.shoppingListHeader}>
-                <h2>Список покупок</h2>
+                <h2>{list.name}</h2>
                 <FilterIcon onClick={openFilterHandler} />
                 {openedFilter && <ShoppingListFilter onCloseFilter={closeFilterHandler} onAbort={() => setOpenedFilter(false)} />}
                 <SortIcon onClick={openSortHandler} />
@@ -68,7 +69,7 @@ const ProductList: React.FC<ShoppingListProps> = (props) => {
                     <ShoppingListSort currentSortOrder={sortOrder} onChangeSortOrder={changeSortOrderHandler} onAbort={() => setOpenedSort(false)} />
                 )}
             </div>
-            <div className={styles.shoppingListTotal}>{products.length > 0 ? <p>Общая сумма: {total}₽</p> : null}</div>
+            <div className={styles.shoppingListTotal}>{allProducts.length > 0 ? <p>Общая сумма: {total}₽</p> : null}</div>
             <div className={styles.shoppingListItems}>
                 {list &&
                     list.pendingProducts
