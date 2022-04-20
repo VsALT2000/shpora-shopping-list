@@ -4,6 +4,7 @@ interface PropsType {
     onClick?: () => void;
     className?: string;
 }
+
 // Есть вариант как с React.FC<React.HTMLProps<HTMLButtonElement>>? Искал, но чёт не получилось.
 export const FilterIcon: React.FC<PropsType> = (props) => {
     return (
@@ -39,6 +40,15 @@ export const ArrowIcon: React.FC<PropsType> = (props) => {
         <svg className={props.className} width="12" height="8"
              viewBox="0 0 12 8" fill="none">
             <path d="M11 1.75L6 7L0.999999 1.75" stroke="#8d8d8d" strokeWidth="2" strokeLinecap="round"
+                  strokeLinejoin="round"/>
+        </svg>
+    );
+};
+
+export const ArrowBackIcon: React.FC<PropsType> = (props) => {
+    return (
+        <svg onClick={props.onClick} width="16" height="12" viewBox="0 0 16 12" fill="none">
+            <path d="M15 6H1M1 6L6.25 1M1 6L6.25 11" stroke="#000000" strokeWidth="2" strokeLinecap="round"
                   strokeLinejoin="round"/>
         </svg>
     );

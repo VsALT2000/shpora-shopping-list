@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from './AllProducts.less';
 import {useStore} from "effector-react";
 import {$store} from "../../models/allProducts/ProductsStore";
-import {ArrowIcon, FilterIcon, SortIcon} from "../Common/Icons/Icons";
+import {ArrowBackIcon, ArrowIcon, FilterIcon, SortIcon} from "../Common/Icons/Icons";
 import {ShoppingListFilter} from "../ShoppingList/ShoppingListFilter/ShoppingListFilter";
 import {ShoppingListSort} from "../ShoppingList/ShoppingListSort/ShoppingListSort";
 import {ProductType, ShopType} from "../../types/types";
@@ -10,6 +10,7 @@ import {sortingFunctions} from "../../utils/Utils";
 import {$activeFilters} from "../../models/filteredProducts/FilteredProductStore";
 import cn from "classnames";
 import {$activeSort} from "../../models/sortedProducts/SortedProductStore";
+import {useNavigate} from "react-router-dom";
 
 const AllProducts = () => {
     const allProducts = useStore($store);
@@ -17,10 +18,12 @@ const AllProducts = () => {
     const sortOrder = useStore($activeSort);
     const [openedSort, setOpenedSort] = useState(false);
     const [openedFilter, setOpenedFilter] = useState(false);
+    const navigate = useNavigate();
 
     return (
         <div className={styles.shoppingList}>
             <div className={styles.shoppingListHeader}>
+                <ArrowBackIcon onClick={() => navigate("/")}/>
                 <h2>Все покупки</h2>
                 <FilterIcon onClick={() => setOpenedFilter(true)}/>
                 {openedFilter && <ShoppingListFilter onCloseFilter={() => setOpenedFilter(false)}/>}

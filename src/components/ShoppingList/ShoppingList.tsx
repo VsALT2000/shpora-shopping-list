@@ -7,9 +7,9 @@ import {useStore} from "effector-react";
 import {ShoppingListFilter} from "./ShoppingListFilter/ShoppingListFilter";
 import {ShoppingListSort} from "./ShoppingListSort/ShoppingListSort";
 import {sortingFunctions} from "../../utils/Utils";
-import {FilterIcon, SortIcon} from "../Common/Icons/Icons";
+import {ArrowBackIcon, FilterIcon, SortIcon} from "../Common/Icons/Icons";
 import {ProductType, ShopType} from "../../types/types";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {EditItemForm} from "../EdiItemForm/EditItemForm";
 import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
 import {$activeFilters} from "../../models/filteredProducts/FilteredProductStore";
@@ -23,7 +23,7 @@ interface ShoppingListProps {
 const ProductList: React.FC<ShoppingListProps> = (props) => {
     const [openedSort, setOpenedSort] = useState(false);
     const [openedFilter, setOpenedFilter] = useState(false);
-
+    const navigate = useNavigate();
     const products = useStore($store);
     const sortOrder = useStore($activeSort);
     const list = useStore($listsStore).find((list) => list.id === props.listId);
@@ -39,6 +39,7 @@ const ProductList: React.FC<ShoppingListProps> = (props) => {
     return (
         <div className={styles.shoppingList}>
             <div className={styles.shoppingListHeader}>
+                <ArrowBackIcon onClick={() => navigate("/")}/>
                 <h2>{list.name}</h2>
                 <FilterIcon onClick={() => setOpenedFilter(true)}/>
                 {openedFilter && <ShoppingListFilter onCloseFilter={() => setOpenedFilter(false)}/>}
