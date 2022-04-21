@@ -1,7 +1,5 @@
 import {ProductType} from "./types/types";
 
-// const productsStore = useStore($products);
-// <a href={URL.createObjectURL(TSV(productsStore))} download={true}>TSV</a> загрузка файла в компоненте.
 export const TSV = (products: ProductType[]) => {
     const keys = new Set();
     if (products.length) {

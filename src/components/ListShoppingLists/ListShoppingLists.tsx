@@ -42,7 +42,7 @@ const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
                         <div
                             className={cn(actionStyles.blueIcon, {[actionStyles.openedOptions]: !openedKebab})}
                             onClick={() => console.log("Тут будет скачивание TSV")}>
-                            <DownloadIcon/>
+                            <DownloadIcon className={styles.icon}/>
                         </div>
                         <div
                             className={cn(actionStyles.redIcon, {[actionStyles.openedOptions]: !openedKebab})}

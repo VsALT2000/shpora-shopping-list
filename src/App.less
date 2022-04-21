@@ -73,13 +73,14 @@ body {
     padding: 20px 0;
     margin-bottom: 20px;
 
-    & h2 {
+    &>h2 {
         flex-grow: 1;
         font-size: 1.125rem;
     }
 
-    & svg {
+    &>svg, &>a {
         flex-grow: 0;
+        height: 1.125rem;
         cursor: pointer;
     }
 }
