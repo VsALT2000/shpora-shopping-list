@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from './AllProducts.less';
 import {useStore} from "effector-react";
 import {$store} from "../../models/allProducts/ProductsStore";
-import {ArrowBackIcon, ArrowIcon, DownloadIcon, FilterIcon, SortIcon} from "../Common/Icons/Icons";
+import {ArrowBackIcon, ArrowIcon, FilterIcon, SortIcon} from "../Common/Icons/Icons";
 import {ShoppingListFilter} from "../ShoppingList/ShoppingListFilter/ShoppingListFilter";
 import {ShoppingListSort} from "../ShoppingList/ShoppingListSort/ShoppingListSort";
 import {ProductType, ShopType} from "../../types/types";
@@ -11,7 +11,7 @@ import {$activeFilters} from "../../models/filteredProducts/FilteredProductStore
 import cn from "classnames";
 import {$activeSort} from "../../models/sortedProducts/SortedProductStore";
 import {useNavigate} from "react-router-dom";
-import {TSV} from "../../TSV";
+import DownloadTSV from "../Common/FormControl/DownloadTSV";
 
 const AllProducts = () => {
     let allProducts = useStore($store);
@@ -30,7 +30,7 @@ const AllProducts = () => {
             <div className={styles.shoppingListHeader}>
                 <ArrowBackIcon onClick={() => navigate("/")}/>
                 <h2>Все покупки</h2>
-                <a href={URL.createObjectURL(TSV(allProducts))} download={true}><DownloadIcon className={styles.icon}/></a>
+                <DownloadTSV name={"Все продукты"} products={allProducts} className={styles.icon}/>
                 <FilterIcon onClick={() => setOpenedFilter(true)}/>
                 {openedFilter && <ShoppingListFilter onCloseFilter={() => setOpenedFilter(false)}/>}
                 <SortIcon onClick={() => setOpenedSort(true)}/>

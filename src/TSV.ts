@@ -1,6 +1,6 @@
 import {ProductType} from "./types/types";
 
-export const TSV = (products: ProductType[]) => {
+export const getTSV = (products: ProductType[]) => {
     const keys = new Set();
     if (products.length) {
         const lines = [];

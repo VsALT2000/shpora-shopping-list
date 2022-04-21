@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styles from './ListShoppingLists.less';
-import {DeleteIcon, DownloadIcon, KebabIcon} from "../Common/Icons/Icons";
+import {DeleteIcon, KebabIcon} from "../Common/Icons/Icons";
 import {useNavigate} from "react-router-dom";
 import actionStyles from "../ShoppingList/ShoppingListItem/Actions/Actions.less";
 import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
@@ -9,8 +9,8 @@ import {useStore} from "effector-react";
 import {ProductsListType, ProductType} from "../../types/types";
 import AddListInput from "../Common/FormControl/AddListInput";
 import cn from "classnames";
-import {TSV} from "../../TSV";
 import {$store} from "../../models/allProducts/ProductsStore";
+import DownloadTSV from "../Common/FormControl/DownloadTSV";
 
 const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
     const products = useStore($store);
@@ -45,12 +45,9 @@ const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
                             onClick={clickKebabHandler}>
                             <KebabIcon/>
                         </div>
-                        <div
-                            className={cn(actionStyles.blueIcon, {[actionStyles.openedOptions]: !openedKebab})}
-                            onClick={() => console.log("Тут будет скачивание TSV")}>
-                            <a href={URL.createObjectURL(TSV([...pendingProducts, ...boughtProducts]))} download={true}>
-                                <DownloadIcon className={styles.icon}/>
-                            </a>
+                        <div className={cn(actionStyles.blueIcon, {[actionStyles.openedOptions]: !openedKebab})}>
+                            <DownloadTSV name={props.name} products={[...pendingProducts, ...boughtProducts]}
+                                         className={styles.icon}/>
                         </div>
                         <div
                             className={cn(actionStyles.redIcon, {[actionStyles.openedOptions]: !openedKebab})}
