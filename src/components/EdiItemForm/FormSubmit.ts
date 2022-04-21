@@ -5,13 +5,21 @@ import {ValuesType} from "./EditItemForm";
 import { AddProductToList } from "../../models/productsList/ProductsListStore";
 
 
-export const formSubmit = (values: ValuesType, editForm: boolean, onCloseForm: () => void, listId: number) => {
+export const formSubmit = (values: ValuesType, editForm: boolean, priceToggle: boolean, onCloseForm: () => void, listId: number) => {
     values.shop = values.shop === "Не выбрано" ? "" : values.shop;
+    if(priceToggle){
+        values.cost = Number(values.price) * Number(values.amount);
+    }else{
+        values.cost = Number(values.price);
+        values.price = '';
+    }
+
     if (editForm) {
         const payload: Partial<Omit<ProductType, "id" | "date" | "bought">> = {};
         if (!!values.name) payload.name = values.name;
         if (!!values.amount) payload.amount = Number(values.amount);
         payload.price = Number(values.price) || undefined;
+        payload.cost = values.cost;
         payload.shop = values.shop as ShopType || undefined;
         payload.unit = values.unit;
 
@@ -27,6 +35,7 @@ export const formSubmit = (values: ValuesType, editForm: boolean, onCloseForm: (
             name: values.name,
             amount: Number(values.amount),
             price: Number(values.price) || undefined,
+            cost: Number(values.cost),
             shop: values.shop as ShopType || undefined,
             unit: values.unit,
             bought: false,

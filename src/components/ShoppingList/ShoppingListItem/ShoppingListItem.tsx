@@ -41,7 +41,7 @@ export const ShoppingListItem: React.FC<ShoppingListItemProps> = ({product, list
                     <label>{product.name}</label>
                     {(product.bought || closedOptions) && (
                         <span>
-                        | {product.amount}{product.unit}{product.price && ` ${product.price * product.amount}₽`}
+                        | {product.amount + product.unit + ' ' + product.cost + '₽'}
                     </span>
                     )}
                     <ArrowIcon className={cn(styles.arrow, {[styles.arrowReverse]: !product.bought && !closedOptions})}/>
@@ -50,7 +50,7 @@ export const ShoppingListItem: React.FC<ShoppingListItemProps> = ({product, list
                         <p className={options}>Дата добавления:</p>
                         <p className={options}>{date}</p>
                         {product.shop && <p className={options}>Магазин: {product.shop}</p>}
-                        {product.price && <p className={options}>Цена: {product.price}₽</p>}
+                        {product.price ? <p className={options}>Цена: {product.price}₽</p> : <p className={options}>Примерная стоимость: {product.cost}₽</p>}
                     </div>
                 </div>
             </div>

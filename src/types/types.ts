@@ -17,6 +17,7 @@ export type ProductType = {
     id: number,
     date: Date,
     price?: number,
+    cost: number;
     amount: number,
     unit: UnitType,
     shop?: ShopType,
