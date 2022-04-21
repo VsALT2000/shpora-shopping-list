@@ -1,0 +1,77 @@
+.itemWrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    border-radius: 10px;
+    border: 1px solid #d9d9d9;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.boughtProduct {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+}
+
+.itemContentLeftPart {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px 20px;
+    font-size: 1.125rem;
+    user-select: none;
+    box-sizing: border-box;
+
+    & span {
+        padding-left: 5px;
+        color: rgb(141, 141, 141);
+        font-weight: 400;
+        font-size: 0.75rem;
+    }
+}
+
+.closedKebab {
+    display: none;
+}
+
+.openedKebab {
+    display: block;
+}
+
+.shoppingListItemContent {
+    padding-left: 10px;
+    width: 100%;
+    word-break: break-word;
+}
+
+.shoppingListItemContent label {
+    font-weight: bolder;
+}
+
+.shoppingListItemOptions {
+    color: rgb(97, 97, 97);
+    transition: font-size 0.5s, margin-top 0.5s, color 0.5s;
+    width: 100%;
+}
+
+.openedOptions {
+    margin-top: 25px;
+    font-size: 0.875rem;
+    color: rgb(97, 97, 97);
+}
+
+.closedOptions {
+    margin-top: 0;
+    font-size: 0;
+    color: rgba(255, 255, 255, 0);
+    overflow: hidden;
+}
+
+.arrowReverse {
+    transform: scaleY(-1);
+}
+
+.arrow {
+    transition: transform 0.5s ease-out;
+    padding-left: 8px;
+}

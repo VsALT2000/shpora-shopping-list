@@ -1,0 +1,85 @@
+@import "Variables";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16pt;
+
+    @media (max-width: @window-width-480) {
+        font-size: 12pt;
+    }
+}
+
+body {
+    background-color: #F8F8FB;
+    font-family: "Lab Grotesque", serif;
+    overflow: hidden;
+}
+
+.appWrapper {
+    display: flex;
+    justify-content: space-around;
+    overflow-y: scroll;
+    height: 100vh;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: #adadad;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: #C4C4C4;
+    }
+
+    &:before {
+        content: "";
+        min-width: 25px;
+    }
+
+    &::after {
+        content: "";
+        min-width: 25px;
+    }
+}
+
+.appContainer {
+    flex-grow: 1;
+    max-width: 800px;
+    height: 100%;
+}
+
+.shoppingList {
+    width: 100%;
+    margin: 20px 0;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+}
+
+.shoppingListHeader {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+    margin-bottom: 20px;
+
+    & h2 {
+        flex-grow: 1;
+        font-size: 1.125rem;
+    }
+
+    & svg {
+        flex-grow: 0;
+        cursor: pointer;
+    }
+}

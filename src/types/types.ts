@@ -1,4 +1,10 @@
-import {Store} from "effector";
+export enum SortOrder {
+    firstNew = "Сначала новые",
+    firstOld = "Сначала старые",
+    firstCheap = "Сначала дешёвые",
+    firstExpensive = "Сначала дорогие",
+    alphabetically = "По наименованию",
+}
 
 export enum ShopType {
     pyaterochka = "Пятёрочка",
@@ -8,10 +14,10 @@ export enum ShopType {
 }
 
 export enum UnitType {
+    piece = "шт",
     kg = "кг",
     g = "г",
     l = "л",
-    piece = "шт",
 }
 
 export type ProductType = {
@@ -19,11 +25,29 @@ export type ProductType = {
     id: number,
     date: Date,
     price?: number,
+    cost: number;
     amount: number,
-    unit?: UnitType,
+    unit: UnitType,
     shop?: ShopType,
     bought: boolean,
 };
+
+export type ProductsListType = {
+    name: string,
+    id: number,
+    boughtProducts: number[],
+    pendingProducts: number[],
+};
+
+export type AddProductByListIdType = {
+    listId: number,
+    product: ProductType,
+}
+
+export type ProductInListType = {
+    listId: number,
+    productId: number,
+}
 
 export type EditProductType = {
     id: number,

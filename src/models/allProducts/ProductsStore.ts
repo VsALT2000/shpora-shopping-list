@@ -1,31 +1,19 @@
 import {createEvent, createStore} from "effector";
-import {EditProductType, ProductType, UnitType} from "../../types/types";
+import {EditProductType, ProductType} from "../../types/types";
 
 export const AddNewProduct = createEvent<ProductType>("AddNewProduct");
 
-export const BuyingProduct = createEvent<number>("BuyingProduct");
-
-export const DeleteProduct = createEvent<number>("DeleteProduct");
+export const DeleteProducts = createEvent<number[]>("DeleteProduct");
 
 export const EditProduct = createEvent<EditProductType>("EditProduct");
 
-const defaultState = JSON.parse(window.localStorage.getItem("allProducts") || "[]");
-export const $allProducts = createStore<ProductType[]>(defaultState);
+const defaultState = JSON.parse(window.localStorage.getItem("store") || "[]");
+export const $store = createStore<ProductType[]>(defaultState);
 
-$allProducts
-    .on(AddNewProduct, (state, product: ProductType) => {
-        product.unit = product.unit === undefined ? UnitType.piece : product.unit;
-        return [...state, product];
-    })
-    .on(BuyingProduct, (state, productId: number) => {
-        const newState = state.slice();
-        const product = newState.find(product => product.id === productId)
-        if (!!product)
-            product.bought = !product.bought;
-        return newState;
-    })
-    .on(DeleteProduct, (state, productId: number) => {
-        return state.filter(product => product.id !== productId);
+$store
+    .on(AddNewProduct, (state, product: ProductType) => [...state, product])
+    .on(DeleteProducts, (state, productsId: number[]) => {
+        return state.filter(product => !productsId.includes(product.id));
     })
     .on(EditProduct, (state, newProduct: EditProductType) => {
         const newState = state.slice();
