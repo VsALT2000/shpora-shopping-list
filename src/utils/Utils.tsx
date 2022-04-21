@@ -2,12 +2,10 @@ import {ProductType, SortOrder} from "../types/types";
 
 export const sortingFunctions = {
     [SortOrder.firstCheap]: (productA: ProductType, productB: ProductType) => {
-        // @ts-ignore TODO: Сергей Кашкин: Пока сломано, жду реализацию с полем sum у продуктов
-        return productA.amount * productA.price - productB.amount * productB.price;
+        return productA.cost - productB.cost;
     },
     [SortOrder.firstExpensive]: (productA: ProductType, productB: ProductType) => {
-        // @ts-ignore TODO: Сергей Кашкин: Пока сломано, жду реализацию с полем sum у продуктов
-        return productB.amount * productB.price - productA.amount * productA.price;
+        return productB.cost - productA.cost;
     },
     [SortOrder.alphabetically]: (productA: ProductType, productB: ProductType) => {
         return productA.name.localeCompare(productB.name, 'ru', {sensitivity: "base", numeric: true});

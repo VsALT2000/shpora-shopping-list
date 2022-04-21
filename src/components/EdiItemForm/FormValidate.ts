@@ -13,5 +13,9 @@ export const validate = (values: ValuesType, editForm: boolean) => {
         errors.amount = 'Заполните поле';
     }
 
+    if(!values.price){
+        errors.price = 'Заполните поле';
+    }
+
     return errors;
 };

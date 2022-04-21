@@ -30,11 +30,20 @@ const ProductList: React.FC<ShoppingListProps> = (props) => {
     const filters = useStore($activeFilters);
     if (!list) return null;
 
-    const allProducts = [...list.boughtProducts, ...list.pendingProducts];
-    const total = allProducts
-        .map((id) => products.find((product) => product.id === id) as ProductType)
-        .filter((product) => (filters.length > 0 ? filters.includes(product.shop as ShopType) : true))
-        .reduce((sum, {price, amount}) => (price ? sum + price * amount : sum), 0);
+
+    let pendingProducts = list.pendingProducts.map((id) => products.find((product) => product.id === id) as ProductType);
+    let boughtProducts = list.boughtProducts.map((id) => products.find((product) => product.id === id) as ProductType);
+
+    if(filters.length > 0){
+        pendingProducts = pendingProducts.filter((product) => (filters.includes(product.shop as ShopType)));
+        boughtProducts = boughtProducts.filter((product) => (filters.includes(product.shop as ShopType)));
+    }
+
+    pendingProducts.sort(sortingFunctions[sortOrder]);
+    boughtProducts.sort(sortingFunctions[sortOrder]);
+
+    const allProducts = [...pendingProducts, ...boughtProducts];
+    const total = allProducts.reduce((sum, { cost }) => (sum + cost), 0);
 
     return (
         <div className={styles.shoppingList}>
@@ -49,19 +58,8 @@ const ProductList: React.FC<ShoppingListProps> = (props) => {
             <div className={styles.shoppingListTotal}>{allProducts.length > 0 ?
                 <p>Общая сумма: {total}₽</p> : null}</div>
             <div className={styles.shoppingListItems}>
-                {list &&
-                    list.pendingProducts
-                        .map((id) => products.find((product) => product.id === id) as ProductType)
-                        .filter((product) => (filters.length > 0 ? filters.includes(product.shop as ShopType) : true))
-                        .sort(sortingFunctions[sortOrder])
-                        .map((product) => <ShoppingListItem product={product} listId={props.listId} key={product.id}/>)}
-                {list &&
-                    list.boughtProducts
-                        .map((id) => products.find((product) => product.id === id) as ProductType)
-                        .filter((product) => (filters.length > 0 ? filters.includes(product.shop as ShopType) : true))
-                        .sort(sortingFunctions[sortOrder])
-                        .map((product) => <ShoppingListItem product={{...product, bought: true}} listId={props.listId}
-                                                            key={product.id}/>)}
+                {pendingProducts.map((product) => <ShoppingListItem product={product} listId={props.listId} key={product.id} />)}
+                {boughtProducts.map((product) => <ShoppingListItem product={{ ...product, bought: true }} listId={props.listId} key={product.id} />)}
             </div>
             <AddNewItemButton onClick={() => props.onOpenForm(true)}/>
         </div>
