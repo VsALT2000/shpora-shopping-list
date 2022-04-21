@@ -58,7 +58,7 @@ const Item: React.FC<ProductType> = (props) => {
                 <label>{props.name}</label>
                 {closedOptions && (
                     <span>
-                        | {props.amount}{props.unit}{props.price && ` ${props.price * props.amount}₽`}
+                        | {props.amount + props.unit + ' ' + props.cost + '₽'}
                     </span>
                 )}
                 <ArrowIcon className={cn(styles.arrow, {[styles.arrowReverse]: !closedOptions})}/>
@@ -67,7 +67,8 @@ const Item: React.FC<ProductType> = (props) => {
                     <p className={options}>Дата добавления:</p>
                     <p className={options}>{date}</p>
                     {props.shop && <p className={options}>Магазин: {props.shop}</p>}
-                    {props.price && <p className={options}>Цена: {props.price}₽</p>}
+                    {props.price ? <p className={options}>Цена: {props.price}₽</p> :
+                        <p className={options}>Примерная стоимость: {props.cost}₽</p>}
                 </div>
             </div>
         </div>
