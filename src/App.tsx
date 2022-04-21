@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import classes from './App.less';
+import {Routes, Route} from 'react-router-dom';
+import ListShoppingLists from "./components/ListShoppingLists/ListShoppingLists";
+import ShoppingList from "./components/ShoppingList/ShoppingList";
+import AllProducts from "./components/AllProducts/AllProducts";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+const App: React.FC = () => {
+    return (
+        <div className={classes.appWrapper}>
+            <div className={classes.appContainer}>
+                <Routes>
+                    <Route path={"/"}>
+                        <Route path={":ShoppingListId"} element={<ShoppingList/>}/>
+                        <Route path={"/all"} element={<AllProducts/>}/>
+                        <Route index element={<ListShoppingLists/>}/>
+                    </Route>
+                </Routes>
+            </div>
+        </div>
+    );
+};
 
 export default App;

@@ -1,0 +1,45 @@
+.actionsWrapper {
+    height: 100%;
+}
+
+.action {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    & > div {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        box-sizing: border-box;
+        padding-top: 15px;
+        height: 100%;
+        transition: width 0.5s;
+    }
+}
+
+.kebab {
+    width: 0;
+    overflow: hidden;
+    padding-top: 20px;
+}
+
+.blueIcon {
+     width: 0;
+     overflow: hidden;
+     background-color: #33C1FF;
+ }
+
+.redIcon {
+    width: 0;
+    overflow: hidden;
+    background-color: #FF5229;
+}
+
+.openedOptions {
+    width: 60px;
+    cursor: pointer;
+}

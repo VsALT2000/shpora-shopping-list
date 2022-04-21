@@ -1,0 +1,37 @@
+.Input {
+    padding: 10px 5px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    border: 2px solid #ebebeb;
+    font-size: 16pt;
+    outline: none;
+    width: 100%;
+
+    &.error {
+        border: solid 2px #f03b36 !important;
+    }
+
+    &:focus {
+        border: solid 2px #015ccb !important;
+    }
+
+    &:hover {
+        border: solid 2px  rgb(0 0 0 / 16%);
+    }
+}
+
+.ErrorMessage {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #f03b36;
+}
+
+.Input::placeholder {
+    color: #C4C4C4;
+}
+
+.Label {
+    color: #000000;
+    font-size: 12pt;
+}

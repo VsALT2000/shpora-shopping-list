@@ -1,0 +1,31 @@
+@import "../../App";
+
+.itemWrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    border-radius: 10px;
+    border: 1px solid #ebebeb;
+    background-color: #ffffff;
+    overflow: hidden;
+
+    &:hover {
+        border: 1px solid rgb(0 0 0 / 16%);
+    }
+}
+
+.itemContentLeftPart {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    padding: 20px 20px;
+    font-size: 18pt;
+    height: 100%;
+    user-select: none;
+    box-sizing: border-box;
+    width: 100%;
+
+    & label {
+        font-size: 1.125rem;
+    }
+}
