@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {ShoppingListItem} from "./ShoppingListItem/ShoppingListItem";
+import ShoppingListItem from "./ShoppingListItem/ShoppingListItem";
 import styles from "./ShoppingList.less";
 import {$productsStore} from "../../models/allProducts/ProductsStore";
 import {$listsStore} from "../../models/productsList/ProductsListStore";
@@ -15,18 +15,15 @@ import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
 import {$activeFilters} from "../../models/filteredProducts/FilteredProductStore";
 import {$activeSort} from "../../models/sortedProducts/SortedProductStore";
 
-interface ShoppingListProps {
-    onOpenForm: (state: boolean) => void;
-    listId: number;
-}
-
-const ProductList: React.FC<ShoppingListProps> = (props) => {
+const ShoppingList = () => {
+    const listId = Number(useParams().ShoppingListId);
     const [openedSort, setOpenedSort] = useState(false);
     const [openedFilter, setOpenedFilter] = useState(false);
+    const [openedForm, setOpenedForm] = useState(false);
     const navigate = useNavigate();
     const products = useStore($productsStore);
     const sortOrder = useStore($activeSort);
-    const list = useStore($listsStore).find((list) => list.id === props.listId);
+    const list = useStore($listsStore).find((list) => list.id === listId);
     const filters = useStore($activeFilters);
     if (!list) return null;
 
@@ -58,23 +55,13 @@ const ProductList: React.FC<ShoppingListProps> = (props) => {
             <div className={styles.shoppingListTotal}>{allProducts.length > 0 ?
                 <p>Общая сумма: {total}₽</p> : null}</div>
             <div className={styles.shoppingListItems}>
-                {pendingProducts.map((product) => <ShoppingListItem product={product} listId={props.listId} key={product.id} />)}
-                {boughtProducts.map((product) => <ShoppingListItem product={{ ...product, bought: true }} listId={props.listId} key={product.id} />)}
+                {pendingProducts.map((product) => <ShoppingListItem product={product} listId={listId} key={product.id} />)}
+                {boughtProducts.map((product) => <ShoppingListItem product={{ ...product, bought: true }} listId={listId} key={product.id} />)}
             </div>
-            <AddNewItemButton onClick={() => props.onOpenForm(true)}/>
+            <AddNewItemButton onClick={() => setOpenedForm(true)}/>
+            {openedForm && <EditItemForm editForm={false} listId={listId} onCloseForm={() => setOpenedForm(false)}/>}
         </div>
     );
 };
-
-const ShoppingList = () => {
-    const ShoppingListId = Number(useParams().ShoppingListId);
-    const [openedForm, setOpenedForm] = useState(false);
-    return (
-        <div>
-            <ProductList listId={ShoppingListId} onOpenForm={() => setOpenedForm(true)}/>
-            {openedForm && <EditItemForm listId={ShoppingListId} onCloseForm={() => setOpenedForm(false)}/>}
-        </div>
-    );
-}
 
 export default ShoppingList;

@@ -12,7 +12,7 @@ interface ShoppingListItemProps {
     listId: number,
 }
 
-export const ShoppingListItem: React.FC<ShoppingListItemProps> = ({product, listId}) => {
+const ShoppingListItem: React.FC<ShoppingListItemProps> = ({product, listId}) => {
     const [closedOptions, setClosedOptions] = useState(true);
     const contentClickHandler = () => {
         if (!product.bought)
@@ -58,3 +58,5 @@ export const ShoppingListItem: React.FC<ShoppingListItemProps> = ({product, list
         </div>
     );
 };
+
+export default React.memo(ShoppingListItem);

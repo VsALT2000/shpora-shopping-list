@@ -40,7 +40,7 @@ const AllProducts = () => {
     );
 };
 
-const Item: React.FC<ProductType> = (props) => {
+const Item: React.FC<ProductType> = React.memo((props) => {
     const [closedOptions, setClosedOptions] = useState(true);
     const options = cn(styles.shoppingListItemOptions, {
         [styles.closedOptions]: closedOptions,
@@ -73,6 +73,6 @@ const Item: React.FC<ProductType> = (props) => {
             </div>
         </div>
     );
-}
+})
 
 export default AllProducts;
