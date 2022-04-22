@@ -1,11 +1,11 @@
 import {createEvent, createStore, sample} from "effector";
 
-export const $NewListId = createStore<number>(0);
+export const $newListId = createStore<number>(0);
 export const ReadNewListIdFromLS = createEvent<void>("ReadNewListId");
 const WriteToLS = createEvent<void>("WriteNewListId");
 export const Increment = createEvent<void>("IncrementListCount");
 
-$NewListId
+$newListId
     .on(Increment, state => state + 1)
     .on(ReadNewListIdFromLS, (_) => {
             const stored = window.localStorage.getItem("newListId");
@@ -20,6 +20,6 @@ $NewListId
 ReadNewListIdFromLS();
 
 sample({
-    clock: $NewListId,
+    clock: $newListId,
     target: WriteToLS,
 })

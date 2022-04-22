@@ -1,11 +1,11 @@
 import {sample} from "effector";
 import {AddNewList, AddProductToList, DeleteList, DeleteProductFromList} from "./ProductsListStore";
-import {$NewListId, Increment} from "./ProductsListCountStore";
+import {$newListId, Increment} from "./ProductsListCountStore";
 import {AddNewProduct, DeleteProducts} from "../allProducts/ProductsStore";
 
 sample({
     clock: AddNewList,
-    source: $NewListId,
+    source: $newListId,
     target: Increment,
 })
 

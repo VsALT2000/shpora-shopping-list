@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {ShoppingListItem} from "./ShoppingListItem/ShoppingListItem";
 import styles from "./ShoppingList.less";
-import {$store} from "../../models/allProducts/ProductsStore";
+import {$productsStore} from "../../models/allProducts/ProductsStore";
 import {$listsStore} from "../../models/productsList/ProductsListStore";
 import {useStore} from "effector-react";
 import {ShoppingListFilter} from "./ShoppingListFilter/ShoppingListFilter";
@@ -24,7 +24,7 @@ const ProductList: React.FC<ShoppingListProps> = (props) => {
     const [openedSort, setOpenedSort] = useState(false);
     const [openedFilter, setOpenedFilter] = useState(false);
     const navigate = useNavigate();
-    const products = useStore($store);
+    const products = useStore($productsStore);
     const sortOrder = useStore($activeSort);
     const list = useStore($listsStore).find((list) => list.id === props.listId);
     const filters = useStore($activeFilters);

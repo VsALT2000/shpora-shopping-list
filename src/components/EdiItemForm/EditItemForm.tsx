@@ -1,6 +1,6 @@
 import { ProductType, ShopType, UnitType } from "../../types/types";
 import React, { useEffect, useState } from "react";
-import { $NewProductId } from "../../models/allProducts/ProductsCountStore";
+import { $newProductId } from "../../models/allProducts/ProductsCountStore";
 import { useStore } from "effector-react";
 import Modal from "../Common/Modal/Modal";
 import Input from "../Common/FormControl/Input";
@@ -30,7 +30,7 @@ export interface ValuesType {
 export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
     const [editForm, setEditForm] = useState(false);
     const [priceToggle, setPriceToggle] = useState(true);
-    const newProductId = useStore($NewProductId);
+    const newProductId = useStore($newProductId);
 
     useEffect(() => {
         if (props.productData) {

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styles from './AllProducts.less';
 import {useStore} from "effector-react";
-import {$store} from "../../models/allProducts/ProductsStore";
+import {$productsStore} from "../../models/allProducts/ProductsStore";
 import {ArrowBackIcon, ArrowIcon, FilterIcon, SortIcon} from "../Common/Icons/Icons";
 import {ShoppingListFilter} from "../ShoppingList/ShoppingListFilter/ShoppingListFilter";
 import {ShoppingListSort} from "../ShoppingList/ShoppingListSort/ShoppingListSort";
@@ -13,7 +13,7 @@ import {$activeSort} from "../../models/sortedProducts/SortedProductStore";
 import {useNavigate} from "react-router-dom";
 
 const AllProducts = () => {
-    const allProducts = useStore($store);
+    const allProducts = useStore($productsStore);
     const filters = useStore($activeFilters);
     const sortOrder = useStore($activeSort);
     const [openedSort, setOpenedSort] = useState(false);

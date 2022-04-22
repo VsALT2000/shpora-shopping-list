@@ -11,9 +11,9 @@ export const ReadStoreFromLS = createEvent<void>("ReadStore");
 
 const WriteToLS = createEvent<void>("WriteStore");
 
-export const $store = createStore<ProductType[]>([]);
+export const $productsStore = createStore<ProductType[]>([]);
 
-$store
+$productsStore
     .on(AddNewProduct, (state, product: ProductType) => [...state, product])
     .on(DeleteProducts, (state, productsId: number[]) => {
         return state.filter(product => !productsId.includes(product.id));
@@ -32,18 +32,18 @@ $store
         return newState;
     })
     .on(ReadStoreFromLS, (_) => {
-            const stored = window.localStorage.getItem("store");
+            const stored = window.localStorage.getItem("productsStore");
             return stored ? JSON.parse(stored) : [];
         }
     )
     .on(WriteToLS, (store) => {
-            window.localStorage.setItem("store", JSON.stringify(store));
+            window.localStorage.setItem("productsStore", JSON.stringify(store));
         }
     );
 
 ReadStoreFromLS();
 
 sample({
-    clock: $store,
+    clock: $productsStore,
     target: WriteToLS,
 })

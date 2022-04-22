@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import {AddNewList} from "../../../models/productsList/ProductsListStore";
 import styles from './AddListInput.less';
-import {$NewListId} from "../../../models/productsList/ProductsListCountStore";
+import {$newListId} from "../../../models/productsList/ProductsListCountStore";
 import {useStore} from "effector-react";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 const AddListInput: React.FC<Props> = ({closeInput}) => {
     const input: React.RefObject<HTMLInputElement> = useRef(null);
-    const newListId = useStore($NewListId);
+    const newListId = useStore($newListId);
 
     const dateOption = {
         year: 'numeric', month: 'numeric', day: 'numeric',
