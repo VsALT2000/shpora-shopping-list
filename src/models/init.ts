@@ -45,5 +45,6 @@ const syncFromLS = {
 
 window.onstorage = (e) => {
     const newValue = e.newValue ? JSON.parse(e.newValue) : null;
-    syncFromLS[e.key as keyof typeof syncFromLS](newValue);
+    const handler = syncFromLS[e.key as keyof typeof syncFromLS];
+    if (handler) handler(newValue);
 };
