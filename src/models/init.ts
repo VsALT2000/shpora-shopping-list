@@ -1,17 +1,13 @@
 import './allProducts/init';
 import './productsList/init';
 import {Store, Event} from "effector";
-import {$productsStore, AddNewProduct, DeleteProducts, EditProduct, ReadStoreFromLS} from "./allProducts/ProductsStore";
-import {$activeFilters, ReadFiltersFromLS} from "./filteredProducts/FilteredProductStore";
-import {$newProductId, ReadNewProductIdFromLS} from "./allProducts/ProductsCountStore";
-import {$newListId, ReadNewListIdFromLS} from "./productsList/ProductsListCountStore";
-import {
-    $listsStore,
-    AddNewList,
-    ReadListsStoreFromLS,
-    ToggleProductBoughtState
-} from "./productsList/ProductsListStore";
-import {$activeSort, ReadSortFromLS} from "./sortedProducts/SortedProductStore";
+import syncWithLocalStorage from "./SyncWithLocalStorage";
+import {$productsStore, AddNewProduct, DeleteProducts, EditProduct} from "./allProducts/ProductsStore";
+import {$activeFilters} from "./filteredProducts/FilteredProductStore";
+import {$newProductId} from "./allProducts/ProductsCountStore";
+import {$newListId} from "./productsList/ProductsListCountStore";
+import {$listsStore, AddNewList, ToggleProductBoughtState} from "./productsList/ProductsListStore";
+import {$activeSort} from "./sortedProducts/SortedProductStore";
 
 const watcher = (message: string, target: Store<any> | Event<any>) => {
     if (process.env.NODE_ENV === 'development')
@@ -30,19 +26,20 @@ watcher("Сортировка:", $activeSort);
 watcher("Products Counter:", $newProductId);
 watcher("List Counter:", $newListId);
 
-const ReadFromLS = {
-    activeSort: ReadSortFromLS,
-    listsStore: ReadListsStoreFromLS,
-    newListId: ReadNewListIdFromLS,
-    activeFilters: ReadFiltersFromLS,
-    productsStore: ReadStoreFromLS,
-    newProductId: ReadNewProductIdFromLS,
+const syncNewListId = syncWithLocalStorage($newListId, "newListId");
+const syncListsStore = syncWithLocalStorage($listsStore, "listsStore");
+const syncActiveSort = syncWithLocalStorage($activeSort, "activeSort");
+const syncActiveFilters = syncWithLocalStorage($activeFilters, "activeFilters");
+const syncProductsStore = syncWithLocalStorage($productsStore, "productsStore");
+const syncNewProductId = syncWithLocalStorage($newProductId, "newProductId");
+
+const syncFromLS = {
+    activeSort: (newValue: string | null) => newValue ? syncActiveSort(JSON.parse(newValue)) : syncActiveSort(),
+    listsStore: (newValue: string | null) => newValue ? syncListsStore(JSON.parse(newValue)) : syncListsStore(),
+    newListId: (newValue: string | null) => newValue ? syncNewListId(JSON.parse(newValue)) : syncNewListId(),
+    activeFilters: (newValue: string | null) => newValue ? syncActiveFilters(JSON.parse(newValue)) : syncActiveFilters(),
+    productsStore: (newValue: string | null) => newValue ? syncProductsStore(JSON.parse(newValue)) : syncProductsStore(),
+    newProductId: (newValue: string | null) => newValue ? syncNewProductId(JSON.parse(newValue)) : syncNewProductId(),
 }
 
-window.onstorage = (e) => {
-    try {
-        ReadFromLS[e.key as keyof typeof ReadFromLS]();
-    } catch (e) {
-        console.error(e);
-    }
-};
+window.onstorage = (e) => syncFromLS[e.key as keyof typeof syncFromLS](e.newValue);

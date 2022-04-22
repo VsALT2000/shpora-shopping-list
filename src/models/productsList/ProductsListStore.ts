@@ -1,4 +1,4 @@
-import {createEvent, createStore, sample} from "effector";
+import {createEvent, createStore} from "effector";
 import {AddProductByListIdType, ProductInListType, ProductsListType} from "../../types/types";
 
 export const AddNewList = createEvent<ProductsListType>("AddNewList");
@@ -10,10 +10,6 @@ export const AddProductToList = createEvent<AddProductByListIdType>("AddProductT
 export const DeleteProductFromList = createEvent<ProductInListType>("DeleteProductFromList");
 
 export const ToggleProductBoughtState = createEvent<ProductInListType>("ToggleProductBoughtState");
-
-export const ReadListsStoreFromLS = createEvent<void>("ReadListsStore");
-
-const WriteToLS = createEvent<void>("WriteListsStore");
 
 export const $listsStore = createStore<ProductsListType[]>([]);
 
@@ -50,19 +46,3 @@ $listsStore
         }
         return newState;
     })
-    .on(ReadListsStoreFromLS, (_) => {
-            const stored = window.localStorage.getItem("listsStore");
-            return stored ? JSON.parse(stored) : [];
-        }
-    )
-    .on(WriteToLS, (store) => {
-            window.localStorage.setItem("listsStore", JSON.stringify(store));
-        }
-    );
-
-ReadListsStoreFromLS();
-
-sample({
-    clock: $listsStore,
-    target: WriteToLS,
-})
