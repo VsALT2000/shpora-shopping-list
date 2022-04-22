@@ -35,12 +35,12 @@ const syncProductsStore = syncWithLocalStorage($productsStore, "productsStore");
 const syncNewProductId = syncWithLocalStorage($newProductId, "newProductId");
 
 const syncFromLS = {
-    activeSort: (newValue: SortOrder | null) => newValue ? syncActiveSort(newValue) : syncActiveSort(),
-    listsStore: (newValue: ProductsListType[] | null) => newValue ? syncListsStore(newValue) : syncListsStore(),
-    newListId: (newValue: number | null) => newValue ? syncNewListId(newValue) : syncNewListId(),
-    activeFilters: (newValue: ShopType[] | null) => newValue ? syncActiveFilters(newValue) : syncActiveFilters(),
-    productsStore: (newValue: ProductType[] | null) => newValue ? syncProductsStore(newValue) : syncProductsStore(),
-    newProductId: (newValue: number | null) => newValue ? syncNewProductId(newValue) : syncNewProductId(),
+    activeSort: (newValue: SortOrder | null) => syncActiveSort(newValue),
+    listsStore: (newValue: ProductsListType[] | null) => syncListsStore(newValue),
+    newListId: (newValue: number | null) => syncNewListId(newValue),
+    activeFilters: (newValue: ShopType[] | null) => syncActiveFilters(newValue),
+    productsStore: (newValue: ProductType[] | null) => syncProductsStore(newValue),
+    newProductId: (newValue: number | null) => syncNewProductId(newValue),
 }
 
 window.onstorage = (e) => {

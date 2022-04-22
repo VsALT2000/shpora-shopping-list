@@ -2,7 +2,7 @@ import {createEvent, sample, Store} from "effector";
 
 const syncWithLocalStorage = <T>(store: Store<T>, name: string) => {
     const writeToLS = createEvent<void>();
-    const syncWithLS = createEvent<T | void>();
+    const syncWithLS = createEvent<T | void | null>();
     store
         .on(writeToLS, store => {
             try {
@@ -12,7 +12,9 @@ const syncWithLocalStorage = <T>(store: Store<T>, name: string) => {
             }
         })
         .on(syncWithLS, (state, newValue) => {
-            const store = localStorage.getItem(name);
+            let store = null;
+            if (!newValue)
+                store = localStorage.getItem(name);
             return newValue || (store ? JSON.parse(store) : state);
         })
 
