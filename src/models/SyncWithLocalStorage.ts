@@ -5,7 +5,6 @@ const syncWithLocalStorage = <T>(store: Store<T>, name: string) => {
     const syncWithLS = createEvent<T | void>();
     store
         .on(writeToLS, store => {
-            console.log("ЗАПИСАЛ ЗАЛУПУ:" + store)
             try {
                 window.localStorage.setItem(name, JSON.stringify(store));
             } catch (e) {
