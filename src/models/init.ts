@@ -1,6 +1,6 @@
 import './allProducts/init';
 import './productsList/init';
-import {Store, Event} from "effector";
+import {Store, Event, EventPayload} from "effector";
 import syncWithLocalStorage from "./SyncWithLocalStorage";
 import {$productsStore, AddNewProduct, DeleteProducts, EditProduct} from "./allProducts/ProductsStore";
 import {$activeFilters} from "./filteredProducts/FilteredProductStore";
@@ -8,6 +8,7 @@ import {$newProductId} from "./allProducts/ProductsCountStore";
 import {$newListId} from "./productsList/ProductsListCountStore";
 import {$listsStore, AddNewList, ToggleProductBoughtState} from "./productsList/ProductsListStore";
 import {$activeSort} from "./sortedProducts/SortedProductStore";
+import {ProductsListType, ProductType, ShopType, SortOrder} from "../types/types";
 
 const watcher = (message: string, target: Store<any> | Event<any>) => {
     if (process.env.NODE_ENV === 'development')
@@ -34,12 +35,15 @@ const syncProductsStore = syncWithLocalStorage($productsStore, "productsStore");
 const syncNewProductId = syncWithLocalStorage($newProductId, "newProductId");
 
 const syncFromLS = {
-    activeSort: (newValue: string | null) => newValue ? syncActiveSort(JSON.parse(newValue)) : syncActiveSort(),
-    listsStore: (newValue: string | null) => newValue ? syncListsStore(JSON.parse(newValue)) : syncListsStore(),
-    newListId: (newValue: string | null) => newValue ? syncNewListId(JSON.parse(newValue)) : syncNewListId(),
-    activeFilters: (newValue: string | null) => newValue ? syncActiveFilters(JSON.parse(newValue)) : syncActiveFilters(),
-    productsStore: (newValue: string | null) => newValue ? syncProductsStore(JSON.parse(newValue)) : syncProductsStore(),
-    newProductId: (newValue: string | null) => newValue ? syncNewProductId(JSON.parse(newValue)) : syncNewProductId(),
+    activeSort: (newValue: SortOrder | null) => newValue ? syncActiveSort(newValue) : syncActiveSort(),
+    listsStore: (newValue: ProductsListType[] | null) => newValue ? syncListsStore(newValue) : syncListsStore(),
+    newListId: (newValue: number | null) => newValue ? syncNewListId(newValue) : syncNewListId(),
+    activeFilters: (newValue: ShopType[] | null) => newValue ? syncActiveFilters(newValue) : syncActiveFilters(),
+    productsStore: (newValue: ProductType[] | null) => newValue ? syncProductsStore(newValue) : syncProductsStore(),
+    newProductId: (newValue: number | null) => newValue ? syncNewProductId(newValue) : syncNewProductId(),
 }
 
-window.onstorage = (e) => syncFromLS[e.key as keyof typeof syncFromLS](e.newValue);
+window.onstorage = (e) => {
+    const newValue = e.newValue ? JSON.parse(e.newValue) : null;
+    syncFromLS[e.key as keyof typeof syncFromLS](newValue);
+};
