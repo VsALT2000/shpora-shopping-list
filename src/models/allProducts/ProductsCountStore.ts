@@ -1,8 +1,23 @@
-import {createEvent, createStore} from "effector";
+import {createEvent, createStore, sample} from "effector";
 
-const defaultState = JSON.parse(window.localStorage.getItem("newProductId") || "0");
-export const $NewProductId = createStore<number>(defaultState);
+export const $NewProductId = createStore<number>(0);
+export const ReadNewProductIdFromLS = createEvent<void>("ReadNewProductId");
+const WriteToLS = createEvent<void>("WriteNewProductId");
 export const Increment = createEvent<void>("IncrementProductCount");
 
 $NewProductId
-    .on(Increment, state => state + 1);
+    .on(Increment, state => state + 1)
+    .on(ReadNewProductIdFromLS, (_) => {
+        const stored = window.localStorage.getItem("newProductId");
+        return stored ? JSON.parse(stored) : 0;
+    })
+    .on(WriteToLS, (store) => {
+        window.localStorage.setItem("newProductId", JSON.stringify(store));
+    });
+
+ReadNewProductIdFromLS();
+
+sample({
+    clock: $NewProductId,
+    target: WriteToLS,
+});
