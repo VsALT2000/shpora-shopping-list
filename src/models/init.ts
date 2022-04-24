@@ -27,12 +27,12 @@ watcher("Сортировка:", $activeSort);
 watcher("Products Counter:", $newProductId);
 watcher("List Counter:", $newListId);
 
+const syncProductsStore = syncWithLocalStorage($productsStore, "productsStore");
 const syncNewListId = syncWithLocalStorage($newListId, "newListId");
+const syncNewProductId = syncWithLocalStorage($newProductId, "newProductId");
 const syncListsStore = syncWithLocalStorage($listsStore, "listsStore");
 const syncActiveSort = syncWithLocalStorage($activeSort, "activeSort");
 const syncActiveFilters = syncWithLocalStorage($activeFilters, "activeFilters");
-const syncProductsStore = syncWithLocalStorage($productsStore, "productsStore");
-const syncNewProductId = syncWithLocalStorage($newProductId, "newProductId");
 
 const syncFromLS = {
     activeSort: (newValue: SortOrder | null) => syncActiveSort(newValue),
