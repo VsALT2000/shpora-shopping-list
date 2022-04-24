@@ -34,6 +34,9 @@ const ProductList: React.FC<ShoppingListProps> = (props) => {
     let pendingProducts = list.pendingProducts.map((id) => products.find((product) => product.id === id) as ProductType);
     let boughtProducts = list.boughtProducts.map((id) => products.find((product) => product.id === id) as ProductType);
 
+    pendingProducts = pendingProducts.filter(product => product !== undefined);
+    boughtProducts = boughtProducts.filter(product => product !== undefined)
+
     if(filters.length > 0){
         pendingProducts = pendingProducts.filter((product) => (filters.includes(product.shop as ShopType)));
         boughtProducts = boughtProducts.filter((product) => (filters.includes(product.shop as ShopType)));
