@@ -26,13 +26,13 @@ const ProductList: React.FC<ShoppingListProps> = (props) => {
     const navigate = useNavigate();
     const products = useStore($productsStore);
     const sortOrder = useStore($activeSort);
-    const list = useStore($listsStore).find((list) => list.id === props.listId);
+    const list = useStore($listsStore).get(props.listId);
     const filters = useStore($activeFilters);
     if (!list) return null;
 
 
-    let pendingProducts = list.pendingProducts.map((id) => products.find((product) => product.id === id) as ProductType);
-    let boughtProducts = list.boughtProducts.map((id) => products.find((product) => product.id === id) as ProductType);
+    let pendingProducts = list.pendingProducts.map((id) => products.get(id) as ProductType);
+    let boughtProducts = list.boughtProducts.map((id) => products.get(id) as ProductType);
 
     if(filters.length > 0){
         pendingProducts = pendingProducts.filter((product) => (filters.includes(product.shop as ShopType)));

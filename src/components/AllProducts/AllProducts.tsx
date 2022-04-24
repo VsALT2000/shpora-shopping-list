@@ -31,8 +31,8 @@ const AllProducts = () => {
                 {openedSort && <ShoppingListSort onCloseSort={() => setOpenedSort(false)}/>}
             </div>
             <div className={styles.shoppingListItems}>
-                {allProducts && allProducts
-                    .filter((product) => (filters.length > 0 ? filters.includes(product.shop as ShopType) : true))
+                {allProducts && 
+                    Array.from(allProducts.values()).filter((product) => (filters.length > 0 ? filters.includes(product.shop as ShopType) : true))
                     .sort(sortingFunctions[sortOrder])
                     .map((product) => <Item {...product} key={product.id}/>)}
             </div>

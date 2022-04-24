@@ -26,7 +26,7 @@ watcher("Фильтры:", $activeFilters);
 watcher("Сортировка:", $activeSort);
 watcher("Products Counter:", $newProductId);
 watcher("List Counter:", $newListId);
-
+/*
 const syncNewListId = syncWithLocalStorage($newListId, "newListId");
 const syncListsStore = syncWithLocalStorage($listsStore, "listsStore");
 const syncActiveSort = syncWithLocalStorage($activeSort, "activeSort");
@@ -36,7 +36,7 @@ const syncNewProductId = syncWithLocalStorage($newProductId, "newProductId");
 
 const syncFromLS = {
     activeSort: (newValue: SortOrder | null) => syncActiveSort(newValue),
-    listsStore: (newValue: ProductsListType[] | null) => syncListsStore(newValue),
+    listsStore: (newValue: Map<number, ProductsListType> | null) => syncListsStore(newValue),
     newListId: (newValue: number | null) => syncNewListId(newValue),
     activeFilters: (newValue: ShopType[] | null) => syncActiveFilters(newValue),
     productsStore: (newValue: ProductType[] | null) => syncProductsStore(newValue),
@@ -48,3 +48,4 @@ window.onstorage = (e) => {
     const handler = syncFromLS[e.key as keyof typeof syncFromLS];
     if (handler) handler(newValue);
 };
+*/

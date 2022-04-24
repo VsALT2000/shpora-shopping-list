@@ -75,12 +75,8 @@ const ListShoppingLists = () => {
                         <label>Все покупки</label>
                     </div>
                 </div>
-                {
-                    lists.map(list => <ItemListShoppingLists key={list.id} {...list}/>)
-                }
-                {
-                    input && <AddListInput closeInput={() => setInput(false)}/>
-                }
+                {Array.from(lists.values()).map(list => <ItemListShoppingLists key={list.id} {...list}/>)}
+                {input && <AddListInput closeInput={() => setInput(false)}/>}
                 <AddNewItemButton onClick={() => setInput(true)}/>
             </div>
         </>

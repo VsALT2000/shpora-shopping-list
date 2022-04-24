@@ -7,22 +7,28 @@ export const DeleteProducts = createEvent<number[]>("DeleteProduct");
 
 export const EditProduct = createEvent<EditProductType>("EditProduct");
 
-export const $productsStore = createStore<ProductType[]>([]);
+export const $productsStore = createStore <Map<number, ProductType>>(new Map<number, ProductType>());
 
 $productsStore
-    .on(AddNewProduct, (state, product: ProductType) => [...state, product])
+    .on(AddNewProduct, (state, product: ProductType) => {
+        const newState = new Map(state);
+        newState.set(product.id, product);
+        return newState;
+    })
     .on(DeleteProducts, (state, productsId: number[]) => {
-        return state.filter(product => !productsId.includes(product.id));
+        const newState = new Map(state);
+        productsId.forEach((id) => newState.delete(id));
+        return newState;
     })
     .on(EditProduct, (state, newProduct: EditProductType) => {
-        const newState = state.slice();
-        const productIndex = newState.findIndex(product => product.id === newProduct.id)
-        if (productIndex !== -1) {
+        const newState = new Map(state);
+        if (newState.has(newProduct.id)) {
             const payload = newProduct.payload
             const fields = Object.keys(payload);
+            const product = newState.get(newProduct.id)
             for (const field of fields) {
                 // @ts-ignore Сделал так для расширяемости
-                newState[productIndex][field] = payload[field];
+                product[field] = payload[field];
             }
         }
         return newState;

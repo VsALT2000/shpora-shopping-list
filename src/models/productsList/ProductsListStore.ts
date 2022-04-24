@@ -11,30 +11,38 @@ export const DeleteProductFromList = createEvent<ProductInListType>("DeleteProdu
 
 export const ToggleProductBoughtState = createEvent<ProductInListType>("ToggleProductBoughtState");
 
-export const $listsStore = createStore<ProductsListType[]>([]);
+export const $listsStore = createStore<Map<number, ProductsListType>>(new Map<number, ProductsListType>());
 
 $listsStore
-    .on(AddNewList, (state, list: ProductsListType) => [...state, list])
-    .on(DeleteList, (state, {listId, productsId}) => state.filter((list) => list.id !== listId))
+    .on(AddNewList, (state, list: ProductsListType) => {
+        const newState = new Map(state);
+        newState.set(list.id, list);
+        return newState;
+    })
+    .on(DeleteList, (state, {listId, productsId}) => {
+        const newState = new Map(state);
+        newState.delete(listId);
+        return newState;
+    })
     .on(AddProductToList, (state, {product, listId}) => {
-        const newState = state.slice();
-        const list = newState.find((list) => list.id === listId);
+        const newState = new Map(state);
+        const list = newState.get(listId);
         if (!!list) {
             list.pendingProducts.push(product.id);
         }
         return newState;
     })
     .on(DeleteProductFromList, (state, {listId, productId}) => {
-        const newState = state.slice();
-        const list = newState.find((list) => list.id === listId);
+        const newState = new Map(state);
+        const list = newState.get(listId);
         if (!!list) {
             list.pendingProducts = list.pendingProducts.filter((id) => id !== productId);
         }
         return newState;
     })
     .on(ToggleProductBoughtState, (state, {listId, productId}) => {
-        const newState = state.slice();
-        const list = newState.find((list) => list.id === listId);
+        const newState = new Map(state);
+        const list = newState.get(listId);
         if (!!list) {
             if (list.boughtProducts.includes(productId)) {
                 list.pendingProducts.push(productId);
