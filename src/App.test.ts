@@ -543,6 +543,231 @@ describe("Все тесты", () => {
                     assert.deepEqual(products, [testProduct2, testProduct0, testProduct1]);
                 });
             });
+
+            describe("По дате добавления", () => {
+                const testProduct0 = {
+                    name: "Сахар",
+                    id: 0,
+                    date: new Date(0),
+                    cost: 100,
+                    amount: 1,
+                    unit: UnitType.kg,
+                    shop: ShopType.pyaterochka,
+                    bought: false
+                }
+                const testProduct1 = {
+                    name: "Арбуз",
+                    id: 1,
+                    date: new Date(2022, 5, 25, 16, 20, 23, 5),
+                    price: 100,
+                    cost: 1000,
+                    amount: 10,
+                    unit: UnitType.kg,
+                    shop: ShopType.pyaterochka,
+                    bought: false
+                }
+                const testProduct2 = {
+                    name: "Масло",
+                    id: 2,
+                    date: new Date(2020, 0, 0, 0, 0, 0, 0),
+                    cost: 10.14,
+                    amount: 1,
+                    unit: UnitType.kg,
+                    shop: ShopType.pyaterochka,
+                    bought: false
+                }
+
+                beforeEach(() => {
+                    AddProductToList({listId: 0, product: testProduct0});
+                    AddProductToList({listId: 0, product: testProduct1});
+                    AddProductToList({listId: 0, product: testProduct2});
+                })
+
+                it("Сначала новые", () => {
+                    const products = $productsStore.getState();
+                    products.sort(sortingFunctions[SortOrder.firstNew])
+
+                    assert.deepEqual(products, [testProduct1, testProduct2, testProduct0]);
+                });
+
+                it("Сначала старые", () => {
+                    const products = $productsStore.getState();
+                    products.sort(sortingFunctions[SortOrder.firstOld])
+
+                    assert.deepEqual(products, [testProduct0, testProduct2, testProduct1]);
+                });
+            });
+        });
+
+        describe("Filter:", () => {
+            beforeEach(() => {
+                AddNewList({name: "testList", id: 0, boughtProducts: [], pendingProducts: []});
+            })
+
+            it("При множественном выборе показывает отфильтрованные продукты", () => {
+                const testProduct0 = {
+                    name: "Сахар",
+                    id: 0,
+                    date: new Date(2020, 0, 0, 0, 0, 0, 0),
+                    cost: 100,
+                    amount: 1,
+                    unit: UnitType.kg,
+                    shop: ShopType.pyaterochka,
+                    bought: false
+                }
+                const testProduct1 = {
+                    name: "Арбуз",
+                    id: 1,
+                    date: new Date(2020, 0, 0, 0, 0, 0, 0),
+                    cost: 100,
+                    amount: 1,
+                    unit: UnitType.kg,
+                    shop: ShopType.verno,
+                    bought: false
+                }
+                const testProduct2 = {
+                    name: "Масло",
+                    id: 2,
+                    date: new Date(2020, 0, 0, 0, 0, 0, 0),
+                    cost: 100,
+                    amount: 1,
+                    unit: UnitType.kg,
+                    shop: ShopType.perekrestok,
+                    bought: false
+                }
+                AddProductToList({listId: 0, product: testProduct0});
+                AddProductToList({listId: 0, product: testProduct1});
+                AddProductToList({listId: 0, product: testProduct2});
+                ChangeFilter([ShopType.perekrestok, ShopType.verno])
+                let products = $productsStore.getState();
+                const filters = $activeFilters.getState();
+                products = products.filter((product) => (filters.includes(product.shop as ShopType)));
+
+                assert.deepEqual(products, [testProduct1, testProduct2]);
+            })
+
+            it("При единичном выборе показывает отфильтрованные продукты", () => {
+                const testProduct0 = {
+                    name: "Сахар",
+                    id: 0,
+                    date: new Date(2020, 0, 0, 0, 0, 0, 0),
+                    cost: 100,
+                    amount: 1,
+                    unit: UnitType.kg,
+                    shop: ShopType.verno,
+                    bought: false
+                }
+                const testProduct1 = {
+                    name: "Арбуз",
+                    id: 1,
+                    date: new Date(2020, 0, 0, 0, 0, 0, 0),
+                    cost: 100,
+                    amount: 1,
+                    unit: UnitType.kg,
+                    shop: ShopType.verno,
+                    bought: false
+                }
+                const testProduct2 = {
+                    name: "Масло",
+                    id: 2,
+                    date: new Date(2020, 0, 0, 0, 0, 0, 0),
+                    cost: 100,
+                    amount: 1,
+                    unit: UnitType.kg,
+                    shop: ShopType.perekrestok,
+                    bought: false
+                }
+                AddProductToList({listId: 0, product: testProduct0});
+                AddProductToList({listId: 0, product: testProduct1});
+                AddProductToList({listId: 0, product: testProduct2});
+                ChangeFilter([ShopType.verno])
+                let products = $productsStore.getState();
+                const filters = $activeFilters.getState();
+                products = products.filter((product) => (filters.includes(product.shop as ShopType)));
+
+                assert.deepEqual(products, [testProduct0, testProduct1]);
+            });
+
+            it("При отсутсвии подходящих вариантов возвращает пустой массив", () => {
+                const testProduct0 = {
+                    name: "Сахар",
+                    id: 0,
+                    date: new Date(2020, 0, 0, 0, 0, 0, 0),
+                    cost: 100,
+                    amount: 1,
+                    unit: UnitType.kg,
+                    shop: ShopType.perekrestok,
+                    bought: false
+                }
+                const testProduct1 = {
+                    name: "Арбуз",
+                    id: 1,
+                    date: new Date(2020, 0, 0, 0, 0, 0, 0),
+                    cost: 100,
+                    amount: 1,
+                    unit: UnitType.kg,
+                    shop: ShopType.perekrestok,
+                    bought: false
+                }
+                const testProduct2 = {
+                    name: "Масло",
+                    id: 2,
+                    date: new Date(2020, 0, 0, 0, 0, 0, 0),
+                    cost: 100,
+                    amount: 1,
+                    unit: UnitType.kg,
+                    shop: ShopType.perekrestok,
+                    bought: false
+                }
+                AddProductToList({listId: 0, product: testProduct0});
+                AddProductToList({listId: 0, product: testProduct1});
+                AddProductToList({listId: 0, product: testProduct2});
+                ChangeFilter([ShopType.verno])
+                let products = $productsStore.getState();
+                const filters = $activeFilters.getState();
+                products = products.filter((product) => (filters.includes(product.shop as ShopType)));
+
+                assert.deepEqual(products, []);
+            });
+
+            it("При отсутсвии магазина не выводит продукт", () => {
+                const testProduct0 = {
+                    name: "Сахар",
+                    id: 0,
+                    date: new Date(2020, 0, 0, 0, 0, 0, 0),
+                    cost: 100,
+                    amount: 1,
+                    unit: UnitType.kg,
+                    bought: false
+                }
+                const testProduct1 = {
+                    name: "Арбуз",
+                    id: 1,
+                    date: new Date(2020, 0, 0, 0, 0, 0, 0),
+                    cost: 100,
+                    amount: 1,
+                    unit: UnitType.kg,
+                    bought: false
+                }
+                const testProduct2 = {
+                    name: "Масло",
+                    id: 2,
+                    date: new Date(2020, 0, 0, 0, 0, 0, 0),
+                    cost: 100,
+                    amount: 1,
+                    unit: UnitType.kg,
+                    bought: false
+                }
+                AddProductToList({listId: 0, product: testProduct0});
+                AddProductToList({listId: 0, product: testProduct1});
+                AddProductToList({listId: 0, product: testProduct2});
+                ChangeFilter([ShopType.verno])
+                let products = $productsStore.getState();
+                const filters = $activeFilters.getState();
+                products = products.filter((product) => (filters.includes(product.shop as ShopType)));
+
+                assert.deepEqual(products, []);
+            });
         });
     });
 });
