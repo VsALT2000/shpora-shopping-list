@@ -15,7 +15,6 @@ interface ActionsProps {
 export const Actions: React.FC<ActionsProps> = (props) => {
     const [openedKebab, setOpenedKebab] = useState(true);
     const [openedForm, setOpenedForm] = useState(false);
-
     useEffect(() => () => setOpenedKebab(true), []);
 
     const closeKebab = () => {
@@ -33,7 +32,7 @@ export const Actions: React.FC<ActionsProps> = (props) => {
     return (
         <div className={styles.actionsWrapper}>
             {openedForm &&
-                <EditItemForm listId={props.listId} onCloseForm={() => setOpenedForm(false)} productData={props.product}/>}
+                <EditItemForm editForm={true} listId={props.listId} onCloseForm={() => setOpenedForm(false)} productData={props.product}/>}
             <div className={styles.action}>
                 <div className={cn(styles.kebab, {[styles.openedOptions]: openedKebab})}
                      onClick={clickKebabHandler}>
@@ -48,7 +47,6 @@ export const Actions: React.FC<ActionsProps> = (props) => {
                     <DeleteIcon/>
                 </div>
             </div>
-
         </div>
     );
 };
