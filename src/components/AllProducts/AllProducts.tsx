@@ -11,30 +11,33 @@ import {$activeFilters} from "../../models/filteredProducts/FilteredProductStore
 import cn from "classnames";
 import {$activeSort} from "../../models/sortedProducts/SortedProductStore";
 import {useNavigate} from "react-router-dom";
+import DownloadTSV from "../Common/FormControl/DownloadTSV";
 
 const AllProducts = () => {
-    const allProducts = useStore($productsStore);
+    let allProducts = useStore($productsStore);
     const filters = useStore($activeFilters);
     const sortOrder = useStore($activeSort);
     const [openedSort, setOpenedSort] = useState(false);
     const [openedFilter, setOpenedFilter] = useState(false);
     const navigate = useNavigate();
 
+    if(filters.length > 0)
+        allProducts = allProducts.filter((product) => (filters.includes(product.shop as ShopType)));
+    allProducts.sort(sortingFunctions[sortOrder]);
+
     return (
         <div className={styles.shoppingList}>
             <div className={styles.shoppingListHeader}>
                 <ArrowBackIcon onClick={() => navigate("/")}/>
                 <h2>Все покупки</h2>
+                <DownloadTSV name={"Все продукты"} products={allProducts} className={styles.icon}/>
                 <FilterIcon onClick={() => setOpenedFilter(true)}/>
                 {openedFilter && <ShoppingListFilter onCloseFilter={() => setOpenedFilter(false)}/>}
                 <SortIcon onClick={() => setOpenedSort(true)}/>
                 {openedSort && <ShoppingListSort onCloseSort={() => setOpenedSort(false)}/>}
             </div>
             <div className={styles.shoppingListItems}>
-                {allProducts && allProducts
-                    .filter((product) => (filters.length > 0 ? filters.includes(product.shop as ShopType) : true))
-                    .sort(sortingFunctions[sortOrder])
-                    .map((product) => <Item {...product} key={product.id}/>)}
+                {allProducts.map((product) => <Item {...product} key={product.id}/>)}
             </div>
         </div>
     );

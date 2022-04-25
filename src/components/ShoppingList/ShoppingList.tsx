@@ -14,6 +14,7 @@ import {EditItemForm} from "../EdiItemForm/EditItemForm";
 import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
 import {$activeFilters} from "../../models/filteredProducts/FilteredProductStore";
 import {$activeSort} from "../../models/sortedProducts/SortedProductStore";
+import DownloadTSV from "../Common/FormControl/DownloadTSV";
 
 interface ShoppingListProps {
     onOpenForm: (state: boolean) => void;
@@ -53,6 +54,7 @@ const ProductList: React.FC<ShoppingListProps> = (props) => {
             <div className={styles.shoppingListHeader}>
                 <ArrowBackIcon onClick={() => navigate("/")}/>
                 <h2>{list.name}</h2>
+                <DownloadTSV name={list.name} products={allProducts} className={styles.icon}/>
                 <FilterIcon onClick={() => setOpenedFilter(true)}/>
                 {openedFilter && <ShoppingListFilter onCloseFilter={() => setOpenedFilter(false)}/>}
                 <SortIcon onClick={() => setOpenedSort(true)}/>
