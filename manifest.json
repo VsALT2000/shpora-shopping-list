@@ -2,7 +2,7 @@
   "theme_color": "#3498db",
   "background_color": "#3498db",
   "display": "browser",
-  "start_url": "shpora-shopping-list/",
+  "start_url": ".",
   "name": "Shopping List",
   "short_name": "Shopping List",
   "icons": [
