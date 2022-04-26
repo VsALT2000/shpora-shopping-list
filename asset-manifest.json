@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/shpora-shopping-list/static/css/main.eae28748.css",
+    "main.css": "/shpora-shopping-list/static/css/main.9003646c.css",
     "main.js": "/shpora-shopping-list/static/js/main.00015403.js",
     "static/js/787.f467a887.chunk.js": "/shpora-shopping-list/static/js/787.f467a887.chunk.js",
     "index.html": "/shpora-shopping-list/index.html",
-    "main.eae28748.css.map": "/shpora-shopping-list/static/css/main.eae28748.css.map",
+    "main.9003646c.css.map": "/shpora-shopping-list/static/css/main.9003646c.css.map",
     "main.00015403.js.map": "/shpora-shopping-list/static/js/main.00015403.js.map",
     "787.f467a887.chunk.js.map": "/shpora-shopping-list/static/js/787.f467a887.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.eae28748.css",
+    "static/css/main.9003646c.css",
     "static/js/main.00015403.js"
   ]
 }
