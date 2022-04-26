@@ -3,7 +3,7 @@ import {
     AddNewList,
     AddProductToList,
     DeleteList,
-    DeleteProductFromList,
+    DeleteProductFromList, EditList,
     ToggleProductBoughtState
 } from "./models/productsList/ProductsListStore";
 import {ShopType, SortOrder, UnitType} from "./types/types";
@@ -221,6 +221,12 @@ describe("Все тесты", () => {
                 });
             });
 
+            it("при редактировании списка корректно меняет название списка", () => {
+                EditList({listId: 0, newName: "testListNEW"});
+                const listsStore = $listsStore.getState();
+                assert.equal(listsStore[0].name, "testListNEW");
+            });
+
             describe("при редактировании продукта", () => {
                 beforeEach(() => {
                     AddProductToList({
@@ -300,6 +306,11 @@ describe("Все тесты", () => {
                 it("появляется в boughtProducts", () => {
                     const listsStore = $listsStore.getState();
                     assert.equal(listsStore[0].boughtProducts.length, 1);
+                });
+
+                it("меняется значение в списке всех продуктов", () => {
+                    const productsStore = $productsStore.getState();
+                    assert.equal(productsStore[0].bought, true);
                 });
             });
         });
