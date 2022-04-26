@@ -1,14 +1,15 @@
 import React, {useRef} from "react";
-import {AddNewList} from "../../../models/productsList/ProductsListStore";
-import styles from './AddListInput.less';
+import {AddNewList, EditList} from "../../../models/productsList/ProductsListStore";
+import styles from './ListInput.less';
 import {$newListId} from "../../../models/productsList/ProductsListCountStore";
 import {useStore} from "effector-react";
 
 interface Props {
     closeInput: () => void;
+    id?: number;
 }
 
-const AddListInput: React.FC<Props> = ({closeInput}) => {
+const ListInput: React.FC<Props> = ({closeInput, id}) => {
     const input: React.RefObject<HTMLInputElement> = useRef(null);
     const newListId = useStore($newListId);
 
@@ -17,24 +18,29 @@ const AddListInput: React.FC<Props> = ({closeInput}) => {
         hour: 'numeric', minute: 'numeric'
     };
 
-    const onAddNewList = (e: React.SyntheticEvent) => {
+    const onSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
+        e.stopPropagation();
         // @ts-ignore
         const date = new Intl.DateTimeFormat('ru', dateOption).format(new Date());
-        AddNewList({
-            name: input.current?.value || date,
-            id: newListId,
-            boughtProducts: [],
-            pendingProducts: [],
-        });
+        if (id !== undefined) {
+            EditList({listId: id, newName: input.current?.value || date})
+        } else {
+            AddNewList({
+                name: input.current?.value || date,
+                id: newListId,
+                boughtProducts: [],
+                pendingProducts: [],
+            });
+        }
         closeInput();
     }
 
     return (
-        <form className={styles.itemWrapper} onSubmit={onAddNewList} onBlur={onAddNewList}>
+        <form onSubmit={onSubmit} onBlur={onSubmit}>
             <input ref={input} className={styles.CustomInput} autoFocus={true} type={"text"}/>
         </form>
     );
 }
 
-export default AddListInput;
+export default ListInput;
