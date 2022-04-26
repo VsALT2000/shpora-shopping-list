@@ -6,6 +6,7 @@ import ShoppingList from "./components/ShoppingList/ShoppingList";
 import AllProducts from "./components/AllProducts/AllProducts";
 
 
+
 const App: React.FC = () => {
     return (
         <div className={classes.appWrapper}>

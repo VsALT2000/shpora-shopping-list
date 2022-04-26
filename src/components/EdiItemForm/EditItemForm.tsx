@@ -63,12 +63,20 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
             validate={(values) => validate(values, editForm)}
         >
             <Form>
-                <Modal header={editForm ? "Редактирование" : "Добавить товар"} nameButton={editForm ? "Применить" : "Добавить"} onAbort={backdropClickHandler}>
+                <Modal header={editForm ? "Изменение товара" : "Добавить товар"} nameButton={editForm ? "Сохранить" : "Добавить"} onAbort={backdropClickHandler}>
                     <div className={styles.editItemForm}>
                         <Input name="name" label={`${editForm ? "" : "*"}Название`} type="text" />
                         <Input name="amount" label={`${editForm ? "" : "*"}Кол-во`} type="number" min={1} step={1} />
                         <Select name="unit" label={"Единицы измерения"}>
                             {Object.values(UnitType).map((value) => (
+                                <option value={value} key={value}>
+                                    {value}
+                                </option>
+                            ))}
+                        </Select>
+                        <Select name="shop" label={"Магазин"}>
+                            <option value={"Не выбрано"}>Не выбрано</option>
+                            {Object.values(ShopType).map((value) => (
                                 <option value={value} key={value}>
                                     {value}
                                 </option>
@@ -85,14 +93,7 @@ export const EditItemForm: React.FC<EditItemFormProps> = (props) => {
                             </div>
                             <Input  styles={styles.priceInput} name="price" label={""} type="number" min={0.01} step={0.01} />
                         </div>
-                        <Select name="shop" label={"Магазин"}>
-                            <option value={"Не выбрано"}>Не выбрано</option>
-                            {Object.values(ShopType).map((value) => (
-                                <option value={value} key={value}>
-                                    {value}
-                                </option>
-                            ))}
-                        </Select>
+                        
                     </div>
                 </Modal>
             </Form>

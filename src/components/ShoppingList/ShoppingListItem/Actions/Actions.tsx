@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Actions.less";
-import {EditItemForm} from "../../../EdiItemForm/EditItemForm";
-import {ProductType} from "../../../../types/types";
-import {DeleteIcon, EditIcon, KebabIcon} from "../../../Common/Icons/Icons";
+import { EditItemForm } from "../../../EdiItemForm/EditItemForm";
+import { ProductType } from "../../../../types/types";
+import { DeleteIcon, EditIcon, KebabIcon } from "../../../Common/Icons/Icons";
 import cn from "classnames";
-import {DeleteProductFromList} from "../../../../models/productsList/ProductsListStore";
+import { DeleteProductFromList } from "../../../../models/productsList/ProductsListStore";
 
 interface ActionsProps {
     product: ProductType;
@@ -31,24 +31,22 @@ export const Actions: React.FC<ActionsProps> = (props) => {
     };
 
     return (
-        <div className={styles.actionsWrapper}>
-            {openedForm &&
-                <EditItemForm listId={props.listId} onCloseForm={() => setOpenedForm(false)} productData={props.product}/>}
-            <div className={styles.action}>
-                <div className={cn(styles.kebab, {[styles.openedOptions]: openedKebab})}
-                     onClick={clickKebabHandler}>
-                    <KebabIcon/>
-                </div>
-                <div className={cn(styles.blueIcon, {[styles.openedOptions]: !openedKebab})}
-                     onClick={() => setOpenedForm(true)}>
-                    <EditIcon/>
-                </div>
-                <div className={cn(styles.redIcon, {[styles.openedOptions]: !openedKebab})}
-                     onClick={() => DeleteProductFromList({listId: props.listId, productId: props.product.id})}>
-                    <DeleteIcon/>
-                </div>
+        <div className={styles.actionsWrapper} onClick={clickKebabHandler}>
+            {openedForm && <EditItemForm listId={props.listId} onCloseForm={() => setOpenedForm(false)} productData={props.product} />}
+            <div className={styles.kebab}>
+               <KebabIcon /> 
             </div>
-
+            {!openedKebab && <div className={styles.actions}>
+                <div className={styles.editIcon} onClick={() => setOpenedForm(true)}>
+                   <EditIcon/> 
+                   <p>Изменить</p>
+                </div>
+                <div className={styles.deleteIcon} onClick={() => DeleteProductFromList({ listId: props.listId, productId: props.product.id })}>
+                   <DeleteIcon/>
+                   <p>Удалить</p> 
+                </div>
+                <div className={styles.triangle}></div>
+            </div>}
         </div>
     );
 };
