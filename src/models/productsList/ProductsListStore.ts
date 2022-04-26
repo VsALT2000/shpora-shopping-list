@@ -10,11 +10,8 @@ export const EditList = createEvent<{ listId: number, newName: string }>("EditLi
 export const AddProductToList = createEvent<AddProductByListIdType>("AddProductToList");
 
 export const DeleteProductFromList = createEvent<ProductInListType>("DeleteProductFromList");
-
 export const ToggleProductBoughtState = createEvent<ProductInListType>("ToggleProductBoughtState");
-
 export const $listsStore = createStore<ProductsListType[]>([]);
-
 $listsStore
     .on(AddNewList, (state, list: ProductsListType) => [...state, list])
     .on(DeleteList, (state, {listId, productsId}) => state.filter((list) => list.id !== listId))

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from './AllProducts.less';
 import {useStore} from "effector-react";
 import {$productsStore} from "../../models/allProducts/ProductsStore";
-import {ArrowBackIcon, ArrowIcon, FilterIcon, SortIcon} from "../Common/Icons/Icons";
+import {ArrowBackIcon, FilterIcon, SortIcon} from "../Common/Icons/Icons";
 import {ShoppingListFilter} from "../ShoppingList/ShoppingListFilter/ShoppingListFilter";
 import {ShoppingListSort} from "../ShoppingList/ShoppingListSort/ShoppingListSort";
 import {ProductType, ShopType} from "../../types/types";
@@ -24,7 +24,7 @@ const AllProducts = () => {
     if(filters.length > 0)
         allProducts = allProducts.filter((product) => (filters.includes(product.shop as ShopType)));
     allProducts.sort(sortingFunctions[sortOrder]);
-
+    // TODO: Доделать
     return (
         <div className={styles.shoppingList}>
             <div className={styles.shoppingListHeader}>
@@ -38,6 +38,10 @@ const AllProducts = () => {
             </div>
             <div className={styles.shoppingListItems}>
                 {allProducts.map((product) => <Item {...product} key={product.id}/>)}
+                {allProducts && 
+                    Array.from(allProducts.values()).filter((product) => (filters.length > 0 ? filters.includes(product.shop as ShopType) : true))
+                    .sort(sortingFunctions[sortOrder])
+                    .map((product) => <Item {...product} key={product.id}/>)}
             </div>
         </div>
     );
@@ -64,7 +68,6 @@ const Item: React.FC<ProductType> = React.memo((props) => {
                         | {props.amount + props.unit + ' ' + props.cost + '₽'}
                     </span>
                 )}
-                <ArrowIcon className={cn(styles.arrow, {[styles.arrowReverse]: !closedOptions})}/>
                 <div>
                     <p className={options}>Количество: {props.amount}</p>
                     <p className={options}>Дата добавления:</p>

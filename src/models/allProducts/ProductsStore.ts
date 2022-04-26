@@ -10,7 +10,6 @@ export const BuyingProduct = createEvent<number>("BuyingProduct");
 export const EditProduct = createEvent<EditProductType>("EditProduct");
 
 export const $productsStore = createStore<ProductType[]>([]);
-
 $productsStore
     .on(AddNewProduct, (state, product: ProductType) => [...state, product])
     .on(DeleteProducts, (state, productsId: number[]) => {

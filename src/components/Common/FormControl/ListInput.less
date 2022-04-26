@@ -1,10 +1,30 @@
 .CustomInput {
-    border: 0;
-    border-radius: 2px;
-    width: 100%;
+    border: 1px solid rgb(201, 201, 201);
     outline: none;
-    -webkit-appearance: none;
-    box-shadow: 0 0 0 2px #015ccb;
-    font-size: 1.125rem;
-    font-family: "Lab Grotesque", serif;
+    font-size: 14pt;
+    padding: 11px 15px 11px 15px;
+    box-sizing: border-box;
+}
+.newLists {
+    background-color: #f2f2f2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+
+    & form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 5vw;
+        gap: 5vw;
+        height: calc(100vh - 59px);
+        box-sizing: border-box;
+    }
+    & form > * {
+        width: 100%;
+    }
 }

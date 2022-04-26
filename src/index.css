@@ -5,6 +5,13 @@
     src: url(https://s.kontur.ru/common-v2/fonts/LabGrotesque/LabGrotesque-Regular.woff2) format("woff2");
 }
 
+@font-face {
+  font-family: "Lab Grotesque Black";
+  font-style: bold;
+  font-weight: 700;
+  src: url(https://s.kontur.ru/common-v2/fonts/LabGrotesque/LabGrotesque-Black.woff2) format("woff2");
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

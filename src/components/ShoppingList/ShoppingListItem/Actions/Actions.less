@@ -1,45 +1,43 @@
 .actionsWrapper {
     height: 100%;
-}
-
-.action {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-
-    & > div {
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        box-sizing: border-box;
-        padding-top: 15px;
-        height: 100%;
-        transition: width 0.5s;
-    }
+    width: 8vw;
 }
 
 .kebab {
-    width: 0;
-    overflow: hidden;
-    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
-.blueIcon {
-     width: 0;
-     overflow: hidden;
-     background-color: #33C1FF;
- }
-
-.redIcon {
-    width: 0;
-    overflow: hidden;
-    background-color: #FF5229;
+.actions{
+    position: absolute;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    right: 20px;
 }
 
-.openedOptions {
-    width: 60px;
-    cursor: pointer;
+.editIcon{
+    display: flex;
+    gap: 10px;
+    
+    padding: 1rem 2rem;
+}
+
+.deleteIcon{
+    display: flex;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    gap: 10px;
+    padding: 1rem 2rem;
+}
+.triangle{
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    transform: rotate(45deg);
+    top: -7px;
+    right: 25px;
+    box-shadow: -2px -2px 0 rgb(0 0 0 / 12%);
 }
