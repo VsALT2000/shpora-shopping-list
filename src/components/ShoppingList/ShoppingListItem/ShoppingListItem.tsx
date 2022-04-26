@@ -19,6 +19,11 @@ const ShoppingListItem: React.FC<ShoppingListItemProps> = ({product, listId}) =>
             setClosedOptions(!closedOptions);
     };
 
+    const onBought = (e: React.SyntheticEvent) => {
+        e.stopPropagation();
+        ToggleProductBoughtState({listId, productId: product.id})
+    };
+
     const dateOption = {
         year: 'numeric', month: 'numeric', day: 'numeric',
         hour: 'numeric', minute: 'numeric'
@@ -30,32 +35,35 @@ const ShoppingListItem: React.FC<ShoppingListItemProps> = ({product, listId}) =>
         [styles.openedOptions]: !(product.bought || closedOptions)
     });
     return (
-        <div className={cn(styles.itemWrapper, {
+        <button className={cn(styles.itemWrapper, {
             [styles.boughtProduct]: product.bought
-        })}>
-            <div className={styles.itemContentLeftPart}>
-                <Checkbox defaultChecked={product.bought} onChange={() => ToggleProductBoughtState({listId, productId: product.id})}/>
-                <div className={styles.shoppingListItemContent} onClick={contentClickHandler}>
-                    <label>{product.name}</label>
-                    {(product.bought || closedOptions) && (
-                        <span>
+        })} onClick={contentClickHandler}>
+            <div className={styles.itemContentWrapper}>
+                <div className={styles.itemContentLeftPart}>
+                    <Checkbox defaultChecked={product.bought} onChange={onBought}/>
+                    <div className={styles.shoppingListItemContent}>
+                        <label>{product.name}</label>
+                        {(product.bought || closedOptions) && (
+                            <span>
                         | {product.amount + product.unit + ' ' + product.cost + '₽'}
                     </span>
-                    )}
-                    <ArrowIcon className={cn(styles.arrow, {[styles.arrowReverse]: !product.bought && !closedOptions})}/>
-                    <div>
-                        <p className={options}>Количество: {product.amount}</p>
-                        <p className={options}>Дата добавления:</p>
-                        <p className={options}>{date}</p>
-                        {product.shop && <p className={options}>Магазин: {product.shop}</p>}
-                        {product.price ? <p className={options}>Цена: {product.price}₽</p> : <p className={options}>Примерная стоимость: {product.cost}₽</p>}
+                        )}
+                        <ArrowIcon className={cn(styles.arrow, {[styles.arrowReverse]: !product.bought && !closedOptions})}/>
+                        <div>
+                            <p className={options}>Количество: {product.amount}</p>
+                            <p className={options}>Дата добавления:</p>
+                            <p className={options}>{date}</p>
+                            {product.shop && <p className={options}>Магазин: {product.shop}</p>}
+                            {product.price ? <p className={options}>Цена: {product.price}₽</p> : <p className={options}>Примерная стоимость: {product.cost}₽</p>}
+                        </div>
                     </div>
                 </div>
+                <div>
+                    <Actions listId={listId} product={product} closeOptions={() => setClosedOptions(true)}/>
+                </div>
             </div>
-            <div>
-                <Actions listId={listId} product={product} closeOptions={() => setClosedOptions(true)}/>
-            </div>
-        </div>
+        </button>
+
     );
 };
 
