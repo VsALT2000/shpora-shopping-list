@@ -30,7 +30,7 @@ const AllProducts = () => {
             <div className={styles.shoppingListHeader}>
                 <ArrowBackIcon onClick={() => navigate("/")}/>
                 <h2>Все покупки</h2>
-                <DownloadTSV name={"Все продукты"} products={allProducts} className={styles.icon}/>
+                <DownloadTSV name={"Все продукты"} products={allProducts}/>
                 <FilterIcon onClick={() => setOpenedFilter(true)}/>
                 {openedFilter && <ShoppingListFilter onCloseFilter={() => setOpenedFilter(false)}/>}
                 <SortIcon onClick={() => setOpenedSort(true)}/>
