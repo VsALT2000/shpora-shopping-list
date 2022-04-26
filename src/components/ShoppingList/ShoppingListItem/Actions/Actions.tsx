@@ -3,7 +3,6 @@ import styles from "./Actions.less";
 import { EditItemForm } from "../../../EdiItemForm/EditItemForm";
 import { ProductType } from "../../../../types/types";
 import { DeleteIcon, EditIcon, KebabIcon } from "../../../Common/Icons/Icons";
-import cn from "classnames";
 import { DeleteProductFromList } from "../../../../models/productsList/ProductsListStore";
 
 interface ActionsProps {

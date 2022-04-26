@@ -7,7 +7,7 @@ import {useStore} from "effector-react";
 import {ShoppingListFilter} from "./ShoppingListFilter/ShoppingListFilter";
 import {ShoppingListSort} from "./ShoppingListSort/ShoppingListSort";
 import {sortingFunctions} from "../../utils/Utils";
-import {ArrowBackIcon, FilterIcon, SortIcon, ShoppingBag} from "../Common/Icons/Icons";
+import {FilterIcon, SortIcon, ShoppingBag} from "../Common/Icons/Icons";
 import {ProductType, ShopType} from "../../types/types";
 import {useNavigate, useParams} from "react-router-dom";
 import {EditItemForm} from "../EdiItemForm/EditItemForm";
@@ -26,12 +26,8 @@ const ShoppingList = () => {
     const products = useStore($productsStore);
     const sortOrder = useStore($activeSort);
     const list = useStore($listsStore).find((list) => list.id === listId);
-    //const list = useStore($listsStore).get(listId);
     const filters = useStore($activeFilters);
     if (!list) return null;
-
-    //let pendingProducts = list.pendingProducts.map((id) => products.get(id) as ProductType);
-    //let boughtProducts = list.boughtProducts.map((id) => products.get(id) as ProductType);
 
     let pendingProducts = list.pendingProducts.map((id) => products.find((product) => product.id === id) as ProductType);
     let boughtProducts = list.boughtProducts.map((id) => products.find((product) => product.id === id) as ProductType);
@@ -42,9 +38,6 @@ const ShoppingList = () => {
     if (filters.length > 0) {
         pendingProducts = pendingProducts.filter((product) => (filters.includes(product.shop as ShopType)));
         boughtProducts = boughtProducts.filter((product) => (filters.includes(product.shop as ShopType)));
-        //if (filters.length > 0) {
-        //    pendingProducts = pendingProducts.filter((product) => filters.includes(product.shop as ShopType));
-        //    boughtProducts = boughtProducts.filter((product) => filters.includes(product.shop as ShopType));
     }
 
     pendingProducts.sort(sortingFunctions[sortOrder]);

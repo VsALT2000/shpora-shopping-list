@@ -5,17 +5,14 @@ import actionStyles from "../ShoppingList/ShoppingListItem/Actions/Actions.less"
 import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
 import {$listsStore, DeleteList} from "../../models/productsList/ProductsListStore";
 import {useStore} from "effector-react";
-import {ProductsListType, ProductType} from "../../types/types";
+import {ProductsListType} from "../../types/types";
 import ListInput from "../Common/FormControl/ListInput";
-import DownloadTsv from "../Common/FormControl/DownloadTSV";
-import {DeleteIcon, EditIcon, KebabIcon, EmptyList} from "../Common/Icons/Icons";
-import {$productsStore} from "../../models/allProducts/ProductsStore";
+import {DeleteIcon, EditIcon, EmptyList, KebabIcon} from "../Common/Icons/Icons";
 
 const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
     const navigate = useNavigate();
     const [openedKebab, setOpenedKebab] = useState(true);
     const [newListWindow, setNewListWindow] = useState(false);
-    const products = useStore($productsStore);
 
     useEffect(() => () => setOpenedKebab(true), []);
 

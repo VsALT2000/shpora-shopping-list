@@ -1,10 +1,8 @@
 import React from "react";
-import Modal from "../../Common/Modal/Modal";
 import {SortOrder} from "../../../types/types";
 import styles from './ShoppingListSort.less';
 import {$activeSort, ChangeSort} from "../../../models/sortedProducts/SortedProductStore";
 import {useStore} from "effector-react";
-import {Button} from "../../Common/FormControl/Button";
 import cn from "classnames";
 
 
