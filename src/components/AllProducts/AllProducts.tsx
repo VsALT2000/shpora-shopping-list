@@ -56,7 +56,7 @@ const Item: React.FC<ProductType> = React.memo((props) => {
     // @ts-ignore
     const date = new Intl.DateTimeFormat('ru', dateOption).format(new Date(props.date));
     return (
-        <div className={styles.itemContentLeftPart} onClick={() => setClosedOptions(!closedOptions)}>
+        <div className={cn(styles.itemContentLeftPart, {[styles.boughtProduct]: props.bought})} onClick={() => setClosedOptions(!closedOptions)}>
             <div>
                 <label>{props.name}</label>
                 {closedOptions && (

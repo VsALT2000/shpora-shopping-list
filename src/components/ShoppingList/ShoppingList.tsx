@@ -61,7 +61,7 @@ const ShoppingList = () => {
                 <p>Общая сумма: {total}₽</p> : null}</div>
             <div className={styles.shoppingListItems}>
                 {pendingProducts.map((product) => <ShoppingListItem product={product} listId={listId} key={product.id} />)}
-                {boughtProducts.map((product) => <ShoppingListItem product={{ ...product, bought: true }} listId={listId} key={product.id} />)}
+                {boughtProducts.map((product) => <ShoppingListItem product={product} listId={listId} key={product.id} />)}
             </div>
             <AddNewItemButton onClick={() => setOpenedForm(true)}/>
             {openedForm && <EditItemForm editForm={false} listId={listId} onCloseForm={() => setOpenedForm(false)}/>}

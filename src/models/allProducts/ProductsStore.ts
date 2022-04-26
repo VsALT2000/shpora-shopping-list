@@ -5,6 +5,8 @@ export const AddNewProduct = createEvent<ProductType>("AddNewProduct");
 
 export const DeleteProducts = createEvent<number[]>("DeleteProduct");
 
+export const BuyingProduct = createEvent<number>("BuyingProduct");
+
 export const EditProduct = createEvent<EditProductType>("EditProduct");
 
 export const $productsStore = createStore<ProductType[]>([]);
@@ -13,6 +15,13 @@ $productsStore
     .on(AddNewProduct, (state, product: ProductType) => [...state, product])
     .on(DeleteProducts, (state, productsId: number[]) => {
         return state.filter(product => !productsId.includes(product.id));
+    })
+    .on(BuyingProduct, (state, productId: number) => {
+        const newState = state.slice();
+        const product = newState.find(product => product.id === productId)
+        if (!!product)
+            product.bought = !product.bought;
+        return newState;
     })
     .on(EditProduct, (state, newProduct: EditProductType) => {
         const newState = state.slice();
