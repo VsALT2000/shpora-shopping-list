@@ -24,16 +24,11 @@ const AllProducts = () => {
     if(filters.length > 0)
         allProducts = allProducts.filter((product) => (filters.includes(product.shop as ShopType)));
     allProducts.sort(sortingFunctions[sortOrder]);
-    // TODO: Доделать
     return (
         <div className={styles.shoppingList}>
             <div className={styles.shoppingListHeader}>
                 <ArrowBackIcon onClick={() => navigate("/")}/>
                 <h2>Все покупки</h2>
-                <DownloadTSV name={"Все продукты"} products={allProducts}/>
-                <FilterIcon onClick={() => setOpenedFilter(true)}/>
-                {openedFilter && <ShoppingListFilter onCloseFilter={() => setOpenedFilter(false)}/>}
-                <SortIcon onClick={() => setOpenedSort(true)}/>
                 {openedSort && <ShoppingListSort onCloseSort={() => setOpenedSort(false)}/>}
             </div>
             <div className={styles.shoppingListItems}>
@@ -62,10 +57,10 @@ const Item: React.FC<ProductType> = React.memo((props) => {
     return (
         <div className={cn(styles.itemContentLeftPart, {[styles.boughtProduct]: props.bought})} onClick={() => setClosedOptions(!closedOptions)}>
             <div>
-                <label>{props.name}</label>
+                <label className={styles.itemLabel}>{props.name}</label>
                 {closedOptions && (
                     <span>
-                        | {props.amount + props.unit + ' ' + props.cost + '₽'}
+                        {props.amount + props.unit + ' ' + props.cost + '₽'}
                     </span>
                 )}
                 <div>
@@ -74,7 +69,7 @@ const Item: React.FC<ProductType> = React.memo((props) => {
                     <p className={options}>{date}</p>
                     {props.shop && <p className={options}>Магазин: {props.shop}</p>}
                     {props.price ? <p className={options}>Цена: {props.price}₽</p> :
-                        <p className={options}>Примерная стоимость: {props.cost}₽</p>}
+                    <p className={options}>Примерная стоимость: {props.cost}₽</p>}
                 </div>
             </div>
         </div>

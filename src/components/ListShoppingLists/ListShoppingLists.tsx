@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styles from './ListShoppingLists.less';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import actionStyles from "../ShoppingList/ShoppingListItem/Actions/Actions.less";
 import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
 import {$listsStore, DeleteList} from "../../models/productsList/ProductsListStore";
@@ -73,6 +73,7 @@ const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
 const ListShoppingLists = () => {
     const lists = Array.from(useStore($listsStore).values());
     const [newListWindow, setNewListWindow] = useState(false);
+    const navigate = useNavigate();
 
     return (
         <div className={styles.shoppingList}>
@@ -94,6 +95,9 @@ const ListShoppingLists = () => {
             {lists.length > 0 && (
                 <div className={styles.header}>
                     <div className={styles.content}>
+                    <div className={styles.allProducts} onClick={() => navigate(`/all`)}>
+                        <label>Все покупки</label>
+                    </div>
                         {lists.map((list) => (
                             <div>
                                 <ItemListShoppingLists key={list.id} {...list} />
