@@ -52,7 +52,7 @@ const ProductList: React.FC<ShoppingListProps> = (props) => {
             <h1>{list.name}</h1>
             {allProducts.length > 0 && (
                 <div className={styles.shoppingListWrapp}>
-                    <div className={styles.filters}>
+                    <div className={styles.tools}>
                         <FilterIcon onClick={() => setOpenedFilter(true)} />
                         {openedFilter && <ShoppingListFilter onCloseFilter={() => setOpenedFilter(false)} />}
                         <SortIcon onClick={() => setOpenedSort(true)} />

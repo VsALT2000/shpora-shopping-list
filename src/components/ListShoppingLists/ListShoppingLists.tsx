@@ -82,6 +82,9 @@ const ListShoppingLists = () => {
             {lists.length > 0 && (
                 <div className={styles.header}>
                     <div className={styles.content}>
+                    <div className={styles.allProducts} onClick={() => navigate(`/all`)}>
+                        <label>Все покупки</label>
+                    </div>
                         {lists.map((list) => (
                             <div>
                                 <ItemListShoppingLists key={list.id} {...list} />

@@ -36,7 +36,7 @@ export const ShoppingListItem: React.FC<ShoppingListItemProps> = ({ product, lis
             <div className={styles.itemContentLeftPart}>
                 <Checkbox defaultChecked={product.bought} onChange={() => ToggleProductBoughtState({ listId, productId: product.id })} />
                 <div className={styles.shoppingListItemContent}>
-                    <div className={styles.q}>
+                    <div className={styles.itemInfo}>
                         <label>{product.name}</label>
                         {(product.bought || closedOptions) && <span>{product.amount + product.unit + " " + product.cost + "₽"}</span>}
                     </div>
