@@ -5,11 +5,96 @@
     font-weight: bolder;
 }
 
-.icon {
-    height: 1.125rem;;
-    width: 20px;
+.shoppingList h1{
+    padding: 1rem 0  0 1rem;
+}
 
-    &>path {
-        fill: black;
-    }
+.buttonContainer{
+    margin: 0 auto;
+    width: 9rem;
+}
+.emptyList{
+    text-align: center;
+    margin-bottom: 20px;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.emptyListWrapper{
+    background-color: #E5E5E5;
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+}
+
+.emptyListContent{
+    background-color: white;
+    border-radius: 1rem;
+    width: 100%;
+}
+
+.shoppingListWrapp{
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.shoppingListItems {
+    flex-grow: 1;
+    box-sizing: border-box;
+    padding: 0 0.1rem;
+}
+
+.filters{
+    display: flex;
+    gap: 20px;
+    padding: 0.5rem;
+    position: relative;
+}
+
+.listControls{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
+    position: sticky;
+    top: 0;
+    background: #e5e5e5;
+    padding: 1rem 0;
+    z-index: 5;
+}
+
+.buttonSticky {
+    position: sticky;
+    bottom: 0px;
+    padding-bottom: 1rem;
+    background-color: #e5e5e5;
+}
+
+.filtersCounter{
+    position: absolute;
+    top: 0;
+    right: 40px;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+    font-size: 8pt;
+    text-align: center;
+    line-height: 0.75rem;
+    font-weight: bolder;
+}
+
+.shoppingListContent{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    max-width: @desktop-app-width;
+    width: 100%;
+    margin: 0 auto;
 }

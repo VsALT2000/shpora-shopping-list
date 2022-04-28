@@ -1,43 +1,42 @@
 import React from "react";
-import Modal from "../../Common/Modal/Modal";
 import {SortOrder} from "../../../types/types";
 import styles from './ShoppingListSort.less';
 import {$activeSort, ChangeSort} from "../../../models/sortedProducts/SortedProductStore";
 import {useStore} from "effector-react";
+import cn from "classnames";
+
 
 interface SortProps {
     onCloseSort: () => void;
+    nameButton?: string
+    onApply?: (event: React.SyntheticEvent) => void
 }
 
 export const ShoppingListSort: React.FC<SortProps> = (props) => {
     let selectedSortOrder = useStore($activeSort);
 
-    const sortChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        selectedSortOrder = event.target.value as SortOrder
-    }
 
-    const confirmSortOrderHandler = (event: React.SyntheticEvent) => {
+
+    const confirmSortOrderHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.stopPropagation();
+        selectedSortOrder = event.target.value as SortOrder;
         ChangeSort(selectedSortOrder)
         props.onCloseSort();
     }
 
     return (
-        <Modal
-            header={'Сортировка'}
-            onApply={confirmSortOrderHandler}
-            onAbort={props.onCloseSort}
-        >
+        <div className={styles.sortShell}>
+            <h3>Сортировка</h3>
             {Object.keys(SortOrder).map((key) => (
-                <div key={key}>
+                <div key={key}  className={cn({[styles.checked]: SortOrder[key as keyof typeof SortOrder] === selectedSortOrder})}>
                     <label>
                         <input className={styles.SortRadio} type="radio" id={key} name='order'
                                value={SortOrder[key as keyof typeof SortOrder]}
                                defaultChecked={SortOrder[key as keyof typeof SortOrder] === selectedSortOrder}
-                               onChange={sortChangeHandler}/>
+                               onChange={confirmSortOrderHandler}/>
                         {SortOrder[key as keyof typeof SortOrder]}
                     </label>
                 </div>))}
-        </Modal>
+        </div>
     );
 };

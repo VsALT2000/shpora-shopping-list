@@ -1,3 +1,5 @@
+@import '../../Variables.less';
+
 .editItemForm {
     display: flex;
     flex-direction: column;
@@ -6,10 +8,9 @@
 
 .priceTabs div {
     margin-top: 10px;
-    box-shadow: none;
     border: 2px solid #ebebeb;
     border-bottom: none;
-    padding: 8px;
+    padding: 0.5rem;
     font-size: 14pt;
     background-color: white;
     color: black;
@@ -21,10 +22,9 @@
 }
 
 div.selectedTab{
-    background-color: #3498db;
+    background-color: @color-blue;
     color: white;
-    border-color: #3498db;
-
+    background-color: @color-blue;
 }
 
 .priceTabs {
@@ -34,9 +34,8 @@ div.selectedTab{
 }
 
 .priceTabs div:hover {
-    background-color: #3498db;
+    background-color: #1F87EF;
     color: white;
-    border-color: #3498db;
 }
 
 .priceInput {

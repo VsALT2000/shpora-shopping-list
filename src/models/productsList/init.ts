@@ -1,7 +1,13 @@
 import {sample} from "effector";
-import {AddNewList, AddProductToList, DeleteList, DeleteProductFromList} from "./ProductsListStore";
+import {
+    AddNewList,
+    AddProductToList,
+    DeleteList,
+    DeleteProductFromList,
+    ToggleProductBoughtState
+} from "./ProductsListStore";
 import {$newListId, Increment} from "./ProductsListCountStore";
-import {AddNewProduct, DeleteProducts} from "../allProducts/ProductsStore";
+import {AddNewProduct, BuyingProduct, DeleteProducts} from "../allProducts/ProductsStore";
 
 sample({
     clock: AddNewList,
@@ -25,4 +31,10 @@ sample({
     clock: DeleteProductFromList,
     fn: (clockData) => ([clockData.productId]),
     target: DeleteProducts,
+})
+
+sample({
+    clock: ToggleProductBoughtState,
+    fn: (clockData) => (clockData.productId),
+    target: BuyingProduct,
 })

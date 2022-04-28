@@ -1,0 +1,47 @@
+@import "../../../Variables";
+
+
+.CustomInput {
+    border: 1px solid rgb(201, 201, 201);
+    outline: none;
+    font-size: 14pt;
+    padding: 11px 15px 11px 15px;
+    box-sizing: border-box;
+}
+
+.newListForm {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media (min-width: @window-width-480) {
+        width: @desktop-app-width;
+        margin: 0 auto;
+    }
+}
+
+.newLists {
+    background-color: #f2f2f2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+
+    & form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 5vw;
+        gap: 5vw;
+        box-sizing: border-box;
+    }
+    & form > * {
+        width: 100%;
+    }
+}

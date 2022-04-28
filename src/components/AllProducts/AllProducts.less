@@ -2,28 +2,51 @@
 
 .itemContentLeftPart {
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
     border-radius: 10px;
     border: 1px solid #d9d9d9;
     background-color: #ffffff;
     margin: 20px 0;
-    padding: 20px 20px 20px 30px;
-    font-size: 1.125rem;
+    padding: 0.5rem;
+    font-size: 14pt;
     user-select: none;
     box-sizing: border-box;
     word-break: break-word;
+}
 
-    & span {
-        padding-left: 5px;
-        color: rgb(141, 141, 141);
-        font-weight: 400;
-        font-size: 0.75rem;
+.shoppingListHeader{
+    background-color: #E5E5E5;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    position: relative;
+    & h2{
+      color: black;  
     }
+    
+    & svg {
+        position: absolute;
+        left: 1rem;
+    }
+}
+.itemLabel{
+    display: flex;
+    flex-direction: column;
+}
+.itemInfo > span {
+    color: #999999;
+    font-size: 12pt;
+}
 
-    & label {
-        font-weight: bolder;
-    }
+.shoppingListItems{
+    padding: 1rem;
+    box-sizing: border-box;
+    max-width: @desktop-app-width;
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+.boughtProduct {
+    border: 1px solid #999999;
+    background-color: #cccccc;
 }
 
 .shoppingListItemOptions {

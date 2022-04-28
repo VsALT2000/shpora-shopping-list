@@ -6,10 +6,9 @@ import {DownloadIcon} from "../Icons/Icons";
 interface Props {
     products: ProductType[];
     name: string;
-    className: string;
 }
 
-const DownloadTsv: React.FC<Props> = ({products, name, className}) => {
+const DownloadTsv: React.FC<Props> = ({products, name}) => {
     const createLink = () => {
         const link = document.createElement("a");
         link.href = URL.createObjectURL(getTSV(products));
@@ -18,7 +17,7 @@ const DownloadTsv: React.FC<Props> = ({products, name, className}) => {
     }
 
     return (
-        <DownloadIcon onClick={createLink} className={className}/>
+        <DownloadIcon onClick={createLink}/>
     );
 };
 
