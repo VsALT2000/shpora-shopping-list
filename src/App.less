@@ -15,7 +15,6 @@ body {
 }
 @media (min-width: @window-width-480) {
     .appWrapper {
-        max-width: 720px;
         margin: 0 auto;
         position: relative;
     }
@@ -35,6 +34,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media (min-width: @window-width-480) {
+        position: sticky;
+        top: 0;
+    }
 
     & h2 {
         font-size: 18pt;

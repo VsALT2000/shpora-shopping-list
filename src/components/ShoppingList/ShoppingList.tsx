@@ -46,75 +46,63 @@ const ShoppingList = () => {
     const allProducts = [...pendingProducts, ...boughtProducts];
     const total = allProducts.reduce((sum, { cost }) => sum + cost, 0);
 
-    
-
-    // const closeSortHandler = () =>{
-    //     setOpenedSort(false);
-    //     window.removeEventListener('click', closeSortHandler);
-    //     console.log('1')
-    // }
-
-    // const openSortHandler=(event: React.SyntheticEvent)=>{
-    //     event.stopPropagation();
-    //     window.addEventListener("click", closeSortHandler);
-    //     setOpenedSort(true)
-    // }
-
     return (
         <div className={styles.shoppingList}>
             <ReturnHeader closeInput={() => navigate("/")} />
-            <h1>{list.name}</h1>
-            {(allProducts.length > 0 || filters.length > 0) && (
-                <div className={styles.shoppingListWrapp}>
-                    <div className={styles.listControls}>
-                        <div className={styles.filters}>
-                            {filters.length > 0 && <div className={styles.filtersCounter}>{filters.length}</div>}
-                            <DownloadTSV products={allProducts} name={list.name} />
-                            <FilterIcon onClick={() => setOpenedFilter(true)} />
-                            {openedFilter && <ShoppingListFilter onCloseFilter={() => setOpenedFilter(false)} />}
-                            <SortIcon onClick={() => setOpenedSort(true)}/>
-                            {openedSort && <ShoppingListSort onCloseSort={() => setOpenedSort(false)} />}
+            <div className={styles.shoppingListContent}>
+                <h1>{list.name}</h1>
+                {(allProducts.length > 0 || filters.length > 0) && (
+                    <div className={styles.shoppingListWrapp}>
+                        <div className={styles.listControls}>
+                            <div className={styles.filters}>
+                                {filters.length > 0 && <div className={styles.filtersCounter}>{filters.length}</div>}
+                                <DownloadTSV products={allProducts} name={list.name} />
+                                <FilterIcon onClick={() => setOpenedFilter(true)} />
+                                {openedFilter && <ShoppingListFilter onCloseFilter={() => setOpenedFilter(false)} />}
+                                <SortIcon onClick={() => setOpenedSort(true)} />
+                                {openedSort && <ShoppingListSort onCloseSort={() => setOpenedSort(false)} />}
+                            </div>
+                            {allProducts.length > 0 ? (
+                                <div className={styles.shoppingListTotal}>
+                                    <p>Общая сумма: {total}₽</p>
+                                </div>
+                            ) : (
+                                <div className={styles.shoppingListTotal}>
+                                    <p>
+                                        Продукты по заданным
+                                        <br /> фильтрам не найдены{" "}
+                                    </p>
+                                </div>
+                            )}
                         </div>
-                        {allProducts.length > 0 ? (
-                            <div className={styles.shoppingListTotal}>
-                                <p>Общая сумма: {total}₽</p>
-                            </div>
-                        ) : (
-                            <div className={styles.shoppingListTotal}>
-                                <p>
-                                    Продукты по заданным
-                                    <br /> фильтрам не найдены{" "}
-                                </p>
-                            </div>
-                        )}
-                    </div>
 
-                    <div className={styles.shoppingListItems}>
-                        {pendingProducts.map((product) => (
-                            <ShoppingListItem product={product} listId={listId} key={product.id} />
-                        ))}
-                        {boughtProducts.map((product) => (
-                            <ShoppingListItem product={{ ...product, bought: true }} listId={listId} key={product.id} />
-                        ))}
-                    </div>
-                    <div className={styles.buttonSticky}>
-                        <AddNewItemButton buttonName="Новый товар" onClick={() => setOpenedForm(true)} />
-                    </div>
-                </div>
-            )}
-            {allProducts.length === 0 && filters.length === 0 && (
-                <div className={styles.emptyListWrapper}>
-                    <div className={styles.emptyListContent}>
-                        <div className={styles.emptyList}>
-                            <ShoppingBag />
+                        <div className={styles.shoppingListItems}>
+                            {pendingProducts.map((product) => (
+                                <ShoppingListItem product={product} listId={listId} key={product.id} />
+                            ))}
+                            {boughtProducts.map((product) => (
+                                <ShoppingListItem product={{ ...product, bought: true }} listId={listId} key={product.id} />
+                            ))}
                         </div>
-                        <div className={styles.buttonContainer}>
+                        <div className={styles.buttonSticky}>
                             <AddNewItemButton buttonName="Новый товар" onClick={() => setOpenedForm(true)} />
                         </div>
                     </div>
-                </div>
-            )}
-            {openedForm && <EditItemForm editForm={false} listId={listId} onCloseForm={() => setOpenedForm(false)} />}
+                )}
+                {allProducts.length === 0 && filters.length === 0 && (
+                    <div className={styles.emptyListWrapper}>
+                        <div className={styles.emptyListContent}>
+                            <div className={styles.emptyList}>
+                                <ShoppingBag />
+                            </div>
+                            <div className={styles.buttonContainer}>
+                                <AddNewItemButton buttonName="Новый товар" onClick={() => setOpenedForm(true)} />
+                            </div>
+                        </div>
+                    </div>
+                )}
+                {openedForm && <EditItemForm editForm={false} listId={listId} onCloseForm={() => setOpenedForm(false)} />}
+            </div>
         </div>
     );
 };

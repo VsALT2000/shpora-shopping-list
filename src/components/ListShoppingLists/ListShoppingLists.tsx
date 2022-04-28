@@ -8,6 +8,7 @@ import { useStore } from "effector-react";
 import { ProductsListType } from "../../types/types";
 import ListInput from "../Common/FormControl/ListInput";
 import { DeleteIcon, EditIcon, EmptyList, KebabIcon } from "../Common/Icons/Icons";
+import { $productsStore } from "../../models/allProducts/ProductsStore";
 
 const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
     const navigate = useNavigate();
@@ -72,17 +73,18 @@ const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
 
 const ListShoppingLists = () => {
     const lists = Array.from(useStore($listsStore).values());
+    const products = Array.from(useStore($productsStore).values());
     const [newListWindow, setNewListWindow] = useState(false);
     const navigate = useNavigate();
 
     return (
-        <div id='shoppingList' className={styles.shoppingList}>
+        <div id="shoppingList" className={styles.shoppingList}>
             <div className={styles.shoppingListHeader}>
                 <h2>Мои списки</h2>
             </div>
             {lists.length === 0 && (
-                <div id='emptyListWrapper' className={styles.emptyListWrapper}>
-                    <div id='emptyListContent' className={styles.emptyListContent}>
+                <div id="emptyListWrapper" className={styles.emptyListWrapper}>
+                    <div id="emptyListContent" className={styles.emptyListContent}>
                         <div className={styles.emptyList}>
                             <EmptyList />
                         </div>
@@ -95,12 +97,12 @@ const ListShoppingLists = () => {
             {lists.length > 0 && (
                 <div className={styles.header}>
                     <div className={styles.content}>
-                        <div key="allProducts" className={styles.allProducts} onClick={() => navigate(`/all`)}>
+                        {products.length > 0 && <div key="allProducts" className={styles.allProducts} onClick={() => navigate(`/all`)}>
                             <label>Все покупки</label>
-                        </div>
-                            {lists.map((list) => (
-                                    <ItemListShoppingLists key={list.id} {...list} />
-                            ))}
+                        </div>}
+                        {lists.map((list) => (
+                            <ItemListShoppingLists key={list.id} {...list} />
+                        ))}
                     </div>
                     <div className={styles.buttonSticky}>
                         <AddNewItemButton buttonName="Новый список" onClick={() => setNewListWindow(true)} />
