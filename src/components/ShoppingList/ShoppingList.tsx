@@ -68,6 +68,7 @@ const ShoppingList = () => {
                 <div className={styles.shoppingListWrapp}>
                     <div className={styles.listControls}>
                         <div className={styles.filters}>
+                            {filters.length > 0 && <div className={styles.filtersCounter}>{filters.length}</div>}
                             <DownloadTSV products={allProducts} name={list.name} />
                             <FilterIcon onClick={() => setOpenedFilter(true)} />
                             {openedFilter && <ShoppingListFilter onCloseFilter={() => setOpenedFilter(false)} />}
