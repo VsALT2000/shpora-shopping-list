@@ -13,7 +13,7 @@ const Modal: React.FC<PropsTypes> = (props) => {
     return (
         <div className={styles.modalWrapper}>
             <div className={styles.modalContainer}>
-                <h1>{props.header}</h1>
+                <h2>{props.header}</h2>
                 {props.children}
                 <Button onClick={props.onApply}>{props.nameButton || "Применить"}</Button>
             </div>

@@ -7,15 +7,18 @@
 
 html {
     font-size: 16pt;
-
-    @media (max-width: @window-width-480) {
-        font-size: 12pt;
-    }
 }
 
 body {
-    background-color: #F8F8FB;
+    background-color: #f8f8fb;
     font-family: "Lab Grotesque", serif;
+}
+@media (min-width: @window-width-480) {
+    .appWrapper {
+        max-width: 720px;
+        margin: 0 auto;
+        position: relative;
+    }
 }
 
 .shoppingList {
@@ -23,16 +26,15 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
 }
 
 .shoppingListHeader {
     min-height: 8vh;
-    background-color: #2291FF;
+    background-color: #2291ff;
     display: flex;
     align-items: center;
     justify-content: center;
-    
 
     & h2 {
         font-size: 18pt;
@@ -40,5 +42,4 @@ body {
         color: white;
         font-weight: 500;
     }
-
 }

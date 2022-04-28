@@ -46,28 +46,47 @@ const ShoppingList = () => {
     const allProducts = [...pendingProducts, ...boughtProducts];
     const total = allProducts.reduce((sum, { cost }) => sum + cost, 0);
 
+    
+
+    // const closeSortHandler = () =>{
+    //     setOpenedSort(false);
+    //     window.removeEventListener('click', closeSortHandler);
+    //     console.log('1')
+    // }
+
+    // const openSortHandler=(event: React.SyntheticEvent)=>{
+    //     event.stopPropagation();
+    //     window.addEventListener("click", closeSortHandler);
+    //     setOpenedSort(true)
+    // }
+
     return (
         <div className={styles.shoppingList}>
             <ReturnHeader closeInput={() => navigate("/")} />
             <h1>{list.name}</h1>
             {(allProducts.length > 0 || filters.length > 0) && (
                 <div className={styles.shoppingListWrapp}>
-                    <div className={styles.filters}>
-                        <DownloadTSV products={allProducts} name={list.name} />
-                        <FilterIcon onClick={() => setOpenedFilter(true)} />
-                        {openedFilter && <ShoppingListFilter onCloseFilter={() => setOpenedFilter(false)} />}
-                        <SortIcon onClick={() => setOpenedSort(true)} />
-                        {openedSort && <ShoppingListSort onCloseSort={() => setOpenedSort(false)} />}
+                    <div className={styles.listControls}>
+                        <div className={styles.filters}>
+                            <DownloadTSV products={allProducts} name={list.name} />
+                            <FilterIcon onClick={() => setOpenedFilter(true)} />
+                            {openedFilter && <ShoppingListFilter onCloseFilter={() => setOpenedFilter(false)} />}
+                            <SortIcon onClick={() => setOpenedSort(true)}/>
+                            {openedSort && <ShoppingListSort onCloseSort={() => setOpenedSort(false)} />}
+                        </div>
+                        {allProducts.length > 0 ? (
+                            <div className={styles.shoppingListTotal}>
+                                <p>Общая сумма: {total}₽</p>
+                            </div>
+                        ) : (
+                            <div className={styles.shoppingListTotal}>
+                                <p>
+                                    Продукты по заданным
+                                    <br /> фильтрам не найдены{" "}
+                                </p>
+                            </div>
+                        )}
                     </div>
-                    {allProducts.length > 0 ? (
-                        <div className={styles.shoppingListTotal}>
-                            <p>Общая сумма: {total}₽</p>
-                        </div>
-                    ) : (
-                        <div className={styles.shoppingListTotal}>
-                            <p>Продукты по заданным<br/> фильтрам не найдены </p>
-                        </div>
-                    )}
 
                     <div className={styles.shoppingListItems}>
                         {pendingProducts.map((product) => (

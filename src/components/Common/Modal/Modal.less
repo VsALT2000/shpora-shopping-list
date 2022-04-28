@@ -1,3 +1,5 @@
+@import "../../../Variables.less";
+
 .modalWrapper {
     position: absolute;
     top: 0;
@@ -5,6 +7,12 @@
     bottom: 0;
     right: 0;
     z-index: 5;
+
+    @media (min-width: @window-width-480) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 .modalContainer {
@@ -12,18 +20,28 @@
     flex-direction: column;
     z-index: 7;
     row-gap: 10px;
-    border-top-left-radius: 2rem;
-    border-top-right-radius: 2rem;
+
     padding: 4vh;
     background-color: #ffffff;
     color: black;
     font-size: 1rem;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
+
     & h1 {
         font-size: 16pt;
+    }
+
+    @media (min-width: @window-width-480) {
+        border-radius: 2rem;
+        position: relative;
+    }
+
+    @media (max-width: @window-width-480) {
+        border-top-left-radius: 2rem;
+        border-top-right-radius: 2rem;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
     }
 }
 

@@ -5,6 +5,7 @@ interface PropsType {
     className?: string;
 }
 
+
 // Есть вариант как с React.FC<React.HTMLProps<HTMLButtonElement>>? Искал, но чёт не получилось.
 export const FilterIcon: React.FC<PropsType> = (props) => {
     return (
@@ -63,21 +64,21 @@ export const EditIcon = () => {
     return (
         <div>
             <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_0_6072)">
+                <g clipPath="url(#clip0_0_6072)">
                     <path
                         d="M1 11.9124V13.9981C1 14.2743 1.22386 14.4981 1.5 14.4981H3.58579C3.851 14.4981 4.10536 14.3928 4.29289 14.2053L11.4381 7.06006L8.43808 4.06006L1.29289 11.2052C1.10536 11.3928 1 11.6471 1 11.9124Z"
                         fill="black"
-                        fill-opacity="0.87"
+                        fillOpacity="0.87"
                     />
                     <path
                         d="M13.5808 4.91738L12.5099 5.98825L9.50989 2.98825L10.5808 1.91738C11.0884 1.4097 11.9116 1.4097 12.4192 1.91738L13.5808 3.0789C14.0884 3.58659 14.0884 4.4097 13.5808 4.91738Z"
                         fill="black"
-                        fill-opacity="0.87"
+                        fillOpacity="0.87"
                     />
                     <path
                         d="M8.5 12.4982C7.94772 12.4982 7.5 12.9459 7.5 13.4982C7.5 14.0505 7.94772 14.4982 8.5 14.4982H15C15.5523 14.4982 16 14.0505 16 13.4982C16 12.9459 15.5523 12.4982 15 12.4982H8.5Z"
                         fill="black"
-                        fill-opacity="0.87"
+                        fillOpacity="0.87"
                     />
                 </g>
                 <defs>
@@ -94,11 +95,11 @@ export const DeleteIcon = () => {
     return (
         <div>
             <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_0_6082)">
-                    <g clip-path="url(#clip1_0_6082)">
+                <g clipPath="url(#clip0_0_6082)">
+                    <g clipPath="url(#clip1_0_6082)">
                         <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
+                            fillRule="evenodd"
+                            clipRule="evenodd"
                             d="M4.25003 3.74805V2.74805C4.25003 1.64348 5.14546 0.748047 6.25003 0.748047H9.75003C10.8546 0.748047 11.75 1.64348 11.75 2.74805V3.74805H14.2505C14.6648 3.74805 15.0005 4.08383 15.0005 4.49805C15.0005 4.91226 14.6648 5.24805 14.2505 5.24805H13.682L12.8814 13.4294C12.7664 14.6048 11.7985 15.4999 10.6426 15.4999H5.35752C4.20158 15.4999 3.2337 14.6048 3.11868 13.4294L2.31809 5.24805H1.74951C1.3353 5.24805 0.999512 4.91226 0.999512 4.49805C0.999512 4.08383 1.3353 3.74805 1.74951 3.74805H4.25003ZM5.75003 2.74805C5.75003 2.4719 5.97389 2.24805 6.25003 2.24805H9.75003C10.0262 2.24805 10.25 2.4719 10.25 2.74805V3.74805H5.75003V2.74805ZM6.50003 6.37293C6.84521 6.37293 7.12503 6.65276 7.12503 6.99793V11.9985C7.12503 12.3436 6.84521 12.6235 6.50003 12.6235C6.15485 12.6235 5.87503 12.3436 5.87503 11.9985V6.99793C5.87503 6.65276 6.15485 6.37293 6.50003 6.37293ZM10.125 6.99793C10.125 6.65276 9.84521 6.37293 9.50003 6.37293C9.15485 6.37293 8.87503 6.65276 8.87503 6.99793V11.9985C8.87503 12.3436 9.15485 12.6235 9.50003 12.6235C9.84521 12.6235 10.125 12.3436 10.125 11.9985V6.99793Z"
                             fill="#222222"
                         />
@@ -194,7 +195,7 @@ export const ShoppingBag = () => {
     return (
         <div>
             <svg width="156" height="155" viewBox="0 0 156 155" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_0_5777)">
+                <g clipPath="url(#clip0_0_5777)">
                     <path
                         d="M24.9448 48.8943C24.4682 45.0647 26.8886 41.4702 30.6162 40.4714L73.6226 28.9478C77.3502 27.949 81.2435 29.8518 82.7457 33.4066L104.014 83.7387C105.841 88.0616 103.426 93.0018 98.8934 94.2165L41.3654 109.631C36.8323 110.846 32.2712 107.775 31.6917 103.117L24.9448 48.8943Z"
                         fill="#2291FF"
@@ -202,8 +203,8 @@ export const ShoppingBag = () => {
                     <path
                         d="M40.2194 50.0442L38.1007 42.1371C35.9512 34.1153 40.896 25.8204 49.1452 23.61C57.3944 21.3997 65.8242 26.1108 67.9736 34.1327L70.0923 42.0397"
                         stroke="#222222"
-                        stroke-width="1.93292"
-                        stroke-linecap="round"
+                        strokeWidth="1.93292"
+                        strokeLinecap="round"
                     />
                     <circle cx="40.2296" cy="50.0955" r="2.41615" transform="rotate(-15 40.2296 50.0955)" fill="#222222" />
                     <circle cx="70.0759" cy="41.9784" r="2.41578" transform="rotate(-15 70.0759 41.9784)" fill="#222222" />
@@ -222,8 +223,8 @@ export const ShoppingBag = () => {
                     <path
                         d="M77.0336 68.6187V73.0468C77.0336 80.7427 83.9568 86.9815 92.4969 86.9815C101.037 86.9815 107.96 80.7427 107.96 73.0468V68.6187"
                         stroke="#222222"
-                        stroke-width="1.93292"
-                        stroke-linecap="round"
+                        strokeWidth="1.93292"
+                        strokeLinecap="round"
                     />
                     <circle cx="77.0172" cy="68.7578" r="2.41697" fill="#222222" />
                     <circle cx="107.961" cy="68.7578" r="2.41697" fill="#222222" />
@@ -236,9 +237,9 @@ export const ShoppingBag = () => {
                         width="115.495"
                         height="108.917"
                         filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB"
+                        colorInterpolationFilters="sRGB"
                     >
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
                         <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
                         <feGaussianBlur stdDeviation="9.99237" result="effect1_foregroundBlur_0_5777" />
                     </filter>
@@ -249,16 +250,16 @@ export const ShoppingBag = () => {
                         width="105.001"
                         height="99.5623"
                         filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB"
+                        colorInterpolationFilters="sRGB"
                     >
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
                         <feGaussianBlur in="BackgroundImage" stdDeviation="7.49428" />
                         <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_0_5777" />
                         <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_0_5777" result="shape" />
                     </filter>
                     <linearGradient id="paint0_linear_0_5777" x1="115.402" y1="115.142" x2="68.7586" y2="57.7855" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="white" stop-opacity="0.8" />
-                        <stop offset="1" stop-color="white" stop-opacity="0.3" />
+                        <stop stopColor="white" stopOpacity="0.8" />
+                        <stop offset="1" stopColor="white" stopOpacity="0.3" />
                     </linearGradient>
                     <clipPath id="clip0_0_5777">
                         <rect width="154.634" height="154.634" fill="white" transform="translate(0.683105)" />

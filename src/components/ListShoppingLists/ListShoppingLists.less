@@ -8,8 +8,8 @@
     width: 100%;
     border: 1px solid #ebebeb;
     background-color: #ffffff;
-    overflow: hidden;
     font-family: "Lab Grotesque", serif;
+    
 
     &:hover {
         border: 1px solid rgb(0 0 0 / 16%);
@@ -75,14 +75,13 @@
 }
 
 .buttonContainer {
-    padding: 0 25vw;
+    padding: 0 20vw;
 }
 
 .content{
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 80px);
-     
 }
 
 .buttonSticky{
@@ -109,7 +108,9 @@
     border-radius: 4px;
     display: flex;
     flex-direction: column;
-    right: 20px;
+    right: -10px;
+    top: 60px;
+    box-shadow: 0px 0px 3px rgb(0 0 0 / 25%);
 }
 
 
@@ -117,7 +118,10 @@
     display: flex;
     gap: 10px;
     padding: 1rem 2rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    z-index: 3;
+    background-color: white;
+    font-size: 14pt;
 }
 
 .triangle{
@@ -127,9 +131,12 @@
     position: absolute;
     transform: rotate(45deg);
     top: -7px;
-    right: 25px;
-    box-shadow: -2px -2px 0 rgb(0 0 0 / 12%);
+    right: 35px;
+    box-shadow: 0px 0px 3px rgb(0 0 0 / 25%);
+    z-index: 1;
 }
+
+
 .allProducts{
     padding: 20px;
     font-size: 1.125rem;
@@ -138,4 +145,7 @@
     background-color: white;
     border-radius: 8px;
     margin-bottom: 10px;
+}
+.clickZone{
+    padding-left: 1rem;
 }

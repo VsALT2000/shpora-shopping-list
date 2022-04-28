@@ -40,8 +40,7 @@ export const ShoppingListFilter: React.FC<FilterProps> = (props) => {
                         id={key}
                         defaultChecked={selectedFilter.has(ShopType[key as keyof typeof ShopType])}
                         onChange={selectFilterHandler}
-                    />
-                    {ShopType[key as keyof typeof ShopType]}
+                    />{ShopType[key as keyof typeof ShopType]}
                 </label>
             </div>
         ))}

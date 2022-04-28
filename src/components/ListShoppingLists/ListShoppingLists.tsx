@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from "react";
-import styles from './ListShoppingLists.less';
+import React, { useEffect, useState } from "react";
+import styles from "./ListShoppingLists.less";
 import { useNavigate } from "react-router-dom";
 import actionStyles from "../ShoppingList/ShoppingListItem/Actions/Actions.less";
 import AddNewItemButton from "../Common/FormControl/AddNewItemButton";
-import {$listsStore, DeleteList} from "../../models/productsList/ProductsListStore";
-import {useStore} from "effector-react";
-import {ProductsListType} from "../../types/types";
+import { $listsStore, DeleteList } from "../../models/productsList/ProductsListStore";
+import { useStore } from "effector-react";
+import { ProductsListType } from "../../types/types";
 import ListInput from "../Common/FormControl/ListInput";
-import {DeleteIcon, EditIcon, EmptyList, KebabIcon} from "../Common/Icons/Icons";
+import { DeleteIcon, EditIcon, EmptyList, KebabIcon } from "../Common/Icons/Icons";
 
 const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
     const navigate = useNavigate();
@@ -28,13 +28,13 @@ const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
 
     const onDelete = (e: React.SyntheticEvent) => {
         e.stopPropagation();
-        DeleteList({listId: props.id, productsId: [...props.pendingProducts, ...props.boughtProducts]});
-    }
+        DeleteList({ listId: props.id, productsId: [...props.pendingProducts, ...props.boughtProducts] });
+    };
 
     const onEdit = (e: React.SyntheticEvent) => {
         e.stopPropagation();
         setNewListWindow(true);
-    }
+    };
 
     return (
         <>
@@ -43,29 +43,29 @@ const ItemListShoppingLists: React.FC<ProductsListType> = (props) => {
                     <div className={styles.itemContentLeftPart} onClick={() => navigate(`/${props.id}`)}>
                         <label>{props.name}</label>
                     </div>
-                    <div>
+                    <div className={styles.clickZone} onClick={clickKebabHandler}>
                         <div className={actionStyles.actionsWrapper}>
-                            <div className={actionStyles.kebab} onClick={clickKebabHandler}>
-                                <KebabIcon/>
+                            <div className={actionStyles.kebab}>
+                                <KebabIcon />
                             </div>
                             {!openedKebab && (
                                 <div className={styles.actions}>
                                     <div className={styles.kebabIcons} onClick={onEdit}>
-                                        <EditIcon/>
+                                        <EditIcon />
                                         <p>Изменить</p>
                                     </div>
                                     <div className={styles.kebabIcons} onClick={onDelete}>
-                                        <DeleteIcon/>
+                                        <DeleteIcon />
                                         <p>Удалить</p>
                                     </div>
-                                    <div className={styles.triangle}/>
+                                    <div className={styles.triangle} />
                                 </div>
                             )}
                         </div>
                     </div>
                 </div>
             </button>
-            {newListWindow && <ListInput id={props.id} closeInput={() => setNewListWindow(false)}/>}
+            {newListWindow && <ListInput id={props.id} closeInput={() => setNewListWindow(false)} />}
         </>
     );
 };
@@ -84,10 +84,10 @@ const ListShoppingLists = () => {
                 <div className={styles.emptyListWrapper}>
                     <div className={styles.emptyListContent}>
                         <div className={styles.emptyList}>
-                            <EmptyList/>
+                            <EmptyList />
                         </div>
                         <div className={styles.buttonContainer}>
-                            <AddNewItemButton buttonName="Новый список" onClick={() => setNewListWindow(true)}/>
+                            <AddNewItemButton buttonName="Новый список" onClick={() => setNewListWindow(true)} />
                         </div>
                     </div>
                 </div>
@@ -95,21 +95,19 @@ const ListShoppingLists = () => {
             {lists.length > 0 && (
                 <div className={styles.header}>
                     <div className={styles.content}>
-                    <div className={styles.allProducts} onClick={() => navigate(`/all`)}>
-                        <label>Все покупки</label>
-                    </div>
-                        {lists.map((list) => (
-                            <div>
-                                <ItemListShoppingLists key={list.id} {...list} />
-                            </div>
-                        ))}
+                        <div key="allProducts" className={styles.allProducts} onClick={() => navigate(`/all`)}>
+                            <label>Все покупки</label>
+                        </div>
+                            {lists.map((list) => (
+                                    <ItemListShoppingLists key={list.id} {...list} />
+                            ))}
                     </div>
                     <div className={styles.buttonSticky}>
-                        <AddNewItemButton buttonName="Новый список" onClick={() => setNewListWindow(true)}/>
+                        <AddNewItemButton buttonName="Новый список" onClick={() => setNewListWindow(true)} />
                     </div>
                 </div>
             )}
-            {newListWindow && <ListInput closeInput={() => setNewListWindow(false)}/>}
+            {newListWindow && <ListInput closeInput={() => setNewListWindow(false)} />}
         </div>
     );
 };
