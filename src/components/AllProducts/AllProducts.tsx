@@ -55,16 +55,9 @@ const Item: React.FC<ProductType> = React.memo((props) => {
     const date = new Intl.DateTimeFormat("ru", dateOption).format(new Date(props.date));
     return (
         <div className={cn(styles.itemContentLeftPart, { [styles.boughtProduct]: props.bought })} onClick={() => setClosedOptions(!closedOptions)}>
-            <div>
+            <div className={styles.itemInfo}>
                 <label className={styles.itemLabel}>{props.name}</label>
-                {closedOptions && <span>{props.amount + props.unit + " " + props.cost + "₽"}</span>}
-                <div>
-                    <p className={options}>Количество: {props.amount}</p>
-                    <p className={options}>Дата добавления:</p>
-                    <p className={options}>{date}</p>
-                    {props.shop && <p className={options}>Магазин: {props.shop}</p>}
-                    {props.price ? <p className={options}>Цена: {props.price}₽</p> : <p className={options}>Примерная стоимость: {props.cost}₽</p>}
-                </div>
+                <span>{props.amount + props.unit + " " + props.cost + "₽"}</span>
             </div>
         </div>
     );
