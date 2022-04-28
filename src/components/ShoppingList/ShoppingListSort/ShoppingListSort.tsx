@@ -18,7 +18,6 @@ export const ShoppingListSort: React.FC<SortProps> = (props) => {
 
 
     const confirmSortOrderHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('2')
         event.stopPropagation();
         selectedSortOrder = event.target.value as SortOrder;
         ChangeSort(selectedSortOrder)

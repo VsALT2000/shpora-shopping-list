@@ -10,7 +10,8 @@
 }
 
 .buttonContainer{
-    padding: 0 14vw;
+    margin: 0 auto;
+    width: 9rem;
 }
 .emptyList{
     text-align: center;
@@ -25,17 +26,28 @@
     background-color: #E5E5E5;
     padding: 1rem;
     flex-grow: 1;
+    display: flex;
 }
 
 .emptyListContent{
     background-color: white;
-    height: 100%;
     border-radius: 1rem;
+    width: 100%;
 }
 
 .shoppingListWrapp{
-    padding: 1rem;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
+
+.shoppingListItems {
+    flex-grow: 1;
+    box-sizing: border-box;
+    padding: 0 0.1rem;
+}
+
 .filters{
     display: flex;
     gap: 20px;
@@ -48,4 +60,16 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: row-reverse;
+    position: sticky;
+    top: 0;
+    background: #e5e5e5;
+    padding: 1rem 0;
+    z-index: 5;
+}
+
+.buttonSticky {
+    position: sticky;
+    bottom: 0px;
+    padding: 1rem 0;
+    background-color: #e5e5e5;
 }

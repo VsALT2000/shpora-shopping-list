@@ -52,7 +52,7 @@ const ListInput: React.FC<Props> = ({ closeInput, id }) => {
     return (
         <div className={styles.newLists}>
             <ReturnHeader closeInput={closeInput} />
-            <div className={styles.newLists2}>
+            <div id='1' className={styles.newListForm}>
                 <form onSubmit={onSubmit}>
                     <h1>Название списка</h1>
                     <input className={styles.CustomInput} type={"text"} value={listName} onChange={listNameChangeHandler} placeholder="Новый список" />

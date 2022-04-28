@@ -135,7 +135,7 @@ export const EmptyList = () => {
                 <g opacity="0.3" filter="url(#filter0_f_11160_21)">
                     <rect x="31.7034" y="39.512" width="69.975" height="77.75" rx="17.4937" fill="#2291FF" />
                 </g>
-                <g filter="url(#filter1_b_11160_21)">
+                <g>
                     <rect x="29.7595" y="22.9901" width="69.975" height="81.6375" rx="17.4937" fill="url(#paint0_linear_11160_21)" />
                 </g>
                 <path d="M43.366 50.2026H86.1285" stroke="#222222" strokeWidth="1.94375" strokeLinecap="round" />
@@ -214,7 +214,7 @@ export const ShoppingBag = () => {
                             fill="#2291FF"
                         />
                     </g>
-                    <g filter="url(#filter1_b_0_5777)">
+                    <g>
                         <path
                             d="M62.577 63.6893C63.1079 59.8669 66.3761 57.0212 70.2352 57.0212H114.759C118.618 57.0212 121.886 59.8669 122.417 63.6893L129.934 117.811C130.579 122.46 126.969 126.606 122.276 126.606H62.7183C58.0252 126.606 54.4145 122.46 55.0601 117.811L62.577 63.6893Z"
                             fill="url(#paint0_linear_0_5777)"

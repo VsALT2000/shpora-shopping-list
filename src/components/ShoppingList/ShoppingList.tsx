@@ -96,7 +96,7 @@ const ShoppingList = () => {
                             <ShoppingListItem product={{ ...product, bought: true }} listId={listId} key={product.id} />
                         ))}
                     </div>
-                    <div className={styles.buttonContainer1}>
+                    <div className={styles.buttonSticky}>
                         <AddNewItemButton buttonName="Новый товар" onClick={() => setOpenedForm(true)} />
                     </div>
                 </div>

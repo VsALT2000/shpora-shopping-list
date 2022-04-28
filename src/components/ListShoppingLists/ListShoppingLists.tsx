@@ -76,13 +76,13 @@ const ListShoppingLists = () => {
     const navigate = useNavigate();
 
     return (
-        <div className={styles.shoppingList}>
+        <div id='shoppingList' className={styles.shoppingList}>
             <div className={styles.shoppingListHeader}>
                 <h2>Мои списки</h2>
             </div>
             {lists.length === 0 && (
-                <div className={styles.emptyListWrapper}>
-                    <div className={styles.emptyListContent}>
+                <div id='emptyListWrapper' className={styles.emptyListWrapper}>
+                    <div id='emptyListContent' className={styles.emptyListContent}>
                         <div className={styles.emptyList}>
                             <EmptyList />
                         </div>
